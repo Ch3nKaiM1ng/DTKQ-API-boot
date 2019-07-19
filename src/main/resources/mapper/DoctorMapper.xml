@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mylike.api.mapper.DoctorMapper" >
+  <resultMap id="BaseResultMap" type="com.mylike.api.entity.Doctor" >
+    <id column="doctor_id" property="doctorId" jdbcType="INTEGER" />
+    <result column="class_id" property="classId" jdbcType="INTEGER" />
+    <result column="doctor_sex" property="doctorSex" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="doctor_ch_name" property="doctorChName" jdbcType="VARCHAR" />
+    <result column="doctor_en_name" property="doctorEnName" jdbcType="VARCHAR" />
+    <result column="doctor_ch_position" property="doctorChPosition" jdbcType="VARCHAR" />
+    <result column="doctor_en_position" property="doctorEnPosition" jdbcType="VARCHAR" />
+    <result column="doctor_introduction" property="doctorIntroduction" jdbcType="VARCHAR" />
+    <result column="doctor_mobile" property="doctorMobile" jdbcType="VARCHAR" />
+    <result column="doctor_email" property="doctorEmail" jdbcType="VARCHAR" />
+    <result column="doctor_img" property="doctorImg" jdbcType="VARCHAR" />
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from doctor
+    where doctor_id = #{doctorId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.mylike.api.entity.Doctor" useGeneratedKeys="true" keyProperty="doctorId">
+    insert into doctor (
+    doctor_id,
+    class_id,
+    doctor_ch_name,
+    doctor_en_name,
+    doctor_ch_position,
+    doctor_en_position,
+    doctor_introduction,
+    doctor_img,
+    doctor_sex,
+    doctor_mobile,
+    doctor_email,
+    ctime,
+    status)
+    values (
+    #{doctorId,jdbcType=INTEGER},
+    #{classId,jdbcType=INTEGER},
+    #{doctorChName,jdbcType=VARCHAR},
+    #{doctorEnName,jdbcType=VARCHAR},
+    #{doctorChPosition,jdbcType=VARCHAR},
+    #{doctorEnPosition,jdbcType=VARCHAR},
+    #{doctorIntroduction,jdbcType=VARCHAR},
+    #{doctorImg,jdbcType=VARCHAR},
+    #{doctorSex,jdbcType=INTEGER},
+    #{doctorMobile,jdbcType=VARCHAR},
+    #{doctorEmail,jdbcType=VARCHAR},
+    now(),
+    0)
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.mylike.api.entity.Doctor" >
+    update doctor
+    set doctor_id = #{doctorId,jdbcType=INTEGER}
+    <if test="classId!= null">
+      ,class_id = #{classId,jdbcType=INTEGER}
+    </if>
+    <if test="doctorSex!= null">
+      ,doctor_sex = #{doctorSex,jdbcType=INTEGER}
+    </if>
+    <if test="doctorChName!= null">
+      ,doctor_ch_name = #{doctorChName,jdbcType=VARCHAR}
+    </if>
+    <if test="doctorEnName!= null">
+      ,doctor_en_name = #{doctorEnName,jdbcType=VARCHAR}
+    </if>
+    <if test="doctorChPosition!= null">
+      ,doctor_ch_position = #{doctorChPosition,jdbcType=VARCHAR}
+    </if>
+    <if test="doctorEnPosition!= null">
+      ,doctor_en_position = #{doctorEnPosition,jdbcType=VARCHAR}
+    </if>
+    <if test="doctorIntroduction!= null">
+      ,doctor_introduction = #{doctorIntroduction,jdbcType=VARCHAR}
+    </if>
+    <if test="doctorImg!= null">
+      ,doctor_img = #{doctorImg,jdbcType=VARCHAR}
+    </if>
+    <if test="doctorMobile!= null">
+      ,doctor_mobile = #{doctorMobile,jdbcType=VARCHAR}
+    </if>
+    <if test="doctorEmail!= null">
+      ,doctor_email = #{doctorEmail,jdbcType=VARCHAR}
+    </if>
+    <if test="status!= null">
+      ,status = #{status,jdbcType=INTEGER}
+    </if>
+    where doctor_id = #{doctorId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.mylike.api.entity.Doctor" >
+    select doctor_id, class_id, doctor_ch_name,
+      doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,
+      doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status
+    from doctor
+    where doctor_id = #{doctorId,jdbcType=INTEGER}
+    and status!=1
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select doctor_id, class_id, doctor_ch_name,
+      doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,
+      doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status
+    from doctor
+    where status!=1
+  </select>
+</mapper>

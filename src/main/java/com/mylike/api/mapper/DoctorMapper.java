@@ -1,0 +1,19 @@
+package com.mylike.api.mapper;
+
+
+import com.mylike.api.entity.Doctor;
+
+import java.util.List;
+
+public interface DoctorMapper {
+    List<Doctor> selectAll();
+
+    int deleteByPrimaryKey(Doctor doctor);
+
+    int insert(Doctor doctor);
+
+    Doctor selectByPrimaryKey(Doctor doctor);
+
+    int updateByPrimaryKey(Doctor doctor);
+
+}
