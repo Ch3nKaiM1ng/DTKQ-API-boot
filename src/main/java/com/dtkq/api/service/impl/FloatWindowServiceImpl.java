@@ -1,8 +1,8 @@
-package com.mylike.api.service.impl;
+package com.dtkq.api.service.impl;
 
-import com.mylike.api.entity.FloatWindow;
-import com.mylike.api.mapper.FloatWindowMapper;
-import com.mylike.api.service.FloatWindowService;
+import com.dtkq.api.mapper.FloatWindowMapper;
+import com.dtkq.api.service.FloatWindowService;
+import com.dtkq.api.entity.FloatWindow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

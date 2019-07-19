@@ -1,4 +1,4 @@
-package com.mylike.api.utils;
+package com.dtkq.api.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

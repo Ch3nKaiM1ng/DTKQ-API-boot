@@ -1,7 +1,7 @@
-package com.mylike.api.service;
+package com.dtkq.api.service;
 
 
-import com.mylike.api.entity.Doctor;
+import com.dtkq.api.entity.Doctor;
 
 import java.util.List;
 public interface DoctorService {

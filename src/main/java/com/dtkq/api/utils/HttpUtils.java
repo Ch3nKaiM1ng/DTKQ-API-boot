@@ -1,4 +1,4 @@
-package com.mylike.api.utils;
+package com.dtkq.api.utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;

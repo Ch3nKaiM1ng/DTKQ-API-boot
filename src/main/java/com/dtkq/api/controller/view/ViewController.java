@@ -1,4 +1,4 @@
-package com.mylike.api.controller.view;
+package com.dtkq.api.controller.view;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

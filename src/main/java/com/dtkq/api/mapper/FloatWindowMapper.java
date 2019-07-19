@@ -1,7 +1,7 @@
-package com.mylike.api.mapper;
+package com.dtkq.api.mapper;
 
 
-import com.mylike.api.entity.FloatWindow;
+import com.dtkq.api.entity.FloatWindow;
 
 import java.util.List;
 

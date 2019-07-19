@@ -1,12 +1,11 @@
-package com.mylike.api.controller;
+package com.dtkq.api.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.mylike.api.entity.Doctor;
-import com.mylike.api.entity.FloatWindow;
-import com.mylike.api.service.DoctorService;
-import com.mylike.api.service.FloatWindowService;
-import com.mylike.api.utils.DateUtils;
-import com.mylike.api.utils.ReturnDiscern;
+import com.dtkq.api.entity.Doctor;
+import com.dtkq.api.service.DoctorService;
+import com.dtkq.api.utils.ReturnDiscern;
+import com.dtkq.api.entity.FloatWindow;
+import com.dtkq.api.service.FloatWindowService;
+import com.dtkq.api.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

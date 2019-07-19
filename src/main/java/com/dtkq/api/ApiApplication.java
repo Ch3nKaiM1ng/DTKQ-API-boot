@@ -1,4 +1,4 @@
-package com.mylike.api;
+package com.dtkq.api;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

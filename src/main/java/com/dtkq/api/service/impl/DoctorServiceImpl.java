@@ -1,8 +1,8 @@
-package com.mylike.api.service.impl;
+package com.dtkq.api.service.impl;
 
-import com.mylike.api.entity.Doctor;
-import com.mylike.api.mapper.DoctorMapper;
-import com.mylike.api.service.DoctorService;
+import com.dtkq.api.entity.Doctor;
+import com.dtkq.api.mapper.DoctorMapper;
+import com.dtkq.api.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

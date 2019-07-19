@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mylike.api.mapper.FloatWindowMapper" >
-  <resultMap id="BaseResultMap" type="com.mylike.api.entity.FloatWindow" >
+<mapper namespace="com.dtkq.api.mapper.FloatWindowMapper" >
+  <resultMap id="BaseResultMap" type="com.dtkq.api.entity.FloatWindow" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="img" property="img" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
@@ -16,14 +16,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.mylike.api.entity.FloatWindow" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.dtkq.api.entity.FloatWindow" useGeneratedKeys="true" keyProperty="id">
     insert into floatwindow (id, img, content,
       ctime, status, place,jumpurl)
     values (#{id,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
       now(), 0, #{place,jdbcType=VARCHAR},#{jumpurl,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.mylike.api.entity.FloatWindow" >
+  <update id="updateByPrimaryKey" parameterType="com.dtkq.api.entity.FloatWindow" >
     update floatwindow
     set id = #{id,jdbcType=INTEGER}
     <if test="img!= null">
@@ -43,7 +43,7 @@
     </if>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.mylike.api.entity.FloatWindow" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.dtkq.api.entity.FloatWindow" >
     select id, img, content, ctime, status, place,jumpurl
     from floatwindow
     where id = #{id,jdbcType=INTEGER}

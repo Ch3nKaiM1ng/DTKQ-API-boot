@@ -1,7 +1,7 @@
-package com.mylike.api.mapper;
+package com.dtkq.api.mapper;
 
 
-import com.mylike.api.entity.Doctor;
+import com.dtkq.api.entity.Doctor;
 
 import java.util.List;
 

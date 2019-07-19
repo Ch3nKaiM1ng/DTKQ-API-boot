@@ -1,4 +1,4 @@
-package com.mylike.api.entity;
+package com.dtkq.api.entity;
 
 import java.io.Serializable;
 import java.util.Date;
