@@ -47,8 +47,7 @@
       en_name = #{enName,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       priority = #{priority,jdbcType=INTEGER},
-      `status` = #{status,jdbcType=INTEGER},
-      ctime = #{ctime,jdbcType=TIMESTAMP}
+      `status` = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -67,5 +66,6 @@
     -->
     select id, ch_name, en_name, url, priority, `status`, ctime
     from top_menu
+    order  by priority
   </select>
 </mapper>
