@@ -45,13 +45,6 @@ public class DoctorController {
 
         return re.ERROR();
     }
-    //    查询全部浮框
-    @RequestMapping("/findAllFloatWindow")
-    public Map<String, Object> findAllFloatWindow() {
-
-        List<FloatWindow> floatWindowList = floatWindowService.selectAll();
-        return re.SUCCESSOBJ(floatWindowList);
-    }
 
 
 }

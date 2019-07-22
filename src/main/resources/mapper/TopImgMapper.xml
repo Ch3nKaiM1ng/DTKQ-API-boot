@@ -39,8 +39,7 @@
     -->
     update top_img
     set bg_img = #{bgImg,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=INTEGER},
-      ctime = #{ctime,jdbcType=TIMESTAMP}
+      `status` = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
