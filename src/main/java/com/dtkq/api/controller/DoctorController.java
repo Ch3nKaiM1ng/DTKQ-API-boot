@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RequestMapping("/Doctor")
 @RestController
-public class TestController {
+public class DoctorController {
     @Autowired
     private DoctorService doctorService;
     @Autowired

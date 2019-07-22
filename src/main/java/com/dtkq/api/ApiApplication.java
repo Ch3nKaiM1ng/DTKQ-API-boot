@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-@MapperScan("com.mylike.api.mapper")
+@MapperScan("com.dtkq.api.mapper")
 public class ApiApplication {
 
     public static void main(String[] args) {

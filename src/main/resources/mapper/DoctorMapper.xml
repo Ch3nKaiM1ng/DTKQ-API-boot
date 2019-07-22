@@ -1,28 +1,30 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dtkq.api.mapper.DoctorMapper" >
-  <resultMap id="BaseResultMap" type="com.dtkq.api.entity.Doctor" >
-    <id column="doctor_id" property="doctorId" jdbcType="INTEGER" />
-    <result column="class_id" property="classId" jdbcType="INTEGER" />
-    <result column="doctor_sex" property="doctorSex" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="doctor_ch_name" property="doctorChName" jdbcType="VARCHAR" />
-    <result column="doctor_en_name" property="doctorEnName" jdbcType="VARCHAR" />
-    <result column="doctor_ch_position" property="doctorChPosition" jdbcType="VARCHAR" />
-    <result column="doctor_en_position" property="doctorEnPosition" jdbcType="VARCHAR" />
-    <result column="doctor_introduction" property="doctorIntroduction" jdbcType="VARCHAR" />
-    <result column="doctor_mobile" property="doctorMobile" jdbcType="VARCHAR" />
-    <result column="doctor_email" property="doctorEmail" jdbcType="VARCHAR" />
-    <result column="doctor_img" property="doctorImg" jdbcType="VARCHAR" />
-    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.mapper.DoctorMapper">
+
+
+  <resultMap id="BaseResultMap" type="com.dtkq.api.entity.Doctor">
+    <id column="doctor_id" jdbcType="INTEGER" property="doctorId" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="doctor_sex" jdbcType="INTEGER" property="doctorSex" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="doctor_ch_name" jdbcType="VARCHAR" property="doctorChName" />
+    <result column="doctor_en_name" jdbcType="VARCHAR" property="doctorEnName" />
+    <result column="doctor_ch_position" jdbcType="VARCHAR" property="doctorChPosition" />
+    <result column="doctor_en_position" jdbcType="VARCHAR" property="doctorEnPosition" />
+    <result column="doctor_introduction" jdbcType="VARCHAR" property="doctorIntroduction" />
+    <result column="doctor_mobile" jdbcType="VARCHAR" property="doctorMobile" />
+    <result column="doctor_email" jdbcType="VARCHAR" property="doctorEmail" />
+    <result column="doctor_img" jdbcType="VARCHAR" property="doctorImg" />
+    <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
   </resultMap>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from doctor
     where doctor_id = #{doctorId,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.dtkq.api.entity.Doctor" useGeneratedKeys="true" keyProperty="doctorId">
+  <insert id="insert" keyProperty="doctorId" parameterType="com.dtkq.api.entity.Doctor" useGeneratedKeys="true">
     insert into doctor (
     doctor_id,
     class_id,
@@ -52,7 +54,7 @@
     now(),
     0)
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.dtkq.api.entity.Doctor" >
+  <update id="updateByPrimaryKey" parameterType="com.dtkq.api.entity.Doctor">
     update doctor
     set doctor_id = #{doctorId,jdbcType=INTEGER}
     <if test="classId!= null">
@@ -90,7 +92,7 @@
     </if>
     where doctor_id = #{doctorId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.dtkq.api.entity.Doctor" >
+  <select id="selectByPrimaryKey" parameterType="com.dtkq.api.entity.Doctor" resultMap="BaseResultMap">
     select doctor_id, class_id, doctor_ch_name,
       doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,
       doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status
@@ -98,7 +100,7 @@
     where doctor_id = #{doctorId,jdbcType=INTEGER}
     and status!=1
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+  <select id="selectAll" resultMap="BaseResultMap">
     select doctor_id, class_id, doctor_ch_name,
       doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,
       doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status
