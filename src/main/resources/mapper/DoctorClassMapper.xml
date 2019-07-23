@@ -38,7 +38,6 @@
     update doctor_class
     set class_ch_name = #{classChName,jdbcType=VARCHAR},
       class_en_name = #{classEnName,jdbcType=VARCHAR},
-      ctime = #{ctime,jdbcType=TIMESTAMP},
       `status` = #{status,jdbcType=INTEGER}
     where class_id = #{classId,jdbcType=INTEGER}
   </update>

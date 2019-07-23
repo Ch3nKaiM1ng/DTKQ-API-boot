@@ -112,4 +112,15 @@ public class AdminController {
 
         return re.ERROR();
     }
+    //  后台登陆
+    @RequestMapping("/getUserSession")
+    public Map<String, Object> getUserSession(HttpSession httpSession) {
+        Admin admin= (Admin) httpSession.getAttribute("adminUser");
+        if(admin!=null){
+            return re.SUCCESSOBJ(admin);
+
+        }else{
+            return re.ERRORMSG("没有用户数据");
+        }
+    }
 }
