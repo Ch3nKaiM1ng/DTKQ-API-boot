@@ -1,8 +1,7 @@
 package com.dtkq.api.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dtkq.api.entity.Admin;
-import com.dtkq.api.entity.Banner;
-import com.dtkq.api.service.AdminService;
 import com.dtkq.api.service.AdminService;
 import com.dtkq.api.utils.DateUtils;
 import com.dtkq.api.utils.ReturnDiscern;
@@ -103,8 +102,11 @@ public class AdminController {
         if(Admin.getUser() !=null || Admin.getPassword()!=null){
             Admin obj=service.checkUser(Admin);
             if(obj!=null){
+                JSONObject json=new JSONObject();
+                json.put("sessionName","adminUser");
+                json.put("obj",obj);
                 httpSession.setAttribute("adminUser",obj);
-                return re.SUCCESSOBJ(obj);
+                return re.SUCCESSOBJ(json);
             }
         }
 
