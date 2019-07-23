@@ -41,8 +41,7 @@
     update admin
     set auth_id = #{authId,jdbcType=INTEGER},
       `user` = #{user,jdbcType=VARCHAR},
-      `password` = #{password,jdbcType=VARCHAR},
-      ctime = #{ctime,jdbcType=TIMESTAMP}
+      `password` = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -53,6 +52,20 @@
     select id, auth_id, `user`, `password`, ctime
     from admin
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="checkUser" parameterType="com.dtkq.api.entity.Admin" resultMap="BaseResultMap">
+    select id, auth_id, `user`, `password`, ctime
+    from admin
+    where 1=1
+    <if test="user != null">
+      and  user = #{user,jdbcType=VARCHAR}
+    </if>
+    <if test="password != null">
+      and  password = #{password,jdbcType=VARCHAR}
+    </if>
+    <if test="nId != null">
+    and id != #{nId,jdbcType=INTEGER}
+    </if>
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     <!--
