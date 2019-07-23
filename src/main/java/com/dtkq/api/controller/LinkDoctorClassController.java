@@ -1,9 +1,9 @@
 package com.dtkq.api.controller;
 
 import com.dtkq.api.entity.DoctorClass;
-import com.dtkq.api.entity.TopMenu;
+import com.dtkq.api.entity.LinkDoctorClass;
 import com.dtkq.api.service.DoctorClassService;
-import com.dtkq.api.service.TopMenuService;
+import com.dtkq.api.service.LinkDoctorClassService;
 import com.dtkq.api.utils.DateUtils;
 import com.dtkq.api.utils.ReturnDiscern;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping("/DoctorClass")
+@RequestMapping("/LinkDoctorClass")
 @RestController
-public class DoctorClassController {
+public class LinkDoctorClassController {
     @Autowired
-    private DoctorClassService service;
+    private LinkDoctorClassService service;
 
     //    时间utils
     private DateUtils data = new DateUtils();
@@ -31,23 +31,23 @@ public class DoctorClassController {
     @RequestMapping("/findAll")
     public Map<String, Object> findAll() {
 
-        List<DoctorClass> list =service.selectAll();
+        List<LinkDoctorClass> list =service.selectAll();
         return re.SUCCESSOBJ(list);
     }
     //  添加
     @RequestMapping("/addObj")
-    public Map<String, Object> addObj(@RequestBody DoctorClass doctorClass) {
+    public Map<String, Object> addObj(@RequestBody LinkDoctorClass linkDoctorClass) {
             Date time;
             time = new Date();
-            doctorClass.setCtime(time);
-            service.insertObj(doctorClass);
+            linkDoctorClass.setCtime(time);
+            service.insertObj(linkDoctorClass);
             return re.SUCCESS();
     }
     //  修改
     @RequestMapping("/updateObj")
-    public Map<String, Object> updateObj(@RequestBody DoctorClass doctorClass) {
-        if (doctorClass.getClassId() != null) {
-            service.updateObj(doctorClass);
+    public Map<String, Object> updateObj(@RequestBody LinkDoctorClass linkDoctorClass) {
+        if (linkDoctorClass.getClassId() != null) {
+            service.updateObj(linkDoctorClass);
             return re.SUCCESS();
         }else{
             return re.ERRORMSG("缺少参数ID");
@@ -55,18 +55,18 @@ public class DoctorClassController {
     }
     //  删除
     @RequestMapping("/delObj")
-    public Map<String, Object> delObj(@RequestBody DoctorClass doctorClass) {
-        if (doctorClass.getClassId() != null) {
-            service.delectById(doctorClass.getClassId());
+    public Map<String, Object> delObj(@RequestBody LinkDoctorClass linkDoctorClass) {
+        if (linkDoctorClass.getClassId() != null) {
+            service.delectById(linkDoctorClass.getClassId());
             return re.SUCCESS();
         }
         return re.ERROR();
     }
     //  查看单个
     @RequestMapping("/findObj")
-    public Map<String, Object> findObj(@RequestBody DoctorClass doctorClass) {
-        if (doctorClass.getClassId() != null) {
-            DoctorClass obj=service.selectObj(doctorClass.getClassId());
+    public Map<String, Object> findObj(@RequestBody LinkDoctorClass linkDoctorClass) {
+        if (linkDoctorClass.getClassId() != null) {
+            LinkDoctorClass  obj=service.selectObj(linkDoctorClass.getClassId());
             if(obj!=null){
                 return re.SUCCESSOBJ(obj);
             }
