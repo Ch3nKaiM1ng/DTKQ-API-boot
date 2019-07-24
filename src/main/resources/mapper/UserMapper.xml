@@ -17,7 +17,8 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
     <result column="auth" jdbcType="INTEGER" property="auth" />
-    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status" jdbcType="INTEGER" property="status
+" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
