@@ -2,10 +2,9 @@ package com.dtkq.api.controller;
 
 import com.dtkq.api.entity.Doctor;
 import com.dtkq.api.service.DoctorService;
-import com.dtkq.api.utils.ReturnDiscern;
-import com.dtkq.api.entity.FloatWindow;
 import com.dtkq.api.service.FloatWindowService;
 import com.dtkq.api.utils.DateUtils;
+import com.dtkq.api.utils.ReturnDiscern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +29,7 @@ public class DoctorController {
 
     //  查找所有医生
     @RequestMapping("/findAll")
-    public Map<String, Object> findAll(@RequestBody Doctor doctor) {
+    public Map<String, Object> findAll() {
 
         List<Doctor> doctorList =doctorService.selectAll();
         return re.SUCCESSOBJ(doctorList);

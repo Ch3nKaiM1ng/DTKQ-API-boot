@@ -24,11 +24,11 @@ public class ImgUtils {
         String ACCESS_KEY = "mmGVYJJT6t0o72S8fUiveNF7KRGBhd59BYb3nAuF";
         String SECRET_KEY = "f0GhytEXX79ZWdsV4CVBdHJeYel-pQqJ-pAG5HXT";
         //要上传的空间名--
-        String bucketname = "mylikekq";
+        String bucketname = "dtkq";
 
         String accessKey = "mmGVYJJT6t0o72S8fUiveNF7KRGBhd59BYb3nAuF";
         String secretKey = "f0GhytEXX79ZWdsV4CVBdHJeYel-pQqJ-pAG5HXT";
-        String bucket = "mylikekq";
+        String bucket = "dtkq";
         /**指定保存到七牛的文件名--同名上传会报错  {"error":"file exists"}*/
         /** {"hash":"FrQF5eX_kNsNKwgGNeJ4TbBA0Xzr","key":"aa1.jpg"} 正常返回 key为七牛空间地址 http:/xxxx.com/aa1.jpg */
         //上传文件的路径
@@ -44,7 +44,7 @@ public class ImgUtils {
         String upToken = auth.uploadToken(bucket);
 //        //创建上传对象
 //        UploadManager uploadManager =new UploadManager(new Configuration());
-//构造一个带指定Zone对象的配置类
+//      构造一个带指定Zone对象的配置类
         Configuration cfg = new Configuration(Zone.zone2());
         UploadManager uploadManager = new UploadManager(cfg);
         //简单上传
