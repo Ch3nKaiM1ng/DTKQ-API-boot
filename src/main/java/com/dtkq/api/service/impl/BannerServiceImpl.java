@@ -1,11 +1,8 @@
 package com.dtkq.api.service.impl;
 
 import com.dtkq.api.entity.Banner;
-import com.dtkq.api.entity.TopMenu;
-import com.dtkq.api.mapper.BannerMapper;
-import com.dtkq.api.mapper.TopMenuMapper;
+import com.dtkq.api.dao.BannerMapper;
 import com.dtkq.api.service.BannerService;
-import com.dtkq.api.service.TopMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

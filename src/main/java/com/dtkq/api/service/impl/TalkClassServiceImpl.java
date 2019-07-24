@@ -1,10 +1,7 @@
 package com.dtkq.api.service.impl;
 
-import com.dtkq.api.entity.ClassObj;
 import com.dtkq.api.entity.TalkClass;
-import com.dtkq.api.mapper.ClassObjMapper;
-import com.dtkq.api.mapper.TalkClassMapper;
-import com.dtkq.api.service.TalkClassService;
+import com.dtkq.api.dao.TalkClassMapper;
 import com.dtkq.api.service.TalkClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

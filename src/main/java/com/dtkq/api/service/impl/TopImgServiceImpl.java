@@ -1,10 +1,7 @@
 package com.dtkq.api.service.impl;
 
-import com.dtkq.api.entity.Doctor;
 import com.dtkq.api.entity.TopImg;
-import com.dtkq.api.mapper.DoctorMapper;
-import com.dtkq.api.mapper.TopImgMapper;
-import com.dtkq.api.service.DoctorService;
+import com.dtkq.api.dao.TopImgMapper;
 import com.dtkq.api.service.TopImgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

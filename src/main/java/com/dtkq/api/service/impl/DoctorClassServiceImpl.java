@@ -1,7 +1,7 @@
 package com.dtkq.api.service.impl;
 
 import com.dtkq.api.entity.DoctorClass;
-import com.dtkq.api.mapper.DoctorClassMapper;
+import com.dtkq.api.dao.DoctorClassMapper;
 import com.dtkq.api.service.DoctorClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

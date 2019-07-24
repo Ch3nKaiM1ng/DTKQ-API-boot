@@ -1,13 +1,10 @@
 package com.dtkq.api.service.impl;
 
 import com.dtkq.api.entity.ClassObj;
-import com.dtkq.api.entity.Doctor;
 import com.dtkq.api.entity.LinkClassObj;
-import com.dtkq.api.mapper.ClassObjMapper;
-import com.dtkq.api.mapper.DoctorMapper;
-import com.dtkq.api.mapper.LinkClassObjMapper;
+import com.dtkq.api.dao.ClassObjMapper;
+import com.dtkq.api.dao.LinkClassObjMapper;
 import com.dtkq.api.service.ClassObjService;
-import com.dtkq.api.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,6 @@ package com.dtkq.api.service;
 
 
 import com.dtkq.api.entity.LinkClassObj;
-import com.dtkq.api.entity.LinkDoctorClass;
 
 import java.util.List;
 

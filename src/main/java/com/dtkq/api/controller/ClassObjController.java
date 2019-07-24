@@ -2,12 +2,9 @@ package com.dtkq.api.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dtkq.api.entity.ClassObj;
-import com.dtkq.api.entity.DoctorClass;
 import com.dtkq.api.entity.LinkClassObj;
 import com.dtkq.api.entity.TalkClass;
-import com.dtkq.api.mapper.ClassObjMapper;
 import com.dtkq.api.service.ClassObjService;
-import com.dtkq.api.service.DoctorClassService;
 import com.dtkq.api.service.LinkClassObjService;
 import com.dtkq.api.service.TalkClassService;
 import com.dtkq.api.utils.DateUtils;

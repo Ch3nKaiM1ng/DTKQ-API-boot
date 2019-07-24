@@ -1,10 +1,7 @@
 package com.dtkq.api.service.impl;
 
-import com.dtkq.api.entity.TopImg;
 import com.dtkq.api.entity.TopMenu;
-import com.dtkq.api.mapper.TopImgMapper;
-import com.dtkq.api.mapper.TopMenuMapper;
-import com.dtkq.api.service.TopImgService;
+import com.dtkq.api.dao.TopMenuMapper;
 import com.dtkq.api.service.TopMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

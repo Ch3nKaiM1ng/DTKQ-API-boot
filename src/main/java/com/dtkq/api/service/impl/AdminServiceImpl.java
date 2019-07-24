@@ -1,7 +1,7 @@
 package com.dtkq.api.service.impl;
 
 import com.dtkq.api.entity.Admin;
-import com.dtkq.api.mapper.AdminMapper;
+import com.dtkq.api.dao.AdminMapper;
 import com.dtkq.api.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

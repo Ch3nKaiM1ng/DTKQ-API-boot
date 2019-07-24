@@ -3,8 +3,6 @@ package com.dtkq.api.controller;
 import com.dtkq.api.entity.Doctor;
 import com.dtkq.api.service.DoctorService;
 import com.dtkq.api.utils.ReturnDiscern;
-import com.dtkq.api.entity.FloatWindow;
-import com.dtkq.api.service.FloatWindowService;
 import com.dtkq.api.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +17,6 @@ import java.util.Map;
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;
-    @Autowired
-    private FloatWindowService floatWindowService;
 
     //    时间utils
     private DateUtils data = new DateUtils();

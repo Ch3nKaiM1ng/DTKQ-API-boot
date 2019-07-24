@@ -1,4 +1,4 @@
-package com.dtkq.api.mapper;
+package com.dtkq.api.dao;
 
 import com.dtkq.api.entity.User;
 import java.util.List;
