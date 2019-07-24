@@ -7,6 +7,7 @@ import com.dtkq.api.entity.TopMenu;
 import java.util.List;
 
 public interface BannerService {
+
     List<Banner> selectAll();
 
     Banner selectObj(Integer id);

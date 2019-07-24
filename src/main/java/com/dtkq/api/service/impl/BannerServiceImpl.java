@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 public class BannerServiceImpl implements BannerService {
 
+
     @Autowired(required = false)
     private BannerMapper mapper;
     @Override

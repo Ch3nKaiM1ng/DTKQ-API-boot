@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 public class LinkDoctorClassServiceImpl implements LinkDoctorClassService {
 
+
     @Autowired(required = false)
     private LinkDoctorClassMapper mapper;
     @Override

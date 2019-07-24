@@ -3,7 +3,6 @@
 <mapper namespace="com.dtkq.api.mapper.DoctorMapper">
 
 
-
   <resultMap id="BaseResultMap" type="com.dtkq.api.entity.Doctor">
     <id column="doctor_id" jdbcType="INTEGER" property="doctorId" />
     <result column="class_id" jdbcType="INTEGER" property="classId" />

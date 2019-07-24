@@ -7,11 +7,13 @@ import java.util.List;
 
 public interface LinkClassObjMapper {
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(LinkClassObj record);
 
     int insert(LinkClassObj record);
 
     LinkClassObj selectByPrimaryKey(Integer id);
+
+    List<LinkClassObj> selectByObjId(Integer id);
 
     List<LinkClassObj> selectAll();
 

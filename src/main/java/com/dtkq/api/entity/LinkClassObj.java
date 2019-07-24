@@ -18,6 +18,7 @@ public class LinkClassObj implements Serializable {
 
     private String status;
 
+    private String chName;
     public Integer getId() {
         return id;
     }
@@ -56,5 +57,13 @@ public class LinkClassObj implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getChName() {
+        return chName;
+    }
+
+    public void setChName(String chName) {
+        this.chName = chName;
     }
 }

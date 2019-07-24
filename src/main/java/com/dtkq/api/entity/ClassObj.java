@@ -2,6 +2,7 @@ package com.dtkq.api.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class ClassObj implements Serializable {
     private Integer objId;
@@ -10,8 +11,10 @@ public class ClassObj implements Serializable {
     private String url;
     private String img;
     private String status;
+    private String classList;
     private Date ctime;
-
+    private Integer linkClassId;
+    private List<LinkClassObj> classObjList;
     public Integer getObjId() {
         return objId;
     }
@@ -66,5 +69,29 @@ public class ClassObj implements Serializable {
 
     public void setCtime(Date ctime) {
         this.ctime = ctime;
+    }
+
+    public List<LinkClassObj> getClassObjList() {
+        return classObjList;
+    }
+
+    public void setClassObjList(List<LinkClassObj> classObjList) {
+        this.classObjList = classObjList;
+    }
+
+    public String getClassList() {
+        return classList;
+    }
+
+    public void setClassList(String classList) {
+        this.classList = classList;
+    }
+
+    public Integer getLinkClassId() {
+        return linkClassId;
+    }
+
+    public void setLinkClassId(Integer linkClassId) {
+        this.linkClassId = linkClassId;
     }
 }

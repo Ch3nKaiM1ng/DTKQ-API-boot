@@ -198,4 +198,5 @@ public class DoctorClass implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
 }

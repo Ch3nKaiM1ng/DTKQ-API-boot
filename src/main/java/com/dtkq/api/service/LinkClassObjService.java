@@ -15,5 +15,5 @@ public interface LinkClassObjService {
 
     void updateObj(LinkClassObj obj);
 
-    void delectById(Integer id);
+    void delectById(LinkClassObj obj);
 }

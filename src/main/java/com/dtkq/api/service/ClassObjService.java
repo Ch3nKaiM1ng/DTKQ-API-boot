@@ -11,6 +11,8 @@ public interface ClassObjService {
 
     ClassObj selectObj(ClassObj classObj);
 
+    List<ClassObj> selectByClassId(ClassObj classObj);
+
     void insertObj(ClassObj classObj);
 
     void updateObj(ClassObj classObj);

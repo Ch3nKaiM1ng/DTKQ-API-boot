@@ -38,7 +38,7 @@ public class LinkClassObjServiceImpl implements LinkClassObjService {
     }
 
     @Override
-    public void delectById(Integer id) {
-        mapper.deleteByPrimaryKey(id);
+    public void delectById(LinkClassObj obj) {
+        mapper.deleteByPrimaryKey(obj);
     }
 }

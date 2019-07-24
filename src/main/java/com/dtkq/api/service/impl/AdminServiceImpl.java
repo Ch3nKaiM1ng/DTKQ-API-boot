@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 public class AdminServiceImpl implements AdminService {
 
+
     @Autowired(required = false)
     private AdminMapper mapper;
     @Override

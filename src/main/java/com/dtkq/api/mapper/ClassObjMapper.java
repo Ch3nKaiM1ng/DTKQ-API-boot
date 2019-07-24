@@ -15,6 +15,8 @@ public interface ClassObjMapper {
 
     ClassObj selectByPrimaryKey(ClassObj classObj);
 
+    List<ClassObj> selectByKey(ClassObj classObj);
+
     int updateByPrimaryKey(ClassObj classObj);
 
 }

@@ -6,6 +6,7 @@ import com.dtkq.api.entity.Doctor;
 import java.util.List;
 
 public interface DoctorMapper {
+
     List<Doctor> selectAll();
 
     int deleteByPrimaryKey(Doctor doctor);

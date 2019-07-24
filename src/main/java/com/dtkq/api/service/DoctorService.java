@@ -5,6 +5,7 @@ import com.dtkq.api.entity.Doctor;
 
 import java.util.List;
 public interface DoctorService {
+
     List<Doctor> selectAll();
 
     Doctor selectObj(Doctor doctor);

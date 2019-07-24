@@ -6,6 +6,7 @@
   <resultMap id="BaseResultMap" type="com.dtkq.api.entity.ClassObj">
     <id column="obj_id" jdbcType="INTEGER" property="objId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="class_id" jdbcType="INTEGER" property="linkClassId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="img" jdbcType="VARCHAR" property="img" />
@@ -26,7 +27,7 @@
     url,
     img,
     status,
-    ctime
+    ctime)
     values (
     #{objId,jdbcType=INTEGER},
     #{userId,jdbcType=INTEGER},
@@ -34,7 +35,7 @@
     #{url,jdbcType=VARCHAR},
     #{img,jdbcType=VARCHAR},
     #{status,jdbcType=VARCHAR},
-    0)
+    now())
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.dtkq.api.entity.ClassObj">
     update class_obj
@@ -63,8 +64,23 @@
     where obj_id = #{objId,jdbcType=INTEGER}
     and status!=1
   </select>
+  <select id="selectByKey" parameterType="com.dtkq.api.entity.ClassObj" resultMap="BaseResultMap">
+    select a.obj_id, a.user_id, a.title,b.class_id,
+    a.url, a.img, a.status,a.ctime
+    from class_obj a
+    left join link_class_obj b on a.obj_id=b.obj_id
+    where 1=1
+    <if test="objId!= null">
+      and b.obj_id = #{objId,jdbcType=INTEGER}
+    </if>
+    <if test="linkClassId!= null">
+      and b.class_id = #{linkClassId,jdbcType=INTEGER}
+    </if>
+    and a.status!=1
+    limit 6
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select bj_id, user_id, title,
+    select obj_id, user_id, title,
       url, img, status,ctime
     from class_obj
     where status!=1

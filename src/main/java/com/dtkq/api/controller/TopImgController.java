@@ -27,7 +27,7 @@ public class TopImgController {
 
     //  查找所有
     @RequestMapping("/findAll")
-    public Map<String, Object> findAll(@RequestBody TopImg topImg) {
+    public Map<String, Object> findAll() {
 
         List<TopImg> topImgsList =topImgService.selectAll();
         return re.SUCCESSOBJ(topImgsList);

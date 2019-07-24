@@ -9,6 +9,8 @@ import java.util.List;
 public interface TalkClassService {
     List<TalkClass> selectAll(TalkClass obj);
 
+    List<TalkClass> findWebList(TalkClass obj);
+
     TalkClass selectObj(Integer id);
 
     void insertObj(TalkClass obj);

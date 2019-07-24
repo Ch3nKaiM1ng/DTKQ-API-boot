@@ -7,6 +7,7 @@ import com.dtkq.api.entity.DoctorClass;
 import java.util.List;
 
 public interface DoctorClassService {
+
     List<DoctorClass> selectAll();
 
     DoctorClass selectObj(Integer id);

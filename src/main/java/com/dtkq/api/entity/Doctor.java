@@ -121,4 +121,5 @@ public class Doctor implements Serializable {
     public void setCtime(Date ctime) {
         this.ctime = ctime;
     }
+
 }
