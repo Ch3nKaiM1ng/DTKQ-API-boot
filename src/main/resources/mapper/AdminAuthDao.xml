@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.dao.AdminAuthDao">
+
+    <resultMap type="com.dtkq.api.entity.AdminAuth" id="AdminAuthMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="authName" column="auth_name" jdbcType="VARCHAR"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AdminAuthMap">
+        select
+          id, auth_name, ctime
+        from DTKQ.admin_auth
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AdminAuthMap">
+        select
+          id, auth_name, ctime
+        from DTKQ.admin_auth
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="AdminAuthMap">
+        select
+          id, auth_name, ctime
+        from DTKQ.admin_auth
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="authName != null and authName != ''">
+                and auth_name = #{authName}
+            </if>
+            <if test="ctime != null">
+                and ctime = #{ctime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into DTKQ.admin_auth(auth_name, ctime)
+        values (#{authName}, #{ctime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.admin_auth
+        <set>
+            <if test="authName != null and authName != ''">
+                auth_name = #{authName},
+            </if>
+            <if test="ctime != null">
+                ctime = #{ctime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.admin_auth where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.dao.ClassAskArticleDao">
+
+    <resultMap type="com.dtkq.api.entity.ClassAskArticle" id="ClassAskArticleMap">
+        <result property="acId" column="ac_id" jdbcType="INTEGER"/>
+        <result property="artId" column="art_id" jdbcType="INTEGER"/>
+        <result property="askId" column="ask_id" jdbcType="INTEGER"/>
+        <result property="vioId" column="vio_id" jdbcType="INTEGER"/>
+        <result property="rank" column="rank" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ClassAskArticleMap">
+        select
+          ac_id, art_id, ask_id, vio_id, rank
+        from DTKQ.class_ask_article
+        where ac_id = #{acId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ClassAskArticleMap">
+        select
+          ac_id, art_id, ask_id, vio_id, rank
+        from DTKQ.class_ask_article
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ClassAskArticleMap">
+        select
+          ac_id, art_id, ask_id, vio_id, rank
+        from DTKQ.class_ask_article
+        <where>
+            <if test="acId != null">
+                and ac_id = #{acId}
+            </if>
+            <if test="artId != null">
+                and art_id = #{artId}
+            </if>
+            <if test="askId != null">
+                and ask_id = #{askId}
+            </if>
+            <if test="vioId != null">
+                and vio_id = #{vioId}
+            </if>
+            <if test="rank != null and rank != ''">
+                and rank = #{rank}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="acId" useGeneratedKeys="true">
+        insert into DTKQ.class_ask_article(art_id, ask_id, vio_id, rank)
+        values (#{artId}, #{askId}, #{vioId}, #{rank})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.class_ask_article
+        <set>
+            <if test="artId != null">
+                art_id = #{artId},
+            </if>
+            <if test="askId != null">
+                ask_id = #{askId},
+            </if>
+            <if test="vioId != null">
+                vio_id = #{vioId},
+            </if>
+            <if test="rank != null and rank != ''">
+                rank = #{rank},
+            </if>
+        </set>
+        where ac_id = #{acId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.class_ask_article where ac_id = #{acId}
+    </delete>
+
+</mapper>

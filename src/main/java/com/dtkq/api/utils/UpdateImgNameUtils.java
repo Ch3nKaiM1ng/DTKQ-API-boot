@@ -47,6 +47,6 @@ public class UpdateImgNameUtils {
         filename.delete();
 
         //返回图片路径
-        return ImgUtils.publicFile(serviceImgName,"http://data.szmlkq.com/"+sdf.format(new Date()));
+        return ImgUtils.publicFile(serviceImgName,"http://dt.szmlkq.com/"+sdf.format(new Date()));
     }
 }
