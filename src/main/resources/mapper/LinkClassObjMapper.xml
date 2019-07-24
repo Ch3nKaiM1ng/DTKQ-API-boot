@@ -13,11 +13,11 @@
     delete from link_class_obj
     where 1=1
     <if test="id!=null">
-    and id = #{id,jdbcType=INTEGER}
+      and id = #{id,jdbcType=INTEGER}
     </if>
     <if test="objId!=null">
 
-    and obj_id = #{objId,jdbcType=INTEGER}
+      and obj_id = #{objId,jdbcType=INTEGER}
     </if>
   </delete>
   <insert id="insert" parameterType="com.dtkq.api.entity.LinkClassObj">
@@ -25,9 +25,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into link_class_obj (obj_id, class_id, ctime,
-      `status`)
+    `status`)
     values (#{objId,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}, #{ctime,jdbcType=TIMESTAMP},
-      #{status,jdbcType=VARCHAR})
+    #{status,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.dtkq.api.entity.LinkClassObj">
     update link_class_obj
