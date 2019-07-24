@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.dao.AskDao">
+
+    <resultMap type="com.dtkq.api.entity.Ask" id="AskMap">
+        <result property="askId" column="ask_id" jdbcType="INTEGER"/>
+        <result property="classId" column="class_id" jdbcType="INTEGER"/>
+        <result property="askUserId" column="ask_user_id" jdbcType="INTEGER"/>
+        <result property="askTitle" column="ask_title" jdbcType="VARCHAR"/>
+        <result property="askContent" column="ask_content" jdbcType="OTHER"/>
+        <result property="askImg" column="ask_img" jdbcType="VARCHAR"/>
+        <result property="askVedio" column="ask_vedio" jdbcType="VARCHAR"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="label" column="label" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AskMap">
+        select
+          ask_id, class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, label
+        from DTKQ.ask
+        where ask_id = #{askId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AskMap">
+        select
+          ask_id, class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, label
+        from DTKQ.ask
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="AskMap">
+        select
+          ask_id, class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, label
+        from DTKQ.ask
+        <where>
+            <if test="askId != null">
+                and ask_id = #{askId}
+            </if>
+            <if test="classId != null">
+                and class_id = #{classId}
+            </if>
+            <if test="askUserId != null">
+                and ask_user_id = #{askUserId}
+            </if>
+            <if test="askTitle != null and askTitle != ''">
+                and ask_title = #{askTitle}
+            </if>
+            <if test="askContent != null">
+                and ask_content = #{askContent}
+            </if>
+            <if test="askImg != null and askImg != ''">
+                and ask_img = #{askImg}
+            </if>
+            <if test="askVedio != null and askVedio != ''">
+                and ask_vedio = #{askVedio}
+            </if>
+            <if test="ctime != null">
+                and ctime = #{ctime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="label != null and label != ''">
+                and label = #{label}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="askId" useGeneratedKeys="true">
+        insert into DTKQ.ask(class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, label)
+        values (#{classId}, #{askUserId}, #{askTitle}, #{askContent}, #{askImg}, #{askVedio}, #{ctime}, #{status}, #{label})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.ask
+        <set>
+            <if test="classId != null">
+                class_id = #{classId},
+            </if>
+            <if test="askUserId != null">
+                ask_user_id = #{askUserId},
+            </if>
+            <if test="askTitle != null and askTitle != ''">
+                ask_title = #{askTitle},
+            </if>
+            <if test="askContent != null">
+                ask_content = #{askContent},
+            </if>
+            <if test="askImg != null and askImg != ''">
+                ask_img = #{askImg},
+            </if>
+            <if test="askVedio != null and askVedio != ''">
+                ask_vedio = #{askVedio},
+            </if>
+            <if test="ctime != null">
+                ctime = #{ctime},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="label != null and label != ''">
+                label = #{label},
+            </if>
+        </set>
+        where ask_id = #{askId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.ask where ask_id = #{askId}
+    </delete>
+
+</mapper>

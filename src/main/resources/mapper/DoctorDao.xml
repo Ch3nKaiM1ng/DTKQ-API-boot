@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.dao.DoctorDao">
+
+    <resultMap type="com.dtkq.api.entity.Doctor" id="DoctorMap">
+        <result property="doctorId" column="doctor_id" jdbcType="INTEGER"/>
+        <result property="classId" column="class_id" jdbcType="INTEGER"/>
+        <result property="doctorChName" column="doctor_ch_name" jdbcType="VARCHAR"/>
+        <result property="doctorEnName" column="doctor_en_name" jdbcType="VARCHAR"/>
+        <result property="doctorChPosition" column="doctor_ch_position" jdbcType="VARCHAR"/>
+        <result property="doctorEnPosition" column="doctor_en_position" jdbcType="VARCHAR"/>
+        <result property="doctorIntroduction" column="doctor_introduction" jdbcType="VARCHAR"/>
+        <result property="doctorImg" column="doctor_img" jdbcType="VARCHAR"/>
+        <result property="doctorSex" column="doctor_sex" jdbcType="INTEGER"/>
+        <result property="doctorMobile" column="doctor_mobile" jdbcType="VARCHAR"/>
+        <result property="doctorEmail" column="doctor_email" jdbcType="VARCHAR"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DoctorMap">
+        select
+          doctor_id, class_id, doctor_ch_name, doctor_en_name, doctor_ch_position, doctor_en_position, doctor_introduction, doctor_img, doctor_sex, doctor_mobile, doctor_email, ctime, status
+        from DTKQ.doctor
+        where doctor_id = #{doctorId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DoctorMap">
+        select
+          doctor_id, class_id, doctor_ch_name, doctor_en_name, doctor_ch_position, doctor_en_position, doctor_introduction, doctor_img, doctor_sex, doctor_mobile, doctor_email, ctime, status
+        from DTKQ.doctor
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DoctorMap">
+        select
+          doctor_id, class_id, doctor_ch_name, doctor_en_name, doctor_ch_position, doctor_en_position, doctor_introduction, doctor_img, doctor_sex, doctor_mobile, doctor_email, ctime, status
+        from DTKQ.doctor
+        <where>
+            <if test="doctorId != null">
+                and doctor_id = #{doctorId}
+            </if>
+            <if test="classId != null">
+                and class_id = #{classId}
+            </if>
+            <if test="doctorChName != null and doctorChName != ''">
+                and doctor_ch_name = #{doctorChName}
+            </if>
+            <if test="doctorEnName != null and doctorEnName != ''">
+                and doctor_en_name = #{doctorEnName}
+            </if>
+            <if test="doctorChPosition != null and doctorChPosition != ''">
+                and doctor_ch_position = #{doctorChPosition}
+            </if>
+            <if test="doctorEnPosition != null and doctorEnPosition != ''">
+                and doctor_en_position = #{doctorEnPosition}
+            </if>
+            <if test="doctorIntroduction != null and doctorIntroduction != ''">
+                and doctor_introduction = #{doctorIntroduction}
+            </if>
+            <if test="doctorImg != null and doctorImg != ''">
+                and doctor_img = #{doctorImg}
+            </if>
+            <if test="doctorSex != null">
+                and doctor_sex = #{doctorSex}
+            </if>
+            <if test="doctorMobile != null and doctorMobile != ''">
+                and doctor_mobile = #{doctorMobile}
+            </if>
+            <if test="doctorEmail != null and doctorEmail != ''">
+                and doctor_email = #{doctorEmail}
+            </if>
+            <if test="ctime != null">
+                and ctime = #{ctime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="doctorId" useGeneratedKeys="true">
+        insert into DTKQ.doctor(class_id, doctor_ch_name, doctor_en_name, doctor_ch_position, doctor_en_position, doctor_introduction, doctor_img, doctor_sex, doctor_mobile, doctor_email, ctime, status)
+        values (#{classId}, #{doctorChName}, #{doctorEnName}, #{doctorChPosition}, #{doctorEnPosition}, #{doctorIntroduction}, #{doctorImg}, #{doctorSex}, #{doctorMobile}, #{doctorEmail}, #{ctime}, #{status})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.doctor
+        <set>
+            <if test="classId != null">
+                class_id = #{classId},
+            </if>
+            <if test="doctorChName != null and doctorChName != ''">
+                doctor_ch_name = #{doctorChName},
+            </if>
+            <if test="doctorEnName != null and doctorEnName != ''">
+                doctor_en_name = #{doctorEnName},
+            </if>
+            <if test="doctorChPosition != null and doctorChPosition != ''">
+                doctor_ch_position = #{doctorChPosition},
+            </if>
+            <if test="doctorEnPosition != null and doctorEnPosition != ''">
+                doctor_en_position = #{doctorEnPosition},
+            </if>
+            <if test="doctorIntroduction != null and doctorIntroduction != ''">
+                doctor_introduction = #{doctorIntroduction},
+            </if>
+            <if test="doctorImg != null and doctorImg != ''">
+                doctor_img = #{doctorImg},
+            </if>
+            <if test="doctorSex != null">
+                doctor_sex = #{doctorSex},
+            </if>
+            <if test="doctorMobile != null and doctorMobile != ''">
+                doctor_mobile = #{doctorMobile},
+            </if>
+            <if test="doctorEmail != null and doctorEmail != ''">
+                doctor_email = #{doctorEmail},
+            </if>
+            <if test="ctime != null">
+                ctime = #{ctime},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where doctor_id = #{doctorId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.doctor where doctor_id = #{doctorId}
+    </delete>
+
+</mapper>

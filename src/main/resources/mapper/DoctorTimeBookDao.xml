@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.dao.DoctorTimeBookDao">
+
+    <resultMap type="com.dtkq.api.entity.DoctorTimeBook" id="DoctorTimeBookMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="timeId" column="time_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DoctorTimeBookMap">
+        select
+          id, time_id, user_id, remark, ctime, status
+        from DTKQ.doctor_time_book
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DoctorTimeBookMap">
+        select
+          id, time_id, user_id, remark, ctime, status
+        from DTKQ.doctor_time_book
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DoctorTimeBookMap">
+        select
+          id, time_id, user_id, remark, ctime, status
+        from DTKQ.doctor_time_book
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="timeId != null">
+                and time_id = #{timeId}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="ctime != null">
+                and ctime = #{ctime}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into DTKQ.doctor_time_book(time_id, user_id, remark, ctime, status)
+        values (#{timeId}, #{userId}, #{remark}, #{ctime}, #{status})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.doctor_time_book
+        <set>
+            <if test="timeId != null">
+                time_id = #{timeId},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="ctime != null">
+                ctime = #{ctime},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.doctor_time_book where id = #{id}
+    </delete>
+
+</mapper>

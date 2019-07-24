@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.dao.TalkClassDao">
+
+    <resultMap type="com.dtkq.api.entity.TalkClass" id="TalkClassMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="chName" column="ch_name" jdbcType="VARCHAR"/>
+        <result property="enName" column="en_name" jdbcType="VARCHAR"/>
+        <result property="auth" column="auth" jdbcType="INTEGER"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+        <result property="style" column="style" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TalkClassMap">
+        select
+          id, level, parent_id, ch_name, en_name, auth, ctime, style, status
+        from DTKQ.talk_class
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TalkClassMap">
+        select
+          id, level, parent_id, ch_name, en_name, auth, ctime, style, status
+        from DTKQ.talk_class
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TalkClassMap">
+        select
+          id, level, parent_id, ch_name, en_name, auth, ctime, style, status
+        from DTKQ.talk_class
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="level != null and level != ''">
+                and level = #{level}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="chName != null and chName != ''">
+                and ch_name = #{chName}
+            </if>
+            <if test="enName != null and enName != ''">
+                and en_name = #{enName}
+            </if>
+            <if test="auth != null">
+                and auth = #{auth}
+            </if>
+            <if test="ctime != null">
+                and ctime = #{ctime}
+            </if>
+            <if test="style != null">
+                and style = #{style}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into DTKQ.talk_class(level, parent_id, ch_name, en_name, auth, ctime, style, status)
+        values (#{level}, #{parentId}, #{chName}, #{enName}, #{auth}, #{ctime}, #{style}, #{status})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.talk_class
+        <set>
+            <if test="level != null and level != ''">
+                level = #{level},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="chName != null and chName != ''">
+                ch_name = #{chName},
+            </if>
+            <if test="enName != null and enName != ''">
+                en_name = #{enName},
+            </if>
+            <if test="auth != null">
+                auth = #{auth},
+            </if>
+            <if test="ctime != null">
+                ctime = #{ctime},
+            </if>
+            <if test="style != null">
+                style = #{style},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.talk_class where id = #{id}
+    </delete>
+
+</mapper>
