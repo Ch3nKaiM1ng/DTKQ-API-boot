@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.mapper.ClassObjMapper">
+
+
+  <resultMap id="BaseResultMap" type="com.dtkq.api.entity.ClassObj">
+    <id column="obj_id" jdbcType="INTEGER" property="objId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from class_obj
+    where obj_id = #{objId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" keyProperty="objId" parameterType="com.dtkq.api.entity.ClassObj" useGeneratedKeys="true">
+    insert into class_obj (
+    obj_id,
+    user_id,
+    title,
+    url,
+    img,
+    status,
+    ctime
+    values (
+    #{objId,jdbcType=INTEGER},
+    #{userId,jdbcType=INTEGER},
+    #{title,jdbcType=VARCHAR},
+    #{url,jdbcType=VARCHAR},
+    #{img,jdbcType=VARCHAR},
+    #{status,jdbcType=VARCHAR},
+    0)
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.dtkq.api.entity.ClassObj">
+    update class_obj
+    set obj_id = #{objId,jdbcType=INTEGER}
+    <if test="userId!= null">
+      ,user_id = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="title!= null">
+      ,title = #{title,jdbcType=INTEGER}
+    </if>
+    <if test="url!= null">
+      ,url = #{url,jdbcType=VARCHAR}
+    </if>
+    <if test="img!= null">
+      ,img = #{img,jdbcType=VARCHAR}
+    </if>
+    <if test="status!= null">
+      ,status = #{status,jdbcType=VARCHAR}
+    </if>
+    where obj_id = #{objId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="com.dtkq.api.entity.ClassObj" resultMap="BaseResultMap">
+    select obj_id, user_id, title,
+      url, img, status,ctime
+    from class_obj
+    where obj_id = #{objId,jdbcType=INTEGER}
+    and status!=1
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select bj_id, user_id, title,
+      url, img, status,ctime
+    from class_obj
+    where status!=1
+  </select>
+</mapper>
