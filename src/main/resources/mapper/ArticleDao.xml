@@ -13,7 +13,8 @@
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
         <result property="label" column="label" jdbcType="VARCHAR"/>
-
+        <result property="checkNum" column="check_num" jdbcType="INTEGER"/>
+        <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
     </resultMap>
 
     <resultMap type="com.dtkq.api.entity.Article" id="articleObj">
@@ -27,7 +28,8 @@
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
         <result property="label" column="label" jdbcType="VARCHAR"/>
-
+        <result property="checkNum" column="check_num" jdbcType="INTEGER"/>
+        <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
         <collection property="user" ofType="com.dtkq.api.entity.User">
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="userChName" column="user_ch_name" jdbcType="VARCHAR"/>
@@ -45,7 +47,8 @@
     </resultMap>
     <!--查询单个-->
     <select id="queryById" resultMap="articleObj">
-        select a.art_id, a.class_id, a.art_user_id, a.art_title, a.art_content, a.art_img, a.art_vedio, a.ctime, a.status, a.label,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        select a.art_id, a.class_id, a.art_user_id, a.art_title, a.art_content, a.art_img, a.art_vedio, a.ctime, a.status, a.label,a.check_num,a.thumb_num
+        ,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
         from DTKQ.article a
         left  join user b on b.user_id=a.art_user_id
@@ -54,7 +57,8 @@
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ArticleMap">
-        select a.art_id, a.class_id, a.art_user_id, a.art_title, a.art_content, a.art_img, a.art_vedio, a.ctime, a.status, a.label,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        select a.art_id, a.class_id, a.art_user_id, a.art_title, a.art_content, a.art_img, a.art_vedio, a.ctime, a.status, a.label,a.check_num,a.thumb_num
+        ,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
         from DTKQ.article a
         left  join user b on b.user_id=a.art_user_id
@@ -63,10 +67,11 @@
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ArticleMap">
-        select
-          art_id, class_id, art_user_id, art_title, art_content, art_img, art_vedio, ctime, status, label
-        from DTKQ.article
-        left  join
+        select a.art_id, a.class_id, a.art_user_id, a.art_title, a.art_content, a.art_img, a.art_vedio, a.ctime, a.status, a.label,a.check_num,a.thumb_num
+        ,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
+        from DTKQ.article a
+        left  join user b on b.user_id=a.art_user_id
         <where>
             <if test="artId != null">
                 and art_id = #{artId}
@@ -103,8 +108,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="artId" useGeneratedKeys="true">
-        insert into DTKQ.article(class_id, art_user_id, art_title, art_content, art_img, art_vedio, ctime, status, label)
-        values (#{classId}, #{artUserId}, #{artTitle}, #{artContent}, #{artImg}, #{artVedio}, now(), #{status}, #{label})
+        insert into DTKQ.article(class_id, art_user_id, art_title, art_content, art_img, art_vedio, ctime, status, label,check_num,thumb_num)
+        values (#{classId}, #{artUserId}, #{artTitle}, #{artContent}, #{artImg}, #{artVedio}, now(), #{status}, #{label},#{checkNum},#{thumbNum})
     </insert>
 
     <!--通过主键修改数据-->
@@ -134,6 +139,26 @@
             </if>
             <if test="label != null and label != ''">
                 label = #{label},
+            </if>
+            <if test="checkNum != null and checkNum != ''">
+                check_num = #{checkNum},
+            </if>
+            <if test="thumbNum != null and thumbNum != ''">
+                thumb_num = #{thumbNum},
+            </if>
+        </set>
+        where art_id = #{artId}
+    </update>
+
+    <!--通过主键增加浏览量-->
+    <update id="addNum">
+        update DTKQ.article
+        <set>
+            <if test="checkNum != null and checkNum != ''">
+                check_num = check_num +1
+            </if>
+            <if test="thumbNum != null and thumbNum != ''">
+                thumb_num = thumb_num +1
             </if>
         </set>
         where art_id = #{artId}

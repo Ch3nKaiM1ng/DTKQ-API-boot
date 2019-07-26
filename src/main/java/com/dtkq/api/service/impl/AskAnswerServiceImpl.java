@@ -42,6 +42,11 @@ public class AskAnswerServiceImpl implements AskAnswerService {
         return this.askAnswerDao.queryAllByLimit(offset, limit);
     }
 
+    @Override
+    public List<AskAnswer> queryAll(AskAnswer askAnswer) {
+        return this.askAnswerDao.queryAll(askAnswer);
+    }
+
     /**
      * 新增数据
      *

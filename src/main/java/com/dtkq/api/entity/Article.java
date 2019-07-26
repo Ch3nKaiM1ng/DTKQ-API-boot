@@ -30,11 +30,32 @@ public class Article implements Serializable {
     private Integer status;
     //标签
     private String label;
-    //标签
+    //当前页
     private int offset;
-    //标签
+    //显示数量
     private int limit;
+    //浏览量
+    private Integer checkNum;
+    //点赞量
+    private Integer thumbNum;
+
     private User user;
+
+    public Integer getCheckNum() {
+        return checkNum;
+    }
+
+    public void setCheckNum(Integer checkNum) {
+        this.checkNum = checkNum;
+    }
+
+    public Integer getThumbNum() {
+        return thumbNum;
+    }
+
+    public void setThumbNum(Integer thumbNum) {
+        this.thumbNum = thumbNum;
+    }
 
     public User getUser() {
         return user;

@@ -66,6 +66,12 @@ public class ArticleServiceImpl implements ArticleService {
         return this.queryById(article.getArtId());
     }
 
+    @Override
+    public Article addNum(Article article) {
+        this.articleDao.addNum(article);
+        return this.queryById(article.getArtId());
+    }
+
     /**
      * 通过主键删除数据
      *

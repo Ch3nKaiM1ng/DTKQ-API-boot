@@ -42,6 +42,11 @@ public class AskCommentServiceImpl implements AskCommentService {
         return this.askCommentDao.queryAllByLimit(offset, limit);
     }
 
+    @Override
+    public List<AskComment> queryAll(AskComment askComment) {
+        return this.askCommentDao.queryAll(askComment);
+    }
+
     /**
      * 新增数据
      *

@@ -10,58 +10,84 @@
         <result property="content" column="content" jdbcType="OTHER"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="VARCHAR"/>
+
+        <collection property="user" ofType="com.dtkq.api.entity.User">
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="userChName" column="user_ch_name" jdbcType="VARCHAR"/>
+            <result property="userEnName" column="user_en_name" jdbcType="VARCHAR"/>
+            <result property="userNickname" column="user_nickname" jdbcType="VARCHAR"/>
+            <result property="userImg" column="user_img" jdbcType="VARCHAR"/>
+            <result property="userSex" column="user_sex" jdbcType="INTEGER"/>
+            <result property="userMobile" column="user_mobile" jdbcType="VARCHAR"/>
+            <result property="userEmail" column="user_email" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+            <result property="auth" column="auth" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+        </collection>
+
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="AskAnswerMap">
         select
-          id, ask_id, user_id, title, content, ctime, status
-        from DTKQ.ask_answer
+        a.id, a.ask_id, a.user_id, a.title, a.content, a.ctime, a.status
+		,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
+        from DTKQ.ask_answer a
+		LEFT JOIN `user` b on a.user_id= b.user_id
         where id = #{id}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AskAnswerMap">
         select
-          id, ask_id, user_id, title, content, ctime, status
-        from DTKQ.ask_answer
+        a.id, a.ask_id, a.user_id, a.title, a.content, a.ctime, a.status
+		,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
+        from DTKQ.ask_answer a
+		LEFT JOIN `user` b on a.user_id= b.user_id
         limit #{offset}, #{limit}
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="AskAnswerMap">
         select
-          id, ask_id, user_id, title, content, ctime, status
-        from DTKQ.ask_answer
+        a.id, a.ask_id, a.user_id, a.title, a.content, a.ctime, a.status
+        ,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
+        from DTKQ.ask_answer a
+        LEFT JOIN `user` b on a.user_id= b.user_id
         <where>
             <if test="id != null">
-                and id = #{id}
+                and a.id = #{id}
             </if>
             <if test="askId != null">
-                and ask_id = #{askId}
+                and a.ask_id = #{askId}
             </if>
             <if test="userId != null">
-                and user_id = #{userId}
+                and a.user_id = #{userId}
             </if>
             <if test="title != null and title != ''">
-                and title = #{title}
+                and a.title = #{title}
             </if>
             <if test="content != null">
-                and content = #{content}
+                and a.content = #{content}
             </if>
             <if test="ctime != null">
-                and ctime = #{ctime}
+                and a.ctime = #{ctime}
             </if>
             <if test="status != null and status != ''">
-                and status = #{status}
+                and a.status = #{status}
             </if>
         </where>
+        limit #{offset}, #{limit}
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into DTKQ.ask_answer(ask_id, user_id, title, content, ctime, status)
-        values (#{askId}, #{userId}, #{title}, #{content}, #{ctime}, #{status})
+        values (#{askId}, #{userId}, #{title}, #{content}, now(), #{status})
     </insert>
 
     <!--通过主键修改数据-->
