@@ -8,7 +8,7 @@ import java.util.List;
  * (ClassAskArticle)表数据库访问层
  *
  * @author makejava
- * @since 2019-07-24 16:23:11
+ * @since 2019-07-24 17:40:11
  */
 public interface ClassAskArticleDao {
 

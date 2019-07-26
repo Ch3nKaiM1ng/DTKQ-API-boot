@@ -8,7 +8,7 @@ import java.util.List;
  * (Article)表数据库访问层
  *
  * @author makejava
- * @since 2019-07-24 16:21:24
+ * @since 2019-07-24 17:11:28
  */
 public interface ArticleDao {
 

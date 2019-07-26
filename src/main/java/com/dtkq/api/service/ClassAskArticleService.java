@@ -7,7 +7,7 @@ import java.util.List;
  * (ClassAskArticle)表服务接口
  *
  * @author makejava
- * @since 2019-07-24 16:23:11
+ * @since 2019-07-24 17:40:11
  */
 public interface ClassAskArticleService {
 
@@ -52,4 +52,6 @@ public interface ClassAskArticleService {
      */
     boolean deleteById(Integer acId);
 
+//    根据对象查询
+    void queryAll(ClassAskArticle askArticle);
 }

@@ -4,24 +4,39 @@
 
     <resultMap type="com.dtkq.api.entity.ClassAskArticle" id="ClassAskArticleMap">
         <result property="acId" column="ac_id" jdbcType="INTEGER"/>
-        <result property="artId" column="art_id" jdbcType="INTEGER"/>
-        <result property="askId" column="ask_id" jdbcType="INTEGER"/>
+        <result property="ac_artId" column="ac_art_id" jdbcType="INTEGER"/>
+        <result property="ac_askId" column="ac_ask_id" jdbcType="INTEGER"/>
         <result property="vioId" column="vio_id" jdbcType="INTEGER"/>
-        <result property="rank" column="rank" jdbcType="VARCHAR"/>
+        <result property="belong" column="belong" jdbcType="VARCHAR"/>
+
+        <collection property="article" ofType="com.dtkq.api.entity.Article" column="ArticleMap">
+            <id column="art_id" property="artId" jdbcType="INTEGER"/><!-- 这里的column对应的是下面查询的别名，而不是表字段名 -->
+            <result property="classId" column="class_id" jdbcType="INTEGER"/>
+            <result property="artUserId" column="art_user_id" jdbcType="INTEGER"/>
+            <result property="artTitle" column="art_title" jdbcType="VARCHAR"/>
+            <result property="artContent" column="art_content" jdbcType="OTHER"/>
+            <result property="artImg" column="art_img" jdbcType="VARCHAR"/>
+            <result property="artVedio" column="art_vedio" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="label" column="label" jdbcType="VARCHAR"/>
+            <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+        </collection>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ClassAskArticleMap">
         select
-          ac_id, art_id, ask_id, vio_id, rank
-        from DTKQ.class_ask_article
+          cl.ac_id, cl.ac_art_id, cl.ac_ask_id, cl.vio_id, cl.belong,
+         ar.art_id, ar.class_id, ar.art_user_id, ar.art_title, ar.art_content, ar.art_img, ar.art_vedio, ar.status, ar.label, ar.ctime
+        from DTKQ.class_ask_article cl
+        left join  DTKQ.article ar on cl.ac_art_id = ar.art_id
         where ac_id = #{acId}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ClassAskArticleMap">
         select
-          ac_id, art_id, ask_id, vio_id, rank
+          ac_id, ac_art_id, ac_ask_id, vio_id, belong
         from DTKQ.class_ask_article
         limit #{offset}, #{limit}
     </select>
@@ -29,48 +44,48 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ClassAskArticleMap">
         select
-          ac_id, art_id, ask_id, vio_id, rank
+          ac_id, ac_art_id, ac_ask_id, vio_id, belong
         from DTKQ.class_ask_article
         <where>
             <if test="acId != null">
                 and ac_id = #{acId}
             </if>
-            <if test="artId != null">
-                and art_id = #{artId}
+            <if test="ac_artId != null">
+                and ac_art_id = #{ac_artId}
             </if>
-            <if test="askId != null">
-                and ask_id = #{askId}
+            <if test="ac_askId != null">
+                and ac_ask_id = #{ac_askId}
             </if>
             <if test="vioId != null">
                 and vio_id = #{vioId}
             </if>
-            <if test="rank != null and rank != ''">
-                and rank = #{rank}
+            <if test="belong != null and belong != ''">
+                and belong = #{belong}
             </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="acId" useGeneratedKeys="true">
-        insert into DTKQ.class_ask_article(art_id, ask_id, vio_id, rank)
-        values (#{artId}, #{askId}, #{vioId}, #{rank})
+        insert into DTKQ.class_ask_article(ac_art_id, ac_ask_id, vio_id, belong)
+        values (#{ac_artId}, #{ac_askId}, #{vioId}, #{belong})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update DTKQ.class_ask_article
         <set>
-            <if test="artId != null">
-                art_id = #{artId},
+            <if test="ac_artId != null">
+                ac_art_id = #{ac_artId},
             </if>
-            <if test="askId != null">
-                ask_id = #{askId},
+            <if test="ac_askId != null">
+                ac_ask_id = #{ac_askId},
             </if>
             <if test="vioId != null">
                 vio_id = #{vioId},
             </if>
-            <if test="rank != null and rank != ''">
-                rank = #{rank},
+            <if test="belong != null and belong != ''">
+                belong = #{belong},
             </if>
         </set>
         where ac_id = #{acId}

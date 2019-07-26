@@ -12,7 +12,7 @@ import java.util.List;
  * (ClassAskArticle)表服务实现类
  *
  * @author makejava
- * @since 2019-07-24 16:23:11
+ * @since 2019-07-24 17:40:11
  */
 @Service("classAskArticleService")
 public class ClassAskArticleServiceImpl implements ClassAskArticleService {
@@ -75,5 +75,10 @@ public class ClassAskArticleServiceImpl implements ClassAskArticleService {
     @Override
     public boolean deleteById(Integer acId) {
         return this.classAskArticleDao.deleteById(acId) > 0;
+    }
+
+    @Override
+    public void queryAll(ClassAskArticle askArticle) {
+        this.classAskArticleDao.queryAll(askArticle);
     }
 }

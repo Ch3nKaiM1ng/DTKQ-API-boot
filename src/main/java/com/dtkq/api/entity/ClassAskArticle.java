@@ -6,21 +6,40 @@ import java.io.Serializable;
  * (ClassAskArticle)实体类
  *
  * @author makejava
- * @since 2019-07-24 16:23:11
+ * @since 2019-07-24 17:40:11
  */
 public class ClassAskArticle implements Serializable {
-    private static final long serialVersionUID = -70846882871204189L;
+    private static final long serialVersionUID = -88297784604914346L;
     
     private Integer acId;
     //文章ID
-    private Integer artId;
+    private Integer ac_artId;
     //问答ID
-    private Integer askId;
+    private Integer ac_askId;
     //视频ID
     private Integer vioId;
-    //排序
-    private String rank;
+    //归属
+    private String belong;
 
+    private Article article;
+
+    private Ask ask;
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+
+    public Ask getAsk() {
+        return ask;
+    }
+
+    public void setAsk(Ask ask) {
+        this.ask = ask;
+    }
 
     public Integer getAcId() {
         return acId;
@@ -30,20 +49,20 @@ public class ClassAskArticle implements Serializable {
         this.acId = acId;
     }
 
-    public Integer getArtId() {
-        return artId;
+    public Integer getac_artId() {
+        return ac_artId;
     }
 
-    public void setArtId(Integer artId) {
-        this.artId = artId;
+    public void setac_artId(Integer ac_artId) {
+        this.ac_artId = ac_artId;
     }
 
-    public Integer getAskId() {
-        return askId;
+    public Integer getac_askId() {
+        return ac_askId;
     }
 
-    public void setAskId(Integer askId) {
-        this.askId = askId;
+    public void setac_askId(Integer ac_askId) {
+        this.ac_askId = ac_askId;
     }
 
     public Integer getVioId() {
@@ -54,12 +73,12 @@ public class ClassAskArticle implements Serializable {
         this.vioId = vioId;
     }
 
-    public String getRank() {
-        return rank;
+    public String getBelong() {
+        return belong;
     }
 
-    public void setRank(String rank) {
-        this.rank = rank;
+    public void setBelong(String belong) {
+        this.belong = belong;
     }
 
 }
