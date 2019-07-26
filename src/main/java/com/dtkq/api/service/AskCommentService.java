@@ -28,6 +28,8 @@ public interface AskCommentService {
      */
     List<AskComment> queryAllByLimit(int offset, int limit);
 
+    List<AskComment> queryAll(AskComment askComment);
+
     /**
      * 新增数据
      *

@@ -54,6 +54,8 @@ public interface ArticleDao {
      */
     int update(Article article);
 
+    int addNum(Article article);
+
     /**
      * 通过主键删除数据
      *

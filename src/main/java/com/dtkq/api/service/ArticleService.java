@@ -44,6 +44,7 @@ public interface ArticleService {
      */
     Article update(Article article);
 
+    Article addNum(Article article);
     /**
      * 通过主键删除数据
      *

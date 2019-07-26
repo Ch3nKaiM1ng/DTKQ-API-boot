@@ -31,7 +31,35 @@ public class Ask implements Serializable {
     private Integer status;
     //标签
     private String label;
+    //当前页
+    private int offset;
+    //显示数量
+    private int limit;
+    private User user;
 
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Integer getAskId() {
         return askId;

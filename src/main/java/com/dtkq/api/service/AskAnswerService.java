@@ -28,6 +28,8 @@ public interface AskAnswerService {
      */
     List<AskAnswer> queryAllByLimit(int offset, int limit);
 
+    List<AskAnswer> queryAll(AskAnswer askAnswer);
+
     /**
      * 新增数据
      *

@@ -27,7 +27,35 @@ public class AskComment implements Serializable {
     private Date ctime;
     //0正常 1已删除
     private Integer status;
+    //当前页
+    private int offset;
+    //显示数量
+    private int limit;
+    private User user;
 
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;
