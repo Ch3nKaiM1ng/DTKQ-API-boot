@@ -3,10 +3,12 @@ package com.dtkq.api.controller;
 import com.dtkq.api.entity.ClassAskArticle;
 import com.dtkq.api.service.ClassAskArticleService;
 import com.dtkq.api.utils.ReturnDiscern;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,13 +38,19 @@ public class ClassAskArticleController {
      * 查询热搜榜
      */
     @RequestMapping("/selectHot")
-    public Map<String,Object> selectHot(ClassAskArticle askArticle){
+    public Map<String,Object> selectHot(@RequestBody ClassAskArticle askArticle){
+        System.out.println(askArticle.getBelong());
+        System.out.println(askArticle.getAcId());
         if (askArticle.getBelong()==null){
             return re.ERRORMSG("归属值为空！");
         }else {
-            this.classAskArticleService.queryAll(askArticle);
+            List<ClassAskArticle> askArticleList = this.classAskArticleService.queryAll(askArticle);
+            for (int i =0 ;i<askArticleList.size();i++){
+                askArticleList.get(i).setartCommentNum(1);
+                askArticleList.get(i).setaskCommentNum(2);
+            }
+            return re.SUCCESSOBJ(askArticleList);
         }
-        return re.SUCCESS();
     }
 
 

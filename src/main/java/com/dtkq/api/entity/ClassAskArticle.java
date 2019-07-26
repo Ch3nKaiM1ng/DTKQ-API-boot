@@ -20,25 +20,28 @@ public class ClassAskArticle implements Serializable {
     private Integer vioId;
     //归属
     private String belong;
+//    文章标题
+    private String artTitle;
+//    文章浏览量
+    private Integer artCheckNum;
+//    文章评论数
+    private Integer artCommentNum;
+//    问答标题
+    private String askTitle;
+//    问答浏览量
+    private Integer askCheckNum;
+//    问答评论数
+    private Integer askCommentNum;
+//    问答图片
+    private String askImg;
 
-    private Article article;
 
-    private Ask ask;
-
-    public Article getArticle() {
-        return article;
+    public String getAskImg() {
+        return askImg;
     }
 
-    public void setArticle(Article article) {
-        this.article = article;
-    }
-
-    public Ask getAsk() {
-        return ask;
-    }
-
-    public void setAsk(Ask ask) {
-        this.ask = ask;
+    public void setAskImg(String askImg) {
+        this.askImg = askImg;
     }
 
     public Integer getAcId() {
@@ -49,19 +52,19 @@ public class ClassAskArticle implements Serializable {
         this.acId = acId;
     }
 
-    public Integer getac_artId() {
+    public Integer getAc_artId() {
         return ac_artId;
     }
 
-    public void setac_artId(Integer ac_artId) {
+    public void setAc_artId(Integer ac_artId) {
         this.ac_artId = ac_artId;
     }
 
-    public Integer getac_askId() {
+    public Integer getAc_askId() {
         return ac_askId;
     }
 
-    public void setac_askId(Integer ac_askId) {
+    public void setAc_askId(Integer ac_askId) {
         this.ac_askId = ac_askId;
     }
 
@@ -81,4 +84,51 @@ public class ClassAskArticle implements Serializable {
         this.belong = belong;
     }
 
+    public String getArtTitle() {
+        return artTitle;
+    }
+
+    public void setArtTitle(String artTitle) {
+        this.artTitle = artTitle;
+    }
+
+    public Integer getArtCheckNum() {
+        return artCheckNum;
+    }
+
+    public void setArtCheckNum(Integer artCheckNum) {
+        this.artCheckNum = artCheckNum;
+    }
+
+    public Integer getartCommentNum() {
+        return artCommentNum;
+    }
+
+    public void setartCommentNum(Integer artCommentNum) {
+        this.artCommentNum = artCommentNum;
+    }
+
+    public String getAskTitle() {
+        return askTitle;
+    }
+
+    public void setAskTitle(String askTitle) {
+        this.askTitle = askTitle;
+    }
+
+    public Integer getAskCheckNum() {
+        return askCheckNum;
+    }
+
+    public void setAskCheckNum(Integer askCheckNum) {
+        this.askCheckNum = askCheckNum;
+    }
+
+    public Integer getaskCommentNum() {
+        return askCommentNum;
+    }
+
+    public void setaskCommentNum(Integer askCommentNum) {
+        this.askCommentNum = askCommentNum;
+    }
 }

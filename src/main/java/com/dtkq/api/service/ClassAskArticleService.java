@@ -53,5 +53,5 @@ public interface ClassAskArticleService {
     boolean deleteById(Integer acId);
 
 //    根据对象查询
-    void queryAll(ClassAskArticle askArticle);
+    List<ClassAskArticle> queryAll(ClassAskArticle askArticle);
 }

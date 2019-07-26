@@ -78,7 +78,8 @@ public class ClassAskArticleServiceImpl implements ClassAskArticleService {
     }
 
     @Override
-    public void queryAll(ClassAskArticle askArticle) {
-        this.classAskArticleDao.queryAll(askArticle);
+    public List<ClassAskArticle> queryAll(ClassAskArticle askArticle) {
+
+        return this.classAskArticleDao.queryAll(askArticle);
     }
 }

@@ -8,35 +8,54 @@
         <result property="ac_askId" column="ac_ask_id" jdbcType="INTEGER"/>
         <result property="vioId" column="vio_id" jdbcType="INTEGER"/>
         <result property="belong" column="belong" jdbcType="VARCHAR"/>
+        <result property="artTitle" column="art_title" jdbcType="VARCHAR"/>
+        <result property="askTitle" column="ask_title" jdbcType="VARCHAR"/>
+        <result property="askImg" column="ask_img" jdbcType="VARCHAR"/>
+        <result property="userSex" column="user_sex" jdbcType="INTEGER"/>
 
-        <collection property="article" ofType="com.dtkq.api.entity.Article" column="ArticleMap">
-            <id column="art_id" property="artId" jdbcType="INTEGER"/><!-- 这里的column对应的是下面查询的别名，而不是表字段名 -->
-            <result property="classId" column="class_id" jdbcType="INTEGER"/>
-            <result property="artUserId" column="art_user_id" jdbcType="INTEGER"/>
-            <result property="artTitle" column="art_title" jdbcType="VARCHAR"/>
-            <result property="artContent" column="art_content" jdbcType="OTHER"/>
-            <result property="artImg" column="art_img" jdbcType="VARCHAR"/>
-            <result property="artVedio" column="art_vedio" jdbcType="VARCHAR"/>
-            <result property="status" column="status" jdbcType="INTEGER"/>
-            <result property="label" column="label" jdbcType="VARCHAR"/>
-            <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
-        </collection>
+<!--        <collection property="article" ofType="com.dtkq.api.entity.Article" column="ArticleMap">-->
+<!--            <id column="art_id" property="artId" jdbcType="INTEGER"/>&lt;!&ndash; 这里的column对应的是下面查询的别名，而不是表字段名 &ndash;&gt;-->
+<!--            <result property="classId" column="class_id" jdbcType="INTEGER"/>-->
+<!--            <result property="artUserId" column="art_user_id" jdbcType="INTEGER"/>-->
+<!--            <result property="artTitle" column="art_title" jdbcType="VARCHAR"/>-->
+<!--            <result property="artContent" column="art_content" jdbcType="OTHER"/>-->
+<!--            <result property="artImg" column="art_img" jdbcType="VARCHAR"/>-->
+<!--            <result property="artVedio" column="art_vedio" jdbcType="VARCHAR"/>-->
+<!--            <result property="status" column="status" jdbcType="INTEGER"/>-->
+<!--            <result property="label" column="label" jdbcType="VARCHAR"/>-->
+<!--            <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>-->
+<!--        </collection>-->
+
+<!--        <collection property="ask" ofType="com.dtkq.api.entity.Ask" column="AskMap">-->
+<!--            <id property="askId" column="ask_id" jdbcType="INTEGER"/>-->
+<!--            <result property="askClassId" column="class_id" jdbcType="INTEGER"/>-->
+<!--            <result property="askUserId" column="ask_user_id" jdbcType="INTEGER"/>-->
+<!--            <result property="askTitle" column="ask_title" jdbcType="VARCHAR"/>-->
+<!--            <result property="askContent" column="ask_content" jdbcType="OTHER"/>-->
+<!--            <result property="askImg" column="ask_img" jdbcType="VARCHAR"/>-->
+<!--            <result property="askVedio" column="ask_vedio" jdbcType="VARCHAR"/>-->
+<!--            <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>-->
+<!--            <result property="status" column="status" jdbcType="INTEGER"/>-->
+<!--            <result property="label" column="label" jdbcType="VARCHAR"/>-->
+<!--        </collection>-->
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="ClassAskArticleMap">
         select
-          cl.ac_id, cl.ac_art_id, cl.ac_ask_id, cl.vio_id, cl.belong,
-         ar.art_id, ar.class_id, ar.art_user_id, ar.art_title, ar.art_content, ar.art_img, ar.art_vedio, ar.status, ar.label, ar.ctime
+          cl.ac_id, cl.ac_art_id, cl.ac_ask_id, cl.vio_id, cl.belong
+--          ,ar.art_id, ar.class_id, ar.art_user_id, ar.art_title, ar.art_content, ar.art_img, ar.art_vedio, ar.status, ar.label, ar.ctime,
+--          ask.ask_id, ask.class_id, ask.ask_user_id, ask.ask_title, ask.ask_content, ask.ask_img, ask.ask_vedio, ask.ctime, ask.status, ask.label
         from DTKQ.class_ask_article cl
-        left join  DTKQ.article ar on cl.ac_art_id = ar.art_id
+--         left join  DTKQ.article ar on cl.ac_art_id = ar.art_id
+--         left join  DTKQ.ask ask on cl.ac_ask_id = ask.ask_id
         where ac_id = #{acId}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ClassAskArticleMap">
         select
-          ac_id, ac_art_id, ac_ask_id, vio_id, belong
+          ac_id, ac_art_id, ac_ask_id, vio_id, belong,
         from DTKQ.class_ask_article
         limit #{offset}, #{limit}
     </select>
@@ -44,8 +63,14 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ClassAskArticleMap">
         select
-          ac_id, ac_art_id, ac_ask_id, vio_id, belong
-        from DTKQ.class_ask_article
+          ac_id, ac_art_id, ac_ask_id, vio_id, belong,
+        ar.art_title,
+        ask.ask_title,
+        u.user_sex
+        from DTKQ.class_ask_article cl
+        left join  DTKQ.article ar on cl.ac_art_id = ar.art_id
+        left join  DTKQ.ask ask on cl.ac_ask_id = ask.ask_id
+        left join  DTKQ.user u on ask.ask_user_id = u.user_id
         <where>
             <if test="acId != null">
                 and ac_id = #{acId}

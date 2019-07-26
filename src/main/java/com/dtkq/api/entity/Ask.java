@@ -14,7 +14,7 @@ public class Ask implements Serializable {
     
     private Integer askId;
     //问答分类ID
-    private Integer classId;
+    private Integer askClassId;
     //创建的用户ID
     private Integer askUserId;
     //问答标题
@@ -41,12 +41,12 @@ public class Ask implements Serializable {
         this.askId = askId;
     }
 
-    public Integer getClassId() {
-        return classId;
+    public Integer getaskClassId() {
+        return askClassId;
     }
 
-    public void setClassId(Integer classId) {
-        this.classId = classId;
+    public void setaskClassId(Integer askClassId) {
+        this.askClassId = askClassId;
     }
 
     public Integer getAskUserId() {
