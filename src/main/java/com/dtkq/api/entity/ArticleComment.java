@@ -2,6 +2,7 @@ package com.dtkq.api.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (ArticleComment)实体类
@@ -27,7 +28,45 @@ public class ArticleComment implements Serializable {
     private Date ctime;
     //0正常 1已删除
     private Integer status;
+    //标签
+    private int offset;
+    //标签
+    private int limit;
 
+    private User user;
+
+    private int commentList;
+
+    public int getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(int commentList) {
+        this.commentList = commentList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 
     public Integer getId() {
         return id;

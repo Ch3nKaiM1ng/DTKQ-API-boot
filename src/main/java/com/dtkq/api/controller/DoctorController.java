@@ -33,6 +33,7 @@ public class DoctorController {
     }
     //  添加医生
     @RequestMapping("/addDoctor")
+
     public Map<String, Object> addDoctor(@RequestBody Doctor doctor) {
         doctorService.insertObj(doctor);
         if (doctor.getDoctorId() != null) {

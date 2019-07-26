@@ -26,6 +26,13 @@ public class TalkClassServiceImpl implements TalkClassService {
         return firstList;
     }
 
+    public List<TalkClass> findParntList(TalkClass obj) {
+        TalkClass parentObj=mapper.selectByPrimaryKey(obj.getParentId());
+        List<TalkClass> firstList= mapper.findParentList(parentObj);
+        return firstList;
+    }
+
+
     @Override
     public TalkClass selectObj(Integer id) {
         return mapper.selectByPrimaryKey(id);

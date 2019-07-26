@@ -1,5 +1,6 @@
 package com.dtkq.api.service.impl;
 
+import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.ArticleComment;
 import com.dtkq.api.dao.ArticleCommentDao;
 import com.dtkq.api.service.ArticleCommentService;
@@ -30,16 +31,18 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
         return this.articleCommentDao.queryById(id);
     }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
     @Override
-    public List<ArticleComment> queryAllByLimit(int offset, int limit) {
-        return this.articleCommentDao.queryAllByLimit(offset, limit);
+    public List<ArticleComment> queryAllByLimit(ArticleComment entity) {
+
+                List<ArticleComment>  list =  this.articleCommentDao.queryAll(entity);
+                for(int i=0;i<list.size();i++){
+                    ArticleComment obj=list.get(i);
+                    ArticleComment checkParam=new ArticleComment();
+                    checkParam.setParentId(obj.getId());
+                    checkParam.setLimit(50);//显示的评论数
+                    obj.setCommentList(articleCommentDao.countNum(checkParam));
+                }
+        return list;
     }
 
     /**

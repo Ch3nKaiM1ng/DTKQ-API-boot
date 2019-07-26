@@ -1,5 +1,6 @@
 package com.dtkq.api.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.dtkq.api.entity.ClassObj;
 import com.dtkq.api.entity.LinkClassObj;
@@ -103,11 +104,23 @@ public class ClassObjController {
         return re.SUCCESSOBJ(talkClassService.findWebList(talkClass));
     }
 
-    //  前端首页查找所有分类
+    //  前端首页根据分类ID找数据
     @RequestMapping("/FindClassObjById")
     public Map<String, Object> FindClassObjById(@RequestBody ClassObj classObj) {
         List<ClassObj> classObjList=service.selectByClassId(classObj);
-        return re.SUCCESSOBJ(classObjList);
+        //拆分IMG数据
+        JSONObject jsonObject=new JSONObject();
+        JSONArray jsonArray=new JSONArray();
+        for(int i=0;i<classObjList.size();i++){
+            ClassObj obj=classObjList.get(i);
+            JSONObject imgObj=new JSONObject();
+            imgObj.put("img",obj.getImg());
+            imgObj.put("url",obj.getUrl());
+            jsonArray.add(imgObj);
+        }
+        jsonObject.put("imgList",jsonArray);
+        jsonObject.put("dataList",classObjList);
+        return re.SUCCESSOBJ(jsonObject);
     }
 
     private void linkUpdate(ClassObj entity){

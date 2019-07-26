@@ -61,5 +61,5 @@ public interface ArticleCommentDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
-
+     int countNum(ArticleComment articleComment);
 }

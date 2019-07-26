@@ -13,6 +13,8 @@ public interface TalkClassService {
 
     TalkClass selectObj(Integer id);
 
+    List<TalkClass> findParntList(TalkClass obj);
+
     void insertObj(TalkClass obj);
 
     void updateObj(TalkClass obj);

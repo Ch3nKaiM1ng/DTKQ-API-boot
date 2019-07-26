@@ -38,7 +38,7 @@ public class TopMenuController {
     public Map<String, Object> addObj(@RequestBody TopMenu topMenu) {
         //查询列表已存在的主图数量是否超过5个
         List<TopMenu> list =service.selectAll();
-        if (list.size() >5) {
+        if (list.size() >=5) {
             return re.ERRORMSG("已经超过5个存在，无法添加");
         }
         else{//如果没有则添加

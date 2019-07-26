@@ -25,12 +25,24 @@ public class Article implements Serializable {
     //文章视频
     private String artVedio;
     //创建时间
-    private String cime;
+    private String ctime;
     //0正常 1删除
     private Integer status;
     //标签
     private String label;
+    //标签
+    private int offset;
+    //标签
+    private int limit;
+    private User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Integer getArtId() {
         return artId;
@@ -88,12 +100,12 @@ public class Article implements Serializable {
         this.artVedio = artVedio;
     }
 
-    public String getCime() {
-        return cime;
+    public String getCtime() {
+        return ctime;
     }
 
-    public void setCime(String cime) {
-        this.cime = cime;
+    public void setCtime(String ctime) {
+        this.ctime = ctime;
     }
 
     public Integer getStatus() {
@@ -112,4 +124,19 @@ public class Article implements Serializable {
         this.label = label;
     }
 
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 }

@@ -75,4 +75,13 @@ public class TalkClassController {
         }
         return re.ERROR();
     }
+    //  查看单个
+    @RequestMapping("/findParentList")
+    public Map<String, Object> findParentList(@RequestBody TalkClass entity) {
+            List<TalkClass> objList=service.findParntList(entity);
+            if(objList!=null){
+                return re.SUCCESSOBJ(objList);
+            }
+        return re.ERROR();
+    }
 }
