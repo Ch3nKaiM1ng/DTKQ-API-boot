@@ -1,6 +1,8 @@
 package com.dtkq.api.service;
 
 import com.dtkq.api.entity.ArticleComment;
+import com.dtkq.api.entity.AskAnswer;
+
 import java.util.List;
 
 /**
@@ -45,5 +47,5 @@ public interface ArticleCommentService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
-
+    ArticleComment addNum(ArticleComment ask);
 }

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.dao.CaseDetailDao">
+
+    <resultMap type="com.dtkq.api.entity.CaseDetail" id="CaseDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="caseId" column="case_id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="label" column="label" jdbcType="VARCHAR"/>
+        <result property="img" column="img" jdbcType="OTHER"/>
+        <result property="days" column="days" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="OTHER"/>
+        <result property="keyword" column="keyword" jdbcType="OTHER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CaseDetailMap">
+        select
+          id, case_id, title, label, img, days, content, keyword
+        from DTKQ.case_detail
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CaseDetailMap">
+        select
+          id, case_id, title, label, img, days, content, keyword
+        from DTKQ.case_detail
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CaseDetailMap">
+        select
+          id, case_id, title, label, img, days, content, keyword
+        from DTKQ.case_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="caseId != null">
+                and case_id = #{caseId}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="label != null and label != ''">
+                and label = #{label}
+            </if>
+            <if test="img != null">
+                and img = #{img}
+            </if>
+            <if test="days != null">
+                and days = #{days}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="keyword != null">
+                and keyword = #{keyword}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into DTKQ.case_detail(case_id, title, label, img, days, content, keyword)
+        values (#{caseId}, #{title}, #{label}, #{img}, #{days}, #{content}, #{keyword})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.case_detail
+        <set>
+            <if test="caseId != null">
+                case_id = #{caseId},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="label != null and label != ''">
+                label = #{label},
+            </if>
+            <if test="img != null">
+                img = #{img},
+            </if>
+            <if test="days != null">
+                days = #{days},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="keyword != null">
+                keyword = #{keyword},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.case_detail where id = #{id}
+    </delete>
+
+</mapper>

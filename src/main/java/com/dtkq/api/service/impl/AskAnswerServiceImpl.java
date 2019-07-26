@@ -2,6 +2,7 @@ package com.dtkq.api.service.impl;
 
 import com.dtkq.api.entity.AskAnswer;
 import com.dtkq.api.dao.AskAnswerDao;
+import com.dtkq.api.entity.AskComment;
 import com.dtkq.api.service.AskAnswerService;
 import org.springframework.stereotype.Service;
 
@@ -80,5 +81,10 @@ public class AskAnswerServiceImpl implements AskAnswerService {
     @Override
     public boolean deleteById(Integer id) {
         return this.askAnswerDao.deleteById(id) > 0;
+    }
+    @Override
+    public AskAnswer addNum(AskAnswer askAnswer) {
+        this.askAnswerDao.addNum(askAnswer);
+        return this.queryById(askAnswer.getId());
     }
 }

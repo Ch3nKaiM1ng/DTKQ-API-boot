@@ -1,17 +1,16 @@
 package com.dtkq.api.dao;
 
-import com.dtkq.api.entity.Ask;
-import com.dtkq.api.entity.AskThumbs;
+import com.dtkq.api.entity.CaseComment;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * (AskThumbs)表数据库访问层
+ * (CaseComment)表数据库访问层
  *
  * @author makejava
- * @since 2019-07-24 16:22:36
+ * @since 2019-07-26 17:39:28
  */
-public interface AskThumbsDao {
+public interface CaseCommentDao {
 
     /**
      * 通过ID查询单条数据
@@ -19,7 +18,7 @@ public interface AskThumbsDao {
      * @param id 主键
      * @return 实例对象
      */
-    AskThumbs queryById(Integer id);
+    CaseComment queryById(Integer id);
 
     /**
      * 查询指定行数据
@@ -28,32 +27,32 @@ public interface AskThumbsDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<AskThumbs> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<CaseComment> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param askThumbs 实例对象
+     * @param caseComment 实例对象
      * @return 对象列表
      */
-    List<AskThumbs> queryAll(AskThumbs askThumbs);
+    List<CaseComment> queryAll(CaseComment caseComment);
 
     /**
      * 新增数据
      *
-     * @param askThumbs 实例对象
+     * @param caseComment 实例对象
      * @return 影响行数
      */
-    int insert(AskThumbs askThumbs);
+    int insert(CaseComment caseComment);
 
     /**
      * 修改数据
      *
-     * @param askThumbs 实例对象
+     * @param caseComment 实例对象
      * @return 影响行数
      */
-    int update(AskThumbs askThumbs);
+    int update(CaseComment caseComment);
 
     /**
      * 通过主键删除数据
@@ -62,5 +61,5 @@ public interface AskThumbsDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
-    int addNum(AskThumbs askThumbs);
+
 }

@@ -1,27 +1,24 @@
 package com.dtkq.api.service;
 
-import com.dtkq.api.entity.Article;
-import com.dtkq.api.entity.Ask;
+import com.dtkq.api.entity.CaseComment;
 import java.util.List;
 
 /**
- * (Ask)表服务接口
+ * (CaseComment)表服务接口
  *
  * @author makejava
- * @since 2019-07-24 16:21:56
+ * @since 2019-07-26 17:39:28
  */
-public interface AskService {
+public interface CaseCommentService {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param askId 主键
+     * @param id 主键
      * @return 实例对象
      */
-    Ask queryById(Integer askId);
+    CaseComment queryById(Integer id);
 
-
-    Ask addNum(Ask ask);
     /**
      * 查询多条数据
      *
@@ -29,30 +26,30 @@ public interface AskService {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Ask> queryAllByLimit(int offset, int limit);
+    List<CaseComment> queryAllByLimit(int offset, int limit);
 
     /**
      * 新增数据
      *
-     * @param ask 实例对象
+     * @param caseComment 实例对象
      * @return 实例对象
      */
-    Ask insert(Ask ask);
+    CaseComment insert(CaseComment caseComment);
 
     /**
      * 修改数据
      *
-     * @param ask 实例对象
+     * @param caseComment 实例对象
      * @return 实例对象
      */
-    Ask update(Ask ask);
+    CaseComment update(CaseComment caseComment);
 
     /**
      * 通过主键删除数据
      *
-     * @param askId 主键
+     * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer askId);
+    boolean deleteById(Integer id);
 
 }

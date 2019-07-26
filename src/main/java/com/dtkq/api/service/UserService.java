@@ -28,6 +28,8 @@ public interface UserService {
      */
     List<User> queryAllByLimit(int offset, int limit);
 
+    List<User> queryAll(User user);
+
     /**
      * 新增数据
      *

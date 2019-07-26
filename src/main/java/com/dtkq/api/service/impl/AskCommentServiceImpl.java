@@ -1,5 +1,6 @@
 package com.dtkq.api.service.impl;
 
+import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.AskComment;
 import com.dtkq.api.dao.AskCommentDao;
 import com.dtkq.api.service.AskCommentService;
@@ -80,5 +81,10 @@ public class AskCommentServiceImpl implements AskCommentService {
     @Override
     public boolean deleteById(Integer id) {
         return this.askCommentDao.deleteById(id) > 0;
+    }
+    @Override
+    public AskComment addNum(AskComment askComment) {
+        this.askCommentDao.addNum(askComment);
+        return this.queryById(askComment.getId());
     }
 }

@@ -37,6 +37,27 @@ public class Ask implements Serializable {
     private int limit;
     private User user;
 
+    //浏览量
+    private Integer checkNum;
+    //点赞量
+    private Integer thumbNum;
+
+    public Integer getCheckNum() {
+        return checkNum;
+    }
+
+    public void setCheckNum(Integer checkNum) {
+        this.checkNum = checkNum;
+    }
+
+    public Integer getThumbNum() {
+        return thumbNum;
+    }
+
+    public void setThumbNum(Integer thumbNum) {
+        this.thumbNum = thumbNum;
+    }
+
     public int getOffset() {
         return offset;
     }

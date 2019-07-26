@@ -35,7 +35,26 @@ public class User implements Serializable {
     private Integer auth;
     //用户状态：0：正常，1黑名单用户
     private Integer status;
+    //当前页
+    private int offset;
+    //显示数量
+    private int limit;
 
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 
     public Integer getUserId() {
         return userId;

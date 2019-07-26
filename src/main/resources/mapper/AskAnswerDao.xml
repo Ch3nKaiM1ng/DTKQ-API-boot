@@ -10,7 +10,7 @@
         <result property="content" column="content" jdbcType="OTHER"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="VARCHAR"/>
-
+        <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
         <collection property="user" ofType="com.dtkq.api.entity.User">
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="userChName" column="user_ch_name" jdbcType="VARCHAR"/>
@@ -31,7 +31,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="AskAnswerMap">
         select
-        a.id, a.ask_id, a.user_id, a.title, a.content, a.ctime, a.status
+        a.id, a.ask_id, a.user_id, a.title, a.content, a.ctime, a.status,a.thumb_num
 		,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
         from DTKQ.ask_answer a
@@ -42,7 +42,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AskAnswerMap">
         select
-        a.id, a.ask_id, a.user_id, a.title, a.content, a.ctime, a.status
+        a.id, a.ask_id, a.user_id, a.title, a.content, a.ctime, a.status,a.thumb_num
 		,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
         from DTKQ.ask_answer a
@@ -53,7 +53,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="AskAnswerMap">
         select
-        a.id, a.ask_id, a.user_id, a.title, a.content, a.ctime, a.status
+        a.id, a.ask_id, a.user_id, a.title, a.content, a.ctime, a.status,a.thumb_num
         ,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
         from DTKQ.ask_answer a
@@ -86,8 +86,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into DTKQ.ask_answer(ask_id, user_id, title, content, ctime, status)
-        values (#{askId}, #{userId}, #{title}, #{content}, now(), #{status})
+        insert into DTKQ.ask_answer(ask_id, user_id, title, content, ctime, status,thumb_num)
+        values (#{askId}, #{userId}, #{title}, #{content}, now(), #{status},#{thumbNum})
     </insert>
 
     <!--通过主键修改数据-->
@@ -112,10 +112,21 @@
             <if test="status != null and status != ''">
                 status = #{status},
             </if>
+            <if test="thumbNum != null and thumbNum != ''">
+                thumb_num = #{thumbNum},
+            </if>
         </set>
         where id = #{id}
     </update>
-
+    <update id="addNum">
+        update DTKQ.ask_answer
+        <set>
+            <if test="thumbNum != null and thumbNum != ''">
+                thumb_num = thumb_num +1
+            </if>
+        </set>
+        where id = #{id}
+    </update>
     <!--通过主键删除-->
     <delete id="deleteById">
         delete from DTKQ.ask_answer where id = #{id}

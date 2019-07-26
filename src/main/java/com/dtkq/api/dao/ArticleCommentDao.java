@@ -1,6 +1,7 @@
 package com.dtkq.api.dao;
 
 import com.dtkq.api.entity.ArticleComment;
+import com.dtkq.api.entity.AskAnswer;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -62,4 +63,5 @@ public interface ArticleCommentDao {
      */
     int deleteById(Integer id);
      int countNum(ArticleComment articleComment);
+    int addNum(ArticleComment articleComment);
 }

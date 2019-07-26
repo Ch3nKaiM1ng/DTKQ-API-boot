@@ -91,4 +91,15 @@ public class AskAnswerController {
         }
         return re.ERROR();
     }
+    //  点赞
+    @RequestMapping("/DoThumb")
+    public Map<String, Object> DoThumb(@RequestBody AskAnswer entity) {
+        if (entity.getId() != null) {
+            entity.setThumbNum(1);//点赞量++
+            AskAnswer obj=service.addNum(entity); //引用DAO 层开始操作数据库
+            //增加浏览量 --结束
+            return re.SUCCESSOBJ(obj);
+        }
+        return re.ERROR();
+    }
 }

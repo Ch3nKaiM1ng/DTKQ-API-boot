@@ -1,5 +1,6 @@
 package com.dtkq.api.service.impl;
 
+import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.Ask;
 import com.dtkq.api.dao.AskDao;
 import com.dtkq.api.service.AskService;
@@ -29,7 +30,11 @@ public class AskServiceImpl implements AskService {
     public Ask queryById(Integer askId) {
         return this.askDao.queryById(askId);
     }
-
+    @Override
+    public Ask addNum(Ask ask) {
+        this.askDao.addNum(ask);
+        return this.queryById(ask.getAskId());
+    }
     /**
      * 查询多条数据
      *

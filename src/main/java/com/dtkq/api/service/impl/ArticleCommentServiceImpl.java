@@ -79,4 +79,10 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     public boolean deleteById(Integer id) {
         return this.articleCommentDao.deleteById(id) > 0;
     }
+    @Override
+    public ArticleComment addNum(ArticleComment articleComment) {
+        this.articleCommentDao.addNum(articleComment);
+        return this.queryById(articleComment.getId());
+    }
+
 }

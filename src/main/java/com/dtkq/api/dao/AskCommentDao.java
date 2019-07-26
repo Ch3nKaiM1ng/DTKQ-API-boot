@@ -1,6 +1,7 @@
 package com.dtkq.api.dao;
 
 import com.dtkq.api.entity.AskComment;
+import com.dtkq.api.entity.AskThumbs;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -61,5 +62,5 @@ public interface AskCommentDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
-
+    int addNum(AskComment askComment);
 }

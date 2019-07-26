@@ -96,7 +96,33 @@ public class AskController {
         return re.ERROR();
     }
 
-
+    //  前台查看单个文章并且增加浏览量
+    @RequestMapping("/webFindObj")
+    public Map<String, Object> webFindObj(@RequestBody Ask entity) {
+        if (entity.getAskId() != null) {
+            //增加浏览量
+            Ask addNumP=new Ask();
+            addNumP.setAskId(entity.getAskId()); //设置需要增加的问答
+            addNumP.setCheckNum(1);//1则代表需要增加浏览量
+            Ask obj=service.addNum(addNumP); //引用DAO 层开始操作数据库
+            //增加浏览量 --结束
+            if(obj!=null){
+                return re.SUCCESSOBJ(obj);
+            }
+        }
+        return re.ERROR();
+    }
+    //  点赞文章
+    @RequestMapping("/askDoThumb")
+    public Map<String, Object> artDoThumb(@RequestBody Ask entity) {
+        if (entity.getAskId() != null) {
+            entity.setThumbNum(1);//点赞量++
+            Ask obj=service.addNum(entity); //引用DAO 层开始操作数据库
+            //增加浏览量 --结束
+            return re.SUCCESSOBJ(obj);
+        }
+        return re.ERROR();
+    }
 
 
 }

@@ -2,6 +2,7 @@ package com.dtkq.api.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dtkq.api.entity.ArticleComment;
+import com.dtkq.api.entity.AskAnswer;
 import com.dtkq.api.service.ArticleCommentService;
 import com.dtkq.api.utils.ReturnDiscern;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -90,4 +91,15 @@ public class ArticleCommentController {
         return re.ERROR();
     }
 
+    //  点赞
+    @RequestMapping("/DoThumb")
+    public Map<String, Object> DoThumb(@RequestBody ArticleComment entity) {
+        if (entity.getId() != null) {
+            entity.setThumbNum(1);//点赞量++
+            ArticleComment obj=service.addNum(entity); //引用DAO 层开始操作数据库
+            //增加浏览量 --结束
+            return re.SUCCESSOBJ(obj);
+        }
+        return re.ERROR();
+    }
 }

@@ -20,6 +20,7 @@ public interface AskDao {
      */
     Ask queryById(Integer askId);
 
+    int addNum(Ask ask);
     /**
      * 查询指定行数据
      *

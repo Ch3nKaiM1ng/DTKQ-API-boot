@@ -76,12 +76,13 @@
                 and status = #{status}
             </if>
         </where>
+        limit #{offset}, #{limit}
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
         insert into DTKQ.user(user_ch_name, user_en_name, user_nickname, user_img, user_sex, user_mobile, user_email, password, ctime, auth, status)
-        values (#{userChName}, #{userEnName}, #{userNickname}, #{userImg}, #{userSex}, #{userMobile}, #{userEmail}, #{password}, #{ctime}, #{auth}, #{status})
+        values (#{userChName}, #{userEnName}, #{userNickname}, #{userImg}, #{userSex}, #{userMobile}, #{userEmail}, #{password}, now(), #{auth}, #{status})
     </insert>
 
     <!--通过主键修改数据-->

@@ -30,6 +30,16 @@ public class AskAnswer implements Serializable {
     //显示数量
     private int limit;
     private User user;
+    //点赞量
+    private Integer thumbNum;
+
+    public Integer getThumbNum() {
+        return thumbNum;
+    }
+
+    public void setThumbNum(Integer thumbNum) {
+        this.thumbNum = thumbNum;
+    }
 
     public int getOffset() {
         return offset;
