@@ -46,8 +46,6 @@ public class ClassAskArticleController {
         }else {
             List<ClassAskArticle> askArticleList = this.classAskArticleService.queryAll(askArticle);
             for (int i =0 ;i<askArticleList.size();i++){
-                askArticleList.get(i).setartCommentNum(1);
-                askArticleList.get(i).setaskCommentNum(2);
             }
             return re.SUCCESSOBJ(askArticleList);
         }

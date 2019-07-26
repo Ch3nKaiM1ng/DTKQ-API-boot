@@ -20,29 +20,23 @@ public class ClassAskArticle implements Serializable {
     private Integer vioId;
     //归属
     private String belong;
-//    文章标题
-    private String artTitle;
-//    文章浏览量
-    private Integer artCheckNum;
-//    文章评论数
-    private Integer artCommentNum;
-//    问答标题
-    private String askTitle;
-//    问答浏览量
-    private Integer askCheckNum;
-//    问答评论数
-    private Integer askCommentNum;
-//    问答图片
-    private String askImg;
+////    文章标题
+//    private String artTitle;
+////    文章浏览量
+//    private Integer artCheckNum;
+////    文章评论数
+//    private Integer artCommentNum;
+////    问答标题
+//    private String askTitle;
+////    问答浏览量
+//    private Integer askCheckNum;
+////    问答评论数
+//    private Integer askCommentNum;
+////    问答图片
+//    private String askImg;
+    private Ask ask;
 
-
-    public String getAskImg() {
-        return askImg;
-    }
-
-    public void setAskImg(String askImg) {
-        this.askImg = askImg;
-    }
+    private Article article;
 
     public Integer getAcId() {
         return acId;
@@ -84,51 +78,19 @@ public class ClassAskArticle implements Serializable {
         this.belong = belong;
     }
 
-    public String getArtTitle() {
-        return artTitle;
+    public Ask getAsk() {
+        return ask;
     }
 
-    public void setArtTitle(String artTitle) {
-        this.artTitle = artTitle;
+    public void setAsk(Ask ask) {
+        this.ask = ask;
     }
 
-    public Integer getArtCheckNum() {
-        return artCheckNum;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setArtCheckNum(Integer artCheckNum) {
-        this.artCheckNum = artCheckNum;
-    }
-
-    public Integer getartCommentNum() {
-        return artCommentNum;
-    }
-
-    public void setartCommentNum(Integer artCommentNum) {
-        this.artCommentNum = artCommentNum;
-    }
-
-    public String getAskTitle() {
-        return askTitle;
-    }
-
-    public void setAskTitle(String askTitle) {
-        this.askTitle = askTitle;
-    }
-
-    public Integer getAskCheckNum() {
-        return askCheckNum;
-    }
-
-    public void setAskCheckNum(Integer askCheckNum) {
-        this.askCheckNum = askCheckNum;
-    }
-
-    public Integer getaskCommentNum() {
-        return askCommentNum;
-    }
-
-    public void setaskCommentNum(Integer askCommentNum) {
-        this.askCommentNum = askCommentNum;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 }
