@@ -39,6 +39,16 @@ public class Article implements Serializable {
     //点赞量
     private Integer thumbNum;
 
+    private Integer artCommentNum;
+
+    public Integer getArtCommentNum() {
+        return artCommentNum;
+    }
+
+    public void setArtCommentNum(Integer artCommentNum) {
+        this.artCommentNum = artCommentNum;
+    }
+
     private User user;
 
     public Integer getCheckNum() {

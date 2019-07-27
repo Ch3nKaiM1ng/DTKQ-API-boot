@@ -1,12 +1,13 @@
 package com.dtkq.api.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dtkq.api.entity.Article;
-import com.dtkq.api.entity.ArticleComment;
 import com.dtkq.api.entity.Ask;
 import com.dtkq.api.service.AskService;
 import com.dtkq.api.utils.ReturnDiscern;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -103,7 +104,7 @@ public class AskController {
             //增加浏览量
             Ask addNumP=new Ask();
             addNumP.setAskId(entity.getAskId()); //设置需要增加的问答
-            addNumP.setCheckNum(1);//1则代表需要增加浏览量
+            addNumP.setAskCheckNum(1);//1则代表需要增加浏览量
             Ask obj=service.addNum(addNumP); //引用DAO 层开始操作数据库
             //增加浏览量 --结束
             if(obj!=null){

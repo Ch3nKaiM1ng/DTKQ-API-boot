@@ -35,52 +35,15 @@ public class Ask implements Serializable {
     private int offset;
     //显示数量
     private int limit;
+
+    private Integer askCommentNum;
+
     private User user;
 
     //浏览量
-    private Integer checkNum;
+    private Integer askCheckNum;
     //点赞量
     private Integer thumbNum;
-
-    public Integer getCheckNum() {
-        return checkNum;
-    }
-
-    public void setCheckNum(Integer checkNum) {
-        this.checkNum = checkNum;
-    }
-
-    public Integer getThumbNum() {
-        return thumbNum;
-    }
-
-    public void setThumbNum(Integer thumbNum) {
-        this.thumbNum = thumbNum;
-    }
-
-    public int getOffset() {
-        return offset;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
-    }
-
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Integer getAskId() {
         return askId;
@@ -90,11 +53,11 @@ public class Ask implements Serializable {
         this.askId = askId;
     }
 
-    public Integer getaskClassId() {
+    public Integer getAskClassId() {
         return askClassId;
     }
 
-    public void setaskClassId(Integer askClassId) {
+    public void setAskClassId(Integer askClassId) {
         this.askClassId = askClassId;
     }
 
@@ -154,12 +117,59 @@ public class Ask implements Serializable {
         this.status = status;
     }
 
-    public String getaskLabel() {
+    public String getAskLabel() {
         return askLabel;
     }
 
-    public void setaskLabel(String askLabel) {
+    public void setAskLabel(String askLabel) {
         this.askLabel = askLabel;
     }
 
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public Integer getAskCommentNum() {
+        return askCommentNum;
+    }
+
+    public void setAskCommentNum(Integer askCommentNum) {
+        this.askCommentNum = askCommentNum;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Integer getAskCheckNum() {
+        return askCheckNum;
+    }
+
+    public void setAskCheckNum(Integer askCheckNum) {
+        this.askCheckNum = askCheckNum;
+    }
+
+    public Integer getThumbNum() {
+        return thumbNum;
+    }
+
+    public void setThumbNum(Integer thumbNum) {
+        this.thumbNum = thumbNum;
+    }
 }

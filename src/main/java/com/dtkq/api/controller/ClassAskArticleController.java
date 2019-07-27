@@ -39,13 +39,16 @@ public class ClassAskArticleController {
      */
     @RequestMapping("/selectHot")
     public Map<String,Object> selectHot(@RequestBody ClassAskArticle askArticle){
-        System.out.println(askArticle.getBelong());
-        System.out.println(askArticle.getAcId());
         if (askArticle.getBelong()==null){
             return re.ERRORMSG("归属值为空！");
         }else {
             List<ClassAskArticle> askArticleList = this.classAskArticleService.queryAll(askArticle);
             for (int i =0 ;i<askArticleList.size();i++){
+                if (askArticleList.get(i).getAc_artId()!=null){
+                    askArticleList.get(i).getArticle().setCheckNum(123);
+                }else {
+                    askArticleList.get(i).getAsk().setAskCheckNum(123);
+                }
             }
             return re.SUCCESSOBJ(askArticleList);
         }

@@ -20,20 +20,7 @@ public class ClassAskArticle implements Serializable {
     private Integer vioId;
     //归属
     private String belong;
-////    文章标题
-//    private String artTitle;
-////    文章浏览量
-//    private Integer artCheckNum;
-////    文章评论数
-//    private Integer artCommentNum;
-////    问答标题
-//    private String askTitle;
-////    问答浏览量
-//    private Integer askCheckNum;
-////    问答评论数
-//    private Integer askCommentNum;
-////    问答图片
-//    private String askImg;
+
     private Ask ask;
 
     private Article article;

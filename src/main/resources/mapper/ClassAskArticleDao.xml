@@ -9,11 +9,6 @@
         <result property="vioId" column="vio_id" jdbcType="INTEGER"/>
         <result property="belong" column="belong" jdbcType="VARCHAR"/>
         <result property="userSex" column="user_sex" jdbcType="INTEGER"/>
-<!--        <result property="artTitle" column="art_title" jdbcType="VARCHAR"/>-->
-<!--        <result property="askTitle" column="ask_title" jdbcType="VARCHAR"/>-->
-<!--        <result property="askImg" column="ask_img" jdbcType="VARCHAR"/>-->
-<!--        <result property="userSex" column="user_sex" jdbcType="INTEGER"/>-->
-
         <collection property="article" ofType="com.dtkq.api.entity.Article" column="ArticleMap">
             <id column="art_id" property="artId" jdbcType="INTEGER"/><!-- 这里的column对应的是下面查询的别名，而不是表字段名 -->
             <result property="classId" column="class_id" jdbcType="INTEGER"/>
@@ -25,6 +20,7 @@
             <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="label" column="label" jdbcType="VARCHAR"/>
             <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+            <result property="checkNum" column="check_num" jdbcType="INTEGER"/>
         </collection>
 
         <collection property="ask" ofType="com.dtkq.api.entity.Ask" column="AskMap">
@@ -37,7 +33,8 @@
             <result property="askVedio" column="ask_vedio" jdbcType="VARCHAR"/>
             <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
-            <result property="askLabel" column="label" jdbcType="VARCHAR"/>
+            <result property="askLabel" column="askLabel" jdbcType="VARCHAR"/>
+            <result property="askCheckNum" column="askCheck_num" jdbcType="INTEGER"/>
         </collection>
     </resultMap>
 
@@ -65,13 +62,13 @@
     <select id="queryAll" resultMap="ClassAskArticleMap">
         select
           ac_id, ac_art_id, ac_ask_id, vio_id, belong,
-        ar.art_title,ar.label,
-        ask.ask_title,ask.label
+        ar.art_title,ar.label,ar.check_num,
+        ask.ask_title,ask.askLabel,ask.askCheck_num,
         user_sex
         from DTKQ.class_ask_article cl
         left join  DTKQ.article ar on cl.ac_art_id = ar.art_id
         left join  DTKQ.ask ask on cl.ac_ask_id = ask.ask_id
-         left join  DTKQ.user u on ask.ask_user_id = u.user_id
+        left join  DTKQ.user u on ask.ask_user_id = u.user_id or ar.art_user_id = u.user_id
         <where>
             <if test="acId != null">
                 and ac_id = #{acId}

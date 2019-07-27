@@ -12,8 +12,8 @@
         <result property="askVedio" column="ask_vedio" jdbcType="VARCHAR"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
-        <result property="askLabel" column="label" jdbcType="VARCHAR"/>
-        <result property="checkNum" column="check_num" jdbcType="INTEGER"/>
+        <result property="askLabel" column="askLabel" jdbcType="VARCHAR"/>
+        <result property="askCheckNum" column="askCheck_num" jdbcType="INTEGER"/>
         <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
 
         <collection property="user" ofType="com.dtkq.api.entity.User">
@@ -35,7 +35,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="AskMap">
         select
-          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img, a.ask_vedio, a.ctime, a.status, a.label,a.check_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
+          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img, a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
 
         from DTKQ.ask a
@@ -46,7 +46,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AskMap">
         select
-          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img, a.ask_vedio, a.ctime, a.status, a.label,a.check_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
+          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img, a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
 
         from DTKQ.ask a
@@ -57,7 +57,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="AskMap">
         select
-        a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img, a.ask_vedio, a.ctime, a.status, a.label,a.check_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img, a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
 
         from DTKQ.ask a
@@ -88,15 +88,15 @@
                 and a.status = #{status}
             </if>
             <if test="askLabel != null and askLabel != ''">
-                and a.label = #{askLabel}
+                and a.askLabel = #{askLabel}
             </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="askId" useGeneratedKeys="true">
-        insert into DTKQ.ask(class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, label,check_num,thumb_num)
-        values (#{classId}, #{askUserId}, #{askTitle}, #{askContent}, #{askImg}, #{askVedio}, now(), #{status}, #{askLabel},#{checkNum},#{thumbNum})
+        insert into DTKQ.ask(class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, askLabel,askCheck_num,thumb_num)
+        values (#{classId}, #{askUserId}, #{askTitle}, #{askContent}, #{askImg}, #{askVedio}, now(), #{status}, #{askLabel},#{askCheckNum},#{thumbNum})
     </insert>
 
     <!--通过主键修改数据-->
@@ -125,10 +125,10 @@
                 status = #{status},
             </if>
             <if test="askLabel != null and askLabel != ''">
-                label = #{askLabel},
+                askLabel = #{askLabel},
             </if>
-            <if test="checkNum != null and checkNum != ''">
-                check_num = #{checkNum},
+            <if test="askCheckNum != null and askCheckNum != ''">
+                askCheck_num = #{askCheckNum},
             </if>
             <if test="thumbNum != null and thumbNum != ''">
                 thumb_num = #{thumbNum},
@@ -140,8 +140,8 @@
     <update id="addNum">
         update DTKQ.ask
         <set>
-            <if test="checkNum != null and checkNum != ''">
-                check_num = check_num +1
+            <if test="askCheckNum != null and askCheckNum != ''">
+                askCheck_num = askCheck_num +1
             </if>
             <if test="thumbNum != null and thumbNum != ''">
                 thumb_num = thumb_num +1
