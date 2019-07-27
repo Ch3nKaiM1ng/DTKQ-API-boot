@@ -8,6 +8,7 @@
         <result property="ac_askId" column="ac_ask_id" jdbcType="INTEGER"/>
         <result property="vioId" column="vio_id" jdbcType="INTEGER"/>
         <result property="belong" column="belong" jdbcType="VARCHAR"/>
+        <result property="userSex" column="user_sex" jdbcType="INTEGER"/>
 <!--        <result property="artTitle" column="art_title" jdbcType="VARCHAR"/>-->
 <!--        <result property="askTitle" column="ask_title" jdbcType="VARCHAR"/>-->
 <!--        <result property="askImg" column="ask_img" jdbcType="VARCHAR"/>-->
@@ -38,21 +39,6 @@
             <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="askLabel" column="label" jdbcType="VARCHAR"/>
         </collection>
-
-        <collection property="user" ofType="com.dtkq.api.entity.User">
-            <result property="userId" column="user_id" jdbcType="INTEGER"/>
-            <result property="userChName" column="user_ch_name" jdbcType="VARCHAR"/>
-            <result property="userEnName" column="user_en_name" jdbcType="VARCHAR"/>
-            <result property="userNickname" column="user_nickname" jdbcType="VARCHAR"/>
-            <result property="userImg" column="user_img" jdbcType="VARCHAR"/>
-            <result property="userSex" column="user_sex" jdbcType="INTEGER"/>
-            <result property="userMobile" column="user_mobile" jdbcType="VARCHAR"/>
-            <result property="userEmail" column="user_email" jdbcType="VARCHAR"/>
-            <result property="password" column="password" jdbcType="VARCHAR"/>
-            <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
-            <result property="auth" column="auth" jdbcType="INTEGER"/>
-            <result property="status" column="status" jdbcType="INTEGER"/>
-        </collection>
     </resultMap>
 
     <!--查询单个-->
@@ -79,9 +65,9 @@
     <select id="queryAll" resultMap="ClassAskArticleMap">
         select
           ac_id, ac_art_id, ac_ask_id, vio_id, belong,
-        ar.art_title,
-        ask.ask_title,
-        u.user_sex
+        ar.art_title,ar.label,
+        ask.ask_title,ask.label
+        user_sex
         from DTKQ.class_ask_article cl
         left join  DTKQ.article ar on cl.ac_art_id = ar.art_id
         left join  DTKQ.ask ask on cl.ac_ask_id = ask.ask_id
