@@ -30,7 +30,7 @@ public class Ask implements Serializable {
     //0正常 1删除
     private Integer status;
     //标签
-    private String label;
+    private String askLabel;
     //当前页
     private int offset;
     //显示数量
@@ -154,12 +154,12 @@ public class Ask implements Serializable {
         this.status = status;
     }
 
-    public String getLabel() {
-        return label;
+    public String getaskLabel() {
+        return askLabel;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setaskLabel(String askLabel) {
+        this.askLabel = askLabel;
     }
 
 }

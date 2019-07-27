@@ -38,6 +38,17 @@ public class ClassAskArticle implements Serializable {
 
     private Article article;
 
+//    性别
+    private Integer userSex;
+
+    public Integer getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(Integer userSex) {
+        this.userSex = userSex;
+    }
+
     public Integer getAcId() {
         return acId;
     }

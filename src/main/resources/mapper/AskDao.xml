@@ -12,7 +12,7 @@
         <result property="askVedio" column="ask_vedio" jdbcType="VARCHAR"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
-        <result property="label" column="label" jdbcType="VARCHAR"/>
+        <result property="askLabel" column="label" jdbcType="VARCHAR"/>
         <result property="checkNum" column="check_num" jdbcType="INTEGER"/>
         <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
 
@@ -87,8 +87,8 @@
             <if test="status != null">
                 and a.status = #{status}
             </if>
-            <if test="label != null and label != ''">
-                and a.label = #{label}
+            <if test="askLabel != null and askLabel != ''">
+                and a.label = #{askLabel}
             </if>
         </where>
     </select>
@@ -96,7 +96,7 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="askId" useGeneratedKeys="true">
         insert into DTKQ.ask(class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, label,check_num,thumb_num)
-        values (#{classId}, #{askUserId}, #{askTitle}, #{askContent}, #{askImg}, #{askVedio}, now(), #{status}, #{label},#{checkNum},#{thumbNum})
+        values (#{classId}, #{askUserId}, #{askTitle}, #{askContent}, #{askImg}, #{askVedio}, now(), #{status}, #{askLabel},#{checkNum},#{thumbNum})
     </insert>
 
     <!--通过主键修改数据-->
@@ -124,8 +124,8 @@
             <if test="status != null">
                 status = #{status},
             </if>
-            <if test="label != null and label != ''">
-                label = #{label},
+            <if test="askLabel != null and askLabel != ''">
+                label = #{askLabel},
             </if>
             <if test="checkNum != null and checkNum != ''">
                 check_num = #{checkNum},
