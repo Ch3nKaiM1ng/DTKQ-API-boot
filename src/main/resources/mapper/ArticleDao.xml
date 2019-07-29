@@ -104,6 +104,7 @@
                 and label = #{label}
             </if>
         </where>
+        limit #{offset}, #{limit}
     </select>
 
     <!--新增所有列-->

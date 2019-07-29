@@ -19,7 +19,13 @@ public class ClassObjServiceImpl implements ClassObjService {
     private LinkClassObjMapper linkMapper;
     @Override
     public List<ClassObj> selectAll() {
+
         return mapper.selectAll();
+    }
+    @Override
+    public List<ClassObj> selectByLimit(ClassObj classObj) {
+
+        return mapper.selectByLimit(classObj);
     }
 
     @Override

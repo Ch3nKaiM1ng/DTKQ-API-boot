@@ -9,6 +9,8 @@ import java.util.List;
 public interface ClassObjService {
     List<ClassObj> selectAll();
 
+    List<ClassObj> selectByLimit(ClassObj classObj);
+
     ClassObj selectObj(ClassObj classObj);
 
     List<ClassObj> selectByClassId(ClassObj classObj);

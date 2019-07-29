@@ -2,6 +2,7 @@ package com.dtkq.api.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Doctor implements Serializable {
     private Integer doctorId;
@@ -16,7 +17,79 @@ public class Doctor implements Serializable {
     private String doctorEmail;
     private Integer status;
     private Integer doctorSex;
+    private String doctorCode;
+    private Integer doctorConsult;
+    private Integer doctorBooknum;
+    private Integer doctorWorkyear;
+    private Integer doctorGrade;
+    private Integer doctorGoodReception;
     private Date ctime;
+    private String classList;
+    private List<DoctorClass> doctorClasses;
+
+    public List<DoctorClass> getDoctorClasses() {
+        return doctorClasses;
+    }
+
+    public void setDoctorClasses(List<DoctorClass> doctorClasses) {
+        this.doctorClasses = doctorClasses;
+    }
+
+    public String getDoctorCode() {
+        return doctorCode;
+    }
+
+    public void setDoctorCode(String doctorCode) {
+        this.doctorCode = doctorCode;
+    }
+
+    public Integer getDoctorConsult() {
+        return doctorConsult;
+    }
+
+    public void setDoctorConsult(Integer doctorConsult) {
+        this.doctorConsult = doctorConsult;
+    }
+
+    public Integer getDoctorBooknum() {
+        return doctorBooknum;
+    }
+
+    public void setDoctorBooknum(Integer doctorBooknum) {
+        this.doctorBooknum = doctorBooknum;
+    }
+
+    public Integer getDoctorWorkyear() {
+        return doctorWorkyear;
+    }
+
+    public void setDoctorWorkyear(Integer doctorWorkyear) {
+        this.doctorWorkyear = doctorWorkyear;
+    }
+
+    public Integer getDoctorGrade() {
+        return doctorGrade;
+    }
+
+    public void setDoctorGrade(Integer doctorGrade) {
+        this.doctorGrade = doctorGrade;
+    }
+
+    public Integer getDoctorGoodReception() {
+        return doctorGoodReception;
+    }
+
+    public void setDoctorGoodReception(Integer doctorGoodReception) {
+        this.doctorGoodReception = doctorGoodReception;
+    }
+
+    public String getClassList() {
+        return classList;
+    }
+
+    public void setClassList(String classList) {
+        this.classList = classList;
+    }
 
     public Integer getDoctorId() {
         return doctorId;

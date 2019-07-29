@@ -39,4 +39,8 @@ public class LinkDoctorClassServiceImpl implements LinkDoctorClassService {
     public void delectById(Integer id) {
         mapper.deleteByPrimaryKey(id);
     }
+    @Override
+    public void deleteByKey(LinkDoctorClass obj) {
+        mapper.deleteByKey(obj);
+    }
 }

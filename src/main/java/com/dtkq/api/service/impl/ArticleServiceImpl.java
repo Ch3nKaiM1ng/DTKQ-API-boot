@@ -41,6 +41,10 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> queryAllByLimit(int offset, int limit) {
         return this.articleDao.queryAllByLimit(offset, limit);
     }
+    @Override
+    public List<Article> queryAll(Article article) {
+        return this.articleDao.queryAll(article);
+    }
 
     /**
      * 新增数据

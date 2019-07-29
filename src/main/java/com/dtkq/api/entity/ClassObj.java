@@ -15,6 +15,27 @@ public class ClassObj implements Serializable {
     private Date ctime;
     private Integer linkClassId;
     private List<LinkClassObj> classObjList;
+    //当前页
+    private int offset;
+    //显示数量
+    private int limit;
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
     public Integer getObjId() {
         return objId;
     }

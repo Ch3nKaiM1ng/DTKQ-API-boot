@@ -28,6 +28,8 @@ public interface ArticleService {
      */
     List<Article> queryAllByLimit(int offset, int limit);
 
+    List<Article> queryAll(Article article);
+
     /**
      * 新增数据
      *

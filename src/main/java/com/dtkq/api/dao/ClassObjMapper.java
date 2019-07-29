@@ -9,6 +9,8 @@ import java.util.List;
 public interface ClassObjMapper {
     List<ClassObj> selectAll();
 
+    List<ClassObj> selectByLimit(ClassObj classObj);
+
     int deleteByPrimaryKey(ClassObj classObj);
 
     int insert(ClassObj classObj);

@@ -76,13 +76,25 @@
     <if test="linkClassId!= null">
       and b.class_id = #{linkClassId,jdbcType=INTEGER}
     </if>
-    and a.status!=1
+    and a.status=0
     limit 6
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select obj_id, user_id, title,
       url, img, status,ctime
     from class_obj
-    where status!=1
+    where status=0
+  </select>
+
+  <select id="selectByLimit" resultMap="BaseResultMap">
+    select a.obj_id, a.user_id, a.title,
+    a.url, a.img, a.status,a.ctime,b.class_id
+    from class_obj a
+    left join link_class_obj b on b.obj_id = a.obj_id
+    where a.status=0
+    <if test="linkClassId!= null">
+      and b.class_id = #{linkClassId}
+    </if>
+    limit #{offset}, #{limit}
   </select>
 </mapper>

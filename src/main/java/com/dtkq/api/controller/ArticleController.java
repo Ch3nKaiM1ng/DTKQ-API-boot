@@ -1,6 +1,8 @@
 package com.dtkq.api.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dtkq.api.entity.Article;
+import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.TopMenu;
 import com.dtkq.api.service.ArticleService;
 import com.dtkq.api.utils.ReturnDiscern;
@@ -38,17 +40,15 @@ public class ArticleController {
     //  查找所有
     @RequestMapping("/findAll")
     public Map<String, Object> findAll(@RequestBody Article entity) {
-        int offset=1;//offset 查询起始位置
-        int limit =200;//limit 查询条数
-        if(entity.getOffset() != 0){
-            offset=entity.getOffset();
-        }
-        if(entity.getLimit() != 0){
-             limit =entity.getLimit();
-        }
-
-        List<Article> list =service.queryAllByLimit(offset,limit);
-        return re.SUCCESSOBJ(list);
+        int currpage=entity.getOffset();//offset 查询起始位置
+        int limit=entity.getLimit();//limit 查询条数
+        entity.setOffset(currpage-1);
+        JSONObject jsonObject=new JSONObject();//组成一个对象
+        List<Article> list =service.queryAll(entity);
+        jsonObject.put("limit",limit);//返回当前页显示条数
+        jsonObject.put("currpage",currpage);//返回当前页
+        jsonObject.put("dataList",list);//返回当前数组
+        return re.SUCCESSOBJ(jsonObject);
     }
     //  添加
     @RequestMapping("/addObj")

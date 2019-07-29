@@ -2,6 +2,7 @@ package com.dtkq.api.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.ClassObj;
 import com.dtkq.api.entity.LinkClassObj;
 import com.dtkq.api.entity.TalkClass;
@@ -37,10 +38,16 @@ public class ClassObjController {
 
     //  查找所有
     @RequestMapping("/findAll")
-    public Map<String, Object> findAll() {
-
-        List<ClassObj> list =service.selectAll();
-        return re.SUCCESSOBJ(list);
+    public Map<String, Object> findAll(@RequestBody ClassObj entity) {
+        int currpage=entity.getOffset();//offset 查询起始位置
+        int limit=entity.getLimit();//limit 查询条数
+        entity.setOffset(currpage-1);
+        JSONObject jsonObject=new JSONObject();//组成一个对象
+        List<ClassObj> list =service.selectByLimit(entity);
+        jsonObject.put("limit",limit);//返回当前页显示条数
+        jsonObject.put("currpage",currpage);//返回当前页
+        jsonObject.put("dataList",list);//返回当前数组
+        return re.SUCCESSOBJ(jsonObject);
     }
     //  添加
     @RequestMapping("/addObj")

@@ -17,7 +17,17 @@
     <result column="doctor_mobile" jdbcType="VARCHAR" property="doctorMobile" />
     <result column="doctor_email" jdbcType="VARCHAR" property="doctorEmail" />
     <result column="doctor_img" jdbcType="VARCHAR" property="doctorImg" />
+    <result column="doctor_code" jdbcType="VARCHAR" property="doctorCode" />
+    <result column="doctor_consult" jdbcType="INTEGER" property="doctorConsult" />
+    <result column="doctor_booknum" jdbcType="INTEGER" property="doctorBooknum" />
+    <result column="doctor_workyear" jdbcType="INTEGER" property="doctorWorkyear" />
+    <result column="doctor_grade" jdbcType="REAL" property="doctorGrade" />
+    <result column="doctor_good_reception" jdbcType="INTEGER" property="doctorGoodReception" />
     <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+
+    <collection column="{doctor_id}" property="attributes" ofType="com.meikai.shop.entity.TShopAttribute" select="getAttribute" >
+    </collection>
+
   </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -39,7 +49,13 @@
     doctor_mobile,
     doctor_email,
     ctime,
-    status)
+    doctor_code,
+    doctor_consult,
+    doctor_booknum,
+    doctor_workyear,
+    doctor_grade,
+    doctor_good_reception
+    )
     values (
     #{doctorId,jdbcType=INTEGER},
     #{classId,jdbcType=INTEGER},
@@ -53,7 +69,14 @@
     #{doctorMobile,jdbcType=VARCHAR},
     #{doctorEmail,jdbcType=VARCHAR},
     now(),
-    0)
+    0,
+    #{doctorCode,jdbcType=VARCHAR},
+    #{doctorConsult,jdbcType=INTEGER},
+    #{doctorBooknum,jdbcType=INTEGER},
+    #{doctorWorkyear,jdbcType=INTEGER},
+    #{doctorGrade,jdbcType=INTEGER},
+    #{doctorGoodReception,jdbcType=INTEGER}
+    )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.dtkq.api.entity.Doctor">
     update doctor
@@ -91,21 +114,52 @@
     <if test="status!= null">
       ,status = #{status,jdbcType=INTEGER}
     </if>
+    <if test="doctorCode!= null">
+      ,doctor_code = #{doctorCode,jdbcType=VARCHAR}
+    </if>
+    <if test="doctorConsult!= null">
+      ,doctor_consult = #{doctorConsult,jdbcType=INTEGER}
+    </if>
+    <if test="doctorBooknum!= null">
+      ,doctor_booknum = #{doctorBooknum,jdbcType=INTEGER}
+    </if>
+    <if test="doctorWorkyear!= null">
+      ,doctor_workyear = #{doctorWorkyear,jdbcType=INTEGER}
+    </if>
+    <if test="doctorGrade!= null">
+      ,doctor_grade = #{doctorGrade,jdbcType=REAL}
+    </if>
+    <if test="doctorGoodReception!= null">
+      ,doctor_good_reception = #{doctorGoodReception,jdbcType=INTEGER}
+    </if>
     where doctor_id = #{doctorId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="com.dtkq.api.entity.Doctor" resultMap="BaseResultMap">
     select doctor_id, class_id, doctor_ch_name,
       doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,
-      doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status
+      doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
+      doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception
     from doctor
     where doctor_id = #{doctorId,jdbcType=INTEGER}
-    and status!=1
+    and status=0
   </select>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select doctor_id, class_id, doctor_ch_name,
       doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,
-      doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status
+      doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
+      doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception
     from doctor
-    where status!=1
+    where status=0
   </select>
+
+  <select id="selectClass" resultMap="BaseResultMap">
+    select doctor_id, class_id, doctor_ch_name,
+      doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,
+      doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
+      doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception
+    from doctor
+    where status=0
+  </select>
+
 </mapper>

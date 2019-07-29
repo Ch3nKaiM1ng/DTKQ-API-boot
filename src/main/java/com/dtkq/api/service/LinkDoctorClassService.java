@@ -17,4 +17,6 @@ public interface LinkDoctorClassService {
     void updateObj(LinkDoctorClass obj);
 
     void delectById(Integer id);
+
+    void deleteByKey(LinkDoctorClass obj);
 }
