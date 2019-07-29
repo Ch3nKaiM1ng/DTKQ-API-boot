@@ -25,15 +25,26 @@ public class ClassAskArticle implements Serializable {
 
     private Article article;
 
-//    性别
-    private Integer userSex;
+//    男性数量
+    private Integer manNum;
 
-    public Integer getUserSex() {
-        return userSex;
+//    女性数量
+    private Integer womanNum;
+
+    public Integer getManNum() {
+        return manNum;
     }
 
-    public void setUserSex(Integer userSex) {
-        this.userSex = userSex;
+    public void setManNum(Integer manNum) {
+        this.manNum = manNum;
+    }
+
+    public Integer getWomanNum() {
+        return womanNum;
+    }
+
+    public void setWomanNum(Integer womanNum) {
+        this.womanNum = womanNum;
     }
 
     public Integer getAcId() {

@@ -45,13 +45,28 @@ public class ClassAskArticleController {
             List<ClassAskArticle> askArticleList = this.classAskArticleService.queryAll(askArticle);
             for (int i =0 ;i<askArticleList.size();i++){
                 if (askArticleList.get(i).getAc_artId()!=null){
-                    askArticleList.get(i).getArticle().setCheckNum(123);
+                    askArticleList.get(i).getArticle().setArtCommentNum(123);
+                    askArticleList.get(i).setManNum(234);
+                    askArticleList.get(i).setWomanNum(234);
                 }else {
-                    askArticleList.get(i).getAsk().setAskCheckNum(123);
+                    askArticleList.get(i).getAsk().setAskCommentNum(123);
+                    askArticleList.get(i).setManNum(234);
+                    askArticleList.get(i).setWomanNum(234);
                 }
             }
             return re.SUCCESSOBJ(askArticleList);
         }
+    }
+    @RequestMapping("/inset")
+    public Map<String,Object> insetHot(@RequestBody ClassAskArticle askArticle){
+        if (askArticle.getAc_askId()!=null||askArticle.getAc_artId()!=null){
+            ClassAskArticle count = this.classAskArticleService.insert(askArticle);
+            if (count.getAcId()!=null){
+                return re.SUCCESS();
+            }
+            return re.ERRORMSG("inset error!");
+        }
+        return re.ERRORMSG("askId or articleId is null!");
     }
 
 
