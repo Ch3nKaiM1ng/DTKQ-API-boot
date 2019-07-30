@@ -97,4 +97,14 @@
     </if>
     limit #{offset}, #{limit}
   </select>
+  <select id="countNum"  resultType="java.lang.Integer" >
+    select count(*)
+    from class_obj a
+    left join link_class_obj b on b.obj_id = a.obj_id
+    where a.status=0
+    <if test="linkClassId!= null">
+      and b.class_id = #{linkClassId}
+    </if>
+
+  </select>
 </mapper>

@@ -44,9 +44,11 @@ public class ClassObjController {
         entity.setOffset(currpage-1);
         JSONObject jsonObject=new JSONObject();//组成一个对象
         List<ClassObj> list =service.selectByLimit(entity);
+        Integer count =service.countNum(entity);
         jsonObject.put("limit",limit);//返回当前页显示条数
+        jsonObject.put("countData",count);//返回当前页显示条数
         jsonObject.put("currpage",currpage);//返回当前页
-        jsonObject.put("dataList",list);//返回当前数组
+        jsonObject.put("dataList",list);//返回当前数
         return re.SUCCESSOBJ(jsonObject);
     }
     //  添加
@@ -58,6 +60,7 @@ public class ClassObjController {
             }
             service.insertObj(entity);
             //确定添加成功
+
             if(entity.getObjId()!=null){
                 linkUpdate(entity);
                 return re.SUCCESS();

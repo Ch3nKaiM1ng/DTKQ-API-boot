@@ -9,6 +9,9 @@ public interface DoctorMapper {
 
     List<Doctor> selectAll();
 
+    List<Doctor> select(Doctor doctor);
+
+
     int deleteByPrimaryKey(Doctor doctor);
 
     int insert(Doctor doctor);

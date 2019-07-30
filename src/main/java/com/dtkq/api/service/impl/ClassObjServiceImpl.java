@@ -56,4 +56,8 @@ public class ClassObjServiceImpl implements ClassObjService {
     public void delectById(ClassObj classObj) {
         mapper.deleteByPrimaryKey(classObj);
     }
+    @Override
+    public Integer countNum(ClassObj classObj) {
+        return mapper.countNum(classObj);
+    }
 }

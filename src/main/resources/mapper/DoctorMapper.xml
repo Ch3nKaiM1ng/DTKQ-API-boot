@@ -14,6 +14,7 @@
     <result column="doctor_ch_position" jdbcType="VARCHAR" property="doctorChPosition" />
     <result column="doctor_en_position" jdbcType="VARCHAR" property="doctorEnPosition" />
     <result column="doctor_introduction" jdbcType="VARCHAR" property="doctorIntroduction" />
+    <result column="doctor_goodat" jdbcType="VARCHAR" property="doctorGoodat" />
     <result column="doctor_mobile" jdbcType="VARCHAR" property="doctorMobile" />
     <result column="doctor_email" jdbcType="VARCHAR" property="doctorEmail" />
     <result column="doctor_img" jdbcType="VARCHAR" property="doctorImg" />
@@ -24,12 +25,53 @@
     <result column="doctor_grade" jdbcType="REAL" property="doctorGrade" />
     <result column="doctor_good_reception" jdbcType="INTEGER" property="doctorGoodReception" />
     <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
-
-    <collection column="{doctor_id}" property="attributes" ofType="com.meikai.shop.entity.TShopAttribute" select="getAttribute" >
-    </collection>
-
+      <association property="doctorClasses"  select="selectClass" column="class_id">
+        <id column="class_id" jdbcType="INTEGER" property="classId" />
+        <result column="class_ch_name" jdbcType="VARCHAR" property="classChName" />
+        <result column="class_en_name" jdbcType="VARCHAR" property="classEnName" />
+        <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+      </association>
   </resultMap>
 
+  <resultMap id="classMap" type="com.dtkq.api.entity.DoctorClass">
+    <id column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="class_ch_name" jdbcType="VARCHAR" property="classChName" />
+    <result column="class_en_name" jdbcType="VARCHAR" property="classEnName" />
+    <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+
+  <resultMap id="findObj" type="com.dtkq.api.entity.Doctor">
+    <id column="doctor_id" jdbcType="INTEGER" property="doctorId" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="doctor_sex" jdbcType="INTEGER" property="doctorSex" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="doctor_ch_name" jdbcType="VARCHAR" property="doctorChName" />
+    <result column="doctor_en_name" jdbcType="VARCHAR" property="doctorEnName" />
+    <result column="doctor_ch_position" jdbcType="VARCHAR" property="doctorChPosition" />
+    <result column="doctor_en_position" jdbcType="VARCHAR" property="doctorEnPosition" />
+    <result column="doctor_introduction" jdbcType="VARCHAR" property="doctorIntroduction" />
+    <result column="doctor_goodat" jdbcType="VARCHAR" property="doctorGoodat" />
+    <result column="doctor_mobile" jdbcType="VARCHAR" property="doctorMobile" />
+    <result column="doctor_email" jdbcType="VARCHAR" property="doctorEmail" />
+    <result column="doctor_img" jdbcType="VARCHAR" property="doctorImg" />
+    <result column="doctor_code" jdbcType="VARCHAR" property="doctorCode" />
+    <result column="doctor_consult" jdbcType="INTEGER" property="doctorConsult" />
+    <result column="doctor_booknum" jdbcType="INTEGER" property="doctorBooknum" />
+    <result column="doctor_workyear" jdbcType="INTEGER" property="doctorWorkyear" />
+    <result column="doctor_grade" jdbcType="REAL" property="doctorGrade" />
+    <result column="doctor_good_reception" jdbcType="INTEGER" property="doctorGoodReception" />
+    <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+    <association property="doctorClasses"  select="selectObjClass" column="doctor_id">
+      <id column="class_id" jdbcType="INTEGER" property="classId" />
+      <result column="class_ch_name" jdbcType="VARCHAR" property="classChName" />
+      <result column="class_en_name" jdbcType="VARCHAR" property="classEnName" />
+      <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+      <result column="status" jdbcType="INTEGER" property="status" />
+    </association>
+
+  </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from doctor
     where doctor_id = #{doctorId,jdbcType=INTEGER}
@@ -49,12 +91,14 @@
     doctor_mobile,
     doctor_email,
     ctime,
+    status,
     doctor_code,
     doctor_consult,
     doctor_booknum,
     doctor_workyear,
     doctor_grade,
-    doctor_good_reception
+    doctor_good_reception,
+    doctor_goodat
     )
     values (
     #{doctorId,jdbcType=INTEGER},
@@ -75,7 +119,8 @@
     #{doctorBooknum,jdbcType=INTEGER},
     #{doctorWorkyear,jdbcType=INTEGER},
     #{doctorGrade,jdbcType=INTEGER},
-    #{doctorGoodReception,jdbcType=INTEGER}
+    #{doctorGoodReception,jdbcType=INTEGER},
+    #{doctorGoodat,jdbcType=INTEGER}
     )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.dtkq.api.entity.Doctor">
@@ -98,6 +143,9 @@
     </if>
     <if test="doctorEnPosition!= null">
       ,doctor_en_position = #{doctorEnPosition,jdbcType=VARCHAR}
+    </if>
+    <if test="doctorIntroduction!= null">
+      ,doctor_introduction = #{doctorIntroduction,jdbcType=VARCHAR}
     </if>
     <if test="doctorIntroduction!= null">
       ,doctor_introduction = #{doctorIntroduction,jdbcType=VARCHAR}
@@ -132,34 +180,58 @@
     <if test="doctorGoodReception!= null">
       ,doctor_good_reception = #{doctorGoodReception,jdbcType=INTEGER}
     </if>
+    <if test="doctorGoodat!= null">
+      ,doctor_goodat = #{doctorGoodat,jdbcType=VARCHAR}
+    </if>
     where doctor_id = #{doctorId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="com.dtkq.api.entity.Doctor" resultMap="BaseResultMap">
-    select doctor_id, class_id, doctor_ch_name,
-      doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,
-      doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
-      doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception
-    from doctor
-    where doctor_id = #{doctorId,jdbcType=INTEGER}
-    and status=0
+  <select id="selectByPrimaryKey" parameterType="com.dtkq.api.entity.Doctor" resultMap="findObj">
+     select a.doctor_id, a.doctor_ch_name,
+      a.doctor_en_name, a.doctor_ch_position, a.doctor_en_position,a.doctor_introduction,a.doctor_goodat,
+      a.doctor_img,a.doctor_sex,a.doctor_mobile,a.doctor_email,a.ctime,a.status,
+      a.doctor_consult,a.doctor_booknum,a.doctor_workyear,a.doctor_grade,a.doctor_good_reception,
+      a.doctor_code
+    from doctor a
+    where a.status=0
+    <if test="doctorId!= null">
+      and a.doctor_id = #{doctorId,jdbcType=INTEGER}
+    </if>
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap">
-    select doctor_id, class_id, doctor_ch_name,
-      doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,
+      select doctor_id, class_id, doctor_ch_name,
+      doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,doctor_goodat
       doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
-      doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception
+      doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception,doctor_code
     from doctor
     where status=0
   </select>
 
-  <select id="selectClass" resultMap="BaseResultMap">
-    select doctor_id, class_id, doctor_ch_name,
-      doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,
-      doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
-      doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception
-    from doctor
-    where status=0
+  <select id="select" resultMap="BaseResultMap" parameterType="com.dtkq.api.entity.Doctor">
+     select a.doctor_id, a.doctor_ch_name,
+      a.doctor_en_name, a.doctor_ch_position, a.doctor_en_position,a.doctor_introduction,a.doctor_goodat,
+      a.doctor_img,a.doctor_sex,a.doctor_mobile,a.doctor_email,a.ctime,a.status,
+      a.doctor_consult,a.doctor_booknum,a.doctor_workyear,a.doctor_grade,a.doctor_good_reception,
+      a.doctor_code,
+	  b.class_id
+    from doctor a
+		left join link_doctor_class b on a.doctor_id=b.doctor_id
+    where a.status=0
+    <if test="classId!= null">
+      and b.class_id = #{classId,jdbcType=INTEGER}
+    </if>
+    group by b.doctor_id
   </select>
 
+  <select id="selectClass" parameterType="java.lang.Integer"  resultMap="classMap">
+    select b.* from  doctor_class b
+    where b.status=0
+    and b.class_id =#{classId}
+  </select>
+  <select id="selectObjClass" parameterType="java.lang.Integer"  resultMap="classMap">
+    select b.* from link_doctor_class a
+    left join  doctor_class b on a.class_id=b.class_id
+    where
+    a.doctor_id=#{doctorId}
+  </select>
 </mapper>

@@ -12,6 +12,7 @@ public class Doctor implements Serializable {
     private String doctorChPosition;
     private String doctorEnPosition;
     private String doctorIntroduction;
+    private String doctorGoodat;
     private String doctorImg;
     private String doctorMobile;
     private String doctorEmail;
@@ -26,6 +27,14 @@ public class Doctor implements Serializable {
     private Date ctime;
     private String classList;
     private List<DoctorClass> doctorClasses;
+
+    public String getDoctorGoodat() {
+        return doctorGoodat;
+    }
+
+    public void setDoctorGoodat(String doctorGoodat) {
+        this.doctorGoodat = doctorGoodat;
+    }
 
     public List<DoctorClass> getDoctorClasses() {
         return doctorClasses;

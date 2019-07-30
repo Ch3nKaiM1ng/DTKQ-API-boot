@@ -1,6 +1,7 @@
 package com.dtkq.api.service;
 
 
+import com.dtkq.api.entity.ArticleComment;
 import com.dtkq.api.entity.ClassObj;
 import com.dtkq.api.entity.Doctor;
 
@@ -20,4 +21,5 @@ public interface ClassObjService {
     void updateObj(ClassObj classObj);
 
     void delectById(ClassObj classObj);
+    Integer countNum(ClassObj classObj);
 }

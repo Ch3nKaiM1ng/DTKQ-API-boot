@@ -18,6 +18,10 @@ public class DoctorServiceImpl implements DoctorService {
     public List<Doctor> selectAll() {
         return mapper.selectAll();
     }
+    @Override
+    public List<Doctor> select(Doctor doctor) {
+        return mapper.select(doctor);
+    }
 
     @Override
     public Doctor selectObj(Doctor doctor) {

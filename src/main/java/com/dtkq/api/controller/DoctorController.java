@@ -1,5 +1,6 @@
 package com.dtkq.api.controller;
 
+import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.Doctor;
 import com.dtkq.api.entity.LinkDoctorClass;
 import com.dtkq.api.service.DoctorService;
@@ -30,10 +31,28 @@ public class DoctorController {
 
     //  查找所有医生
     @RequestMapping("/findAll")
-    public Map<String, Object> findAll(@RequestBody Doctor doctor) {
+    public Map<String, Object> findAll() {
 
         List<Doctor> doctorList =doctorService.selectAll();
         return re.SUCCESSOBJ(doctorList);
+    }
+    //  查找所有医生
+    @RequestMapping("/select")
+    public Map<String, Object> select(@RequestBody Doctor doctor) {
+
+        List<Doctor> doctorList =doctorService.select(doctor);
+        return re.SUCCESSOBJ(doctorList);
+    }
+    //  查看单个
+    @RequestMapping("/findObj")
+    public Map<String, Object> findObj(@RequestBody Doctor entity) {
+        if (entity.getDoctorId() != null) {
+            Doctor obj=doctorService.selectObj(entity);
+            if(obj!=null){
+                return re.SUCCESSOBJ(obj);
+            }
+        }
+        return re.ERROR();
     }
     //  添加医生
     @RequestMapping("/addObj")
@@ -84,6 +103,14 @@ public class DoctorController {
 
         return re.ERROR();
     }
-
+    //  删除
+    @RequestMapping("/delObj")
+    public Map<String, Object> delObj(@RequestBody Doctor entity) {
+        if (entity.getDoctorId() != null) {
+            doctorService.delectById(entity);
+            return re.SUCCESS();
+        }
+        return re.ERROR();
+    }
 
 }

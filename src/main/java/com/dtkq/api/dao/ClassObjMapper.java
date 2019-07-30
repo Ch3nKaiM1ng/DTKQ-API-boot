@@ -21,4 +21,5 @@ public interface ClassObjMapper {
 
     int updateByPrimaryKey(ClassObj classObj);
 
+    int countNum(ClassObj classObj);
 }

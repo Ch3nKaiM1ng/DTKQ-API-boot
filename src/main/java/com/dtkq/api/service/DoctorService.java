@@ -8,6 +8,8 @@ public interface DoctorService {
 
     List<Doctor> selectAll();
 
+    List<Doctor> select(Doctor doctor);
+
     Doctor selectObj(Doctor doctor);
 
     void insertObj(Doctor doctor);
