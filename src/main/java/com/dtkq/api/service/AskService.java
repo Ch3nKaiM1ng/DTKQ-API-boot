@@ -54,5 +54,5 @@ public interface AskService {
      * @return 是否成功
      */
     boolean deleteById(Integer askId);
-
+    Integer countNum(Ask ask);
 }

@@ -2,6 +2,7 @@ package com.dtkq.api.service.impl;
 
 import com.dtkq.api.entity.Article;
 import com.dtkq.api.dao.ArticleDao;
+import com.dtkq.api.entity.ClassObj;
 import com.dtkq.api.service.ArticleService;
 import org.springframework.stereotype.Service;
 
@@ -85,5 +86,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public boolean deleteById(Integer artId) {
         return this.articleDao.deleteById(artId) > 0;
+    }
+
+
+    @Override
+    public Integer countNum(Article article) {
+        return articleDao.countNum(article);
     }
 }

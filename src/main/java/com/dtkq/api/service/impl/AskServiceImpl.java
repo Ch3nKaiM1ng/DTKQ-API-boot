@@ -81,4 +81,9 @@ public class AskServiceImpl implements AskService {
     public boolean deleteById(Integer askId) {
         return this.askDao.deleteById(askId) > 0;
     }
+    @Override
+    public Integer countNum(Ask ask) {
+        return askDao.countNum(ask);
+    }
+
 }

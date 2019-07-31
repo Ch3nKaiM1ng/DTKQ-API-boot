@@ -153,5 +153,39 @@
     <delete id="deleteById">
         delete from DTKQ.ask where ask_id = #{askId}
     </delete>
+    <select id="countNum"  resultType="java.lang.Integer" >
+        select
+        count(*)
 
+        from DTKQ.ask a
+        LEFT JOIN `user` b on a.ask_user_id= b.user_id
+
+        <where>
+        <if test="askId != null">
+            and a.ask_id = #{askId}
+        </if>
+
+        <if test="askUserId != null">
+            and a.ask_user_id = #{askUserId}
+        </if>
+        <if test="askTitle != null and askTitle != ''">
+            and a.ask_title = #{askTitle}
+        </if>
+        <if test="askContent != null">
+            and a.ask_content = #{askContent}
+        </if>
+        <if test="askImg != null and askImg != ''">
+            and a.ask_img = #{askImg}
+        </if>
+        <if test="askVedio != null and askVedio != ''">
+            and a.ask_vedio = #{askVedio}
+        </if>
+        <if test="status != null">
+            and a.status = #{status}
+        </if>
+        <if test="askLabel != null and askLabel != ''">
+            and a.askLabel = #{askLabel}
+        </if>
+        </where>
+    </select>
 </mapper>

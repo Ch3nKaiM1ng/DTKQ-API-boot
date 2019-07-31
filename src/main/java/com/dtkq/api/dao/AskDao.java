@@ -1,5 +1,6 @@
 package com.dtkq.api.dao;
 
+import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.Ask;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -62,5 +63,5 @@ public interface AskDao {
      * @return 影响行数
      */
     int deleteById(Integer askId);
-
+    int countNum(Ask ask);
 }

@@ -1,5 +1,6 @@
 package com.dtkq.api.service.impl;
 
+import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.Doctor;
 import com.dtkq.api.dao.DoctorMapper;
 import com.dtkq.api.service.DoctorService;
@@ -43,4 +44,13 @@ public class DoctorServiceImpl implements DoctorService {
     public void delectById(Doctor doctor) {
         mapper.deleteByPrimaryKey(doctor);
     }
+    @Override
+    public Integer countNum(Doctor doctor) {
+        return mapper.countNum(doctor);
+    }
+    @Override
+    public List<Doctor> selectAllByLimit(int offset, int limit) {
+        return this.mapper.selectAllByLimit(offset, limit);
+    }
+
 }

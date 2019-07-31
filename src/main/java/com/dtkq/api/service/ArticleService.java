@@ -1,6 +1,8 @@
 package com.dtkq.api.service;
 
 import com.dtkq.api.entity.Article;
+import com.dtkq.api.entity.ClassObj;
+
 import java.util.List;
 
 /**
@@ -54,5 +56,5 @@ public interface ArticleService {
      * @return 是否成功
      */
     boolean deleteById(Integer artId);
-
+    Integer countNum(Article article);
 }

@@ -1,14 +1,20 @@
 package com.dtkq.api.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.Ask;
+import com.dtkq.api.entity.Doctor;
 import com.dtkq.api.entity.TopMenu;
 import com.dtkq.api.service.ArticleService;
+import com.dtkq.api.service.AskService;
+import com.dtkq.api.service.DoctorService;
 import com.dtkq.api.utils.ReturnDiscern;
+import com.google.gson.JsonObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +33,10 @@ public class ArticleController {
      */
     @Resource
     private ArticleService service;
+    @Resource
+    private AskService askService;
+    @Resource
+    private DoctorService doctorService;
 
     /**
      * 通过主键查询单条数据
@@ -117,5 +127,114 @@ public class ArticleController {
             return re.SUCCESSOBJ(obj);
         }
         return re.ERROR();
+    }
+
+    //  点赞文章
+    @RequestMapping("/webPageBlockList")
+    public Map<String, Object> webPageBlockList(@RequestBody JSONObject jsonObject) {
+        /*int currpage=jsonObject.getInteger("offset");//offset 查询起始位置
+        int limit=jsonObject.getInteger("limit");//limit 查询条数
+        articleList(jsonObject);
+        askList(jsonObject);
+        doctorList(jsonObject);*/
+        JSONObject data=pageList(jsonObject);
+        if(data!=null){
+            return re.SUCCESSOBJ(data);
+        }
+        return re.ERROR();
+    }
+    private JSONObject articleList(JSONObject jsonObject){
+        int currpage=jsonObject.getInteger("offset");//offset 查询起始位置
+        int limit=3;//limit 查询条数\
+        Article entity=new Article();
+        Integer countNum=service.countNum(entity);//查到所有数据数
+        Integer allPage=countNum/3;
+
+        entity.setOffset(currpage-1);
+        entity.setLimit(limit);
+        List<Article> list =service.queryAll(entity);
+        JSONObject js=new JSONObject();
+        js.put("countNum",countNum);
+        js.put("allPage",allPage);
+        js.put("objList",list);
+        return js;
+    }
+    private JSONObject askList(JSONObject jsonObject){
+        int currpage=jsonObject.getInteger("offset");//offset 查询起始位置
+        int limit=2;//limit 查询条数\
+        Ask entity=new Ask();
+        Integer countNum=askService.countNum(entity);//查到所有数据数
+        Integer allPage=countNum/2;
+
+        List<Ask> list =askService.queryAllByLimit(currpage-1,limit);
+        JSONObject js=new JSONObject();
+        js.put("countNum",countNum);
+        js.put("allPage",allPage);
+        js.put("objList",list);
+        return js;
+    }
+    private JSONObject doctorList(JSONObject jsonObject){
+        int currpage=jsonObject.getInteger("offset");//offset 查询起始位置
+        int limit=1;//limit 查询条数\
+        Doctor entity=new Doctor();
+        Integer countNum=doctorService.countNum(entity);//查到所有数据数
+        Integer allPage=countNum;
+
+        List<Doctor> list =doctorService.selectAllByLimit(currpage-1,limit);
+        JSONObject js=new JSONObject();
+        js.put("countNum",countNum);
+        js.put("allPage",allPage);
+        js.put("objList",list);
+        return js;
+    }
+    private JSONObject pageList(JSONObject jsonObject){
+        int currpage=jsonObject.getInteger("offset");
+        JSONObject artObj=articleList(jsonObject);
+        JSONObject askObj=askList(jsonObject);
+        JSONObject doctorObj=doctorList(jsonObject);
+        //算出总共可以有几页可以显示出来
+        Integer artPage=artObj.getInteger("allPage");
+        Integer askPage=askObj.getInteger("allPage");
+        Integer doctorPage=doctorObj.getInteger("allPage");
+        Integer showPage=1;
+            if(artPage<askPage){
+                showPage=artPage;
+            }else{
+                showPage=askPage;
+            }
+            if(showPage>doctorPage){
+                showPage=doctorPage;
+            }
+
+        JSONObject reObj=new JSONObject();
+        /*jsonArray.add(artObj.get("objList"));
+        jsonArray.add(askObj.get("objList"));
+        jsonArray.add(doctorObj.get("objList"));*/
+        JSONArray jsonArray=putJson(artObj,askObj,doctorObj);
+        reObj.put("showPage",showPage);
+        reObj.put("currpage",currpage);
+        reObj.put("dataList",jsonArray);
+         return  reObj;
+    }
+    private JSONArray putJson(JSONObject artObject,JSONObject askObj,JSONObject doctorObj){
+
+        JSONArray jsonArray=new JSONArray();
+        List artlist=(List)  artObject.get("objList");
+        List asklist=(List)  askObj.get("objList");
+        List doctorlist=(List)  doctorObj.get("objList");
+        jsonArray.add(artlist.get(0));
+        jsonArray.add(asklist.get(0));
+        jsonArray.add(artlist.get(1));
+        jsonArray.add(asklist.get(1));
+        jsonArray.add(doctorlist.get(0));
+        jsonArray.add(artlist.get(2));
+        /*if(style==1){
+            json.put("artList",jsonObject.get("objList"));
+        }else if(style==2){
+            json.put("askList",jsonObject.get("objList"));
+        }else if(style==3){
+            json.put("doctorList",jsonObject.get("objList"));
+        }*/
+        return jsonArray;
     }
 }

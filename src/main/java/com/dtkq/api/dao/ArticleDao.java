@@ -1,6 +1,7 @@
 package com.dtkq.api.dao;
 
 import com.dtkq.api.entity.Article;
+import com.dtkq.api.entity.ClassObj;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -63,5 +64,5 @@ public interface ArticleDao {
      * @return 影响行数
      */
     int deleteById(Integer artId);
-
+    int countNum(Article article);
 }
