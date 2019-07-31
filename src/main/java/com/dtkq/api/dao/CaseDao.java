@@ -1,5 +1,6 @@
 package com.dtkq.api.dao;
 
+import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.Case;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -37,7 +38,7 @@ public interface CaseDao {
      * @return 对象列表
      */
     List<Case> queryAll(Case entity);
-
+    int addNum(Case entity);
     /**
      * 新增数据
      *
@@ -61,5 +62,5 @@ public interface CaseDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
-
+    int countNum(Case entity);
 }

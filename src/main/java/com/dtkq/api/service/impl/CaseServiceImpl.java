@@ -1,5 +1,6 @@
 package com.dtkq.api.service.impl;
 
+import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.Case;
 import com.dtkq.api.dao.CaseDao;
 import com.dtkq.api.service.CaseService;
@@ -41,7 +42,10 @@ public class CaseServiceImpl implements CaseService {
     public List<Case> queryAllByLimit(int offset, int limit) {
         return this.caseDao.queryAllByLimit(offset, limit);
     }
-
+    @Override
+    public List<Case> queryAll(Case entity) {
+        return this.caseDao.queryAll(entity);
+    }
     /**
      * 新增数据
      *
@@ -75,5 +79,14 @@ public class CaseServiceImpl implements CaseService {
     @Override
     public boolean deleteById(Integer id) {
         return this.caseDao.deleteById(id) > 0;
+    }
+    @Override
+    public Case addNum(Case entity) {
+        this.caseDao.addNum(entity);
+        return this.queryById(entity.getId());
+    }
+    @Override
+    public Integer countNum(Case entity) {
+        return caseDao.countNum(entity);
     }
 }

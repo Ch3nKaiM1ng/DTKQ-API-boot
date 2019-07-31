@@ -10,12 +10,19 @@
         <result property="caseTitle" column="case_title" jdbcType="VARCHAR"/>
         <result property="caseImg" column="case_img" jdbcType="VARCHAR"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+        <result property="caseChecknum" column="case_checknum" jdbcType="INTEGER"/>
+        <result property="caseThumbnum" column="case_thumbnum" jdbcType="INTEGER"/>
+        <result property="style" column="style" jdbcType="INTEGER"/>
+        <association property="userData"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
+        </association>
+        <association property="doctorData"  select="com.dtkq.api.dao.DoctorDao.queryById" column="doctor_id">
+        </association>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="CaseMap">
         select
-          id, user_id, doctor_id, case_name, case_title, case_img, ctime
+          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style
         from DTKQ.case
         where id = #{id}
     </select>
@@ -23,7 +30,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CaseMap">
         select
-          id, user_id, doctor_id, case_name, case_title, case_img, ctime
+          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style
         from DTKQ.case
         limit #{offset}, #{limit}
     </select>
@@ -31,7 +38,91 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="CaseMap">
         select
-          id, user_id, doctor_id, case_name, case_title, case_img, ctime
+          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style
+        from DTKQ.case
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="doctorId != null">
+                and doctor_id = #{doctorId}
+            </if>
+            <if test="caseName != null and caseName != ''">
+                and case_name = #{caseName}
+            </if>
+            <if test="caseTitle != null and caseTitle != ''">
+                and case_title = #{caseTitle}
+            </if>
+            <if test="caseImg != null and caseImg != ''">
+                and case_img = #{caseImg}
+            </if>
+            <if test="ctime != null">
+                and ctime = #{ctime}
+            </if>
+        </where>
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into DTKQ.case(user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style)
+        values (#{userId}, #{doctorId}, #{caseName}, #{caseTitle}, #{caseImg}, now(),#{caseChecknum},#{caseThumbnum},#{style})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.case
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="doctorId != null">
+                doctor_id = #{doctorId},
+            </if>
+            <if test="caseName != null and caseName != ''">
+                case_name = #{caseName},
+            </if>
+            <if test="caseTitle != null and caseTitle != ''">
+                case_title = #{caseTitle},
+            </if>
+            <if test="caseImg != null and caseImg != ''">
+                case_img = #{caseImg},
+            </if>
+            <if test="caseChecknum != null">
+                case_checknum = #{caseChecknum},
+            </if>
+            <if test="caseThumbnum != null">
+                case_thumbnum = #{caseThumbnum},
+            </if>
+            <if test="style != null">
+                style = #{style},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--通过主键增加浏览量-->
+    <update id="addNum">
+        update DTKQ.case
+        <set>
+            <if test="caseChecknum != null and caseChecknum != ''">
+                case_checknum = case_checknum +1
+            </if>
+            <if test="caseThumbnum != null and caseThumbnum != ''">
+                case_thumbnum = case_thumbnum +1
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.case where id = #{id}
+    </delete>
+    <select id="countNum"  resultType="java.lang.Integer" >
+        select
+        count(*)
         from DTKQ.case
         <where>
             <if test="id != null">
@@ -57,42 +148,4 @@
             </if>
         </where>
     </select>
-
-    <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into DTKQ.case(user_id, doctor_id, case_name, case_title, case_img, ctime)
-        values (#{userId}, #{doctorId}, #{caseName}, #{caseTitle}, #{caseImg}, #{ctime})
-    </insert>
-
-    <!--通过主键修改数据-->
-    <update id="update">
-        update DTKQ.case
-        <set>
-            <if test="userId != null">
-                user_id = #{userId},
-            </if>
-            <if test="doctorId != null">
-                doctor_id = #{doctorId},
-            </if>
-            <if test="caseName != null and caseName != ''">
-                case_name = #{caseName},
-            </if>
-            <if test="caseTitle != null and caseTitle != ''">
-                case_title = #{caseTitle},
-            </if>
-            <if test="caseImg != null and caseImg != ''">
-                case_img = #{caseImg},
-            </if>
-            <if test="ctime != null">
-                ctime = #{ctime},
-            </if>
-        </set>
-        where id = #{id}
-    </update>
-
-    <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from DTKQ.case where id = #{id}
-    </delete>
-
 </mapper>

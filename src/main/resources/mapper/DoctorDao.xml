@@ -16,12 +16,21 @@
         <result property="doctorEmail" column="doctor_email" jdbcType="VARCHAR"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
+        <result column="doctor_code" jdbcType="VARCHAR" property="doctorCode" />
+        <result column="doctor_consult" jdbcType="INTEGER" property="doctorConsult" />
+        <result column="doctor_booknum" jdbcType="INTEGER" property="doctorBooknum" />
+        <result column="doctor_workyear" jdbcType="INTEGER" property="doctorWorkyear" />
+        <result column="doctor_grade" jdbcType="REAL" property="doctorGrade" />
+        <result column="doctor_good_reception" jdbcType="INTEGER" property="doctorGoodReception" />
+        <result column="doctor_goodat" jdbcType="VARCHAR" property="doctorGoodat" />
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="DoctorMap">
         select
-          doctor_id, class_id, doctor_ch_name, doctor_en_name, doctor_ch_position, doctor_en_position, doctor_introduction, doctor_img, doctor_sex, doctor_mobile, doctor_email, ctime, status
+          doctor_id, class_id, doctor_ch_name, doctor_en_name, doctor_ch_position, doctor_en_position, doctor_introduction, doctor_img, doctor_sex, doctor_mobile, doctor_email, ctime, status,
+          doctor_goodat,doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception,
+      doctor_code
         from DTKQ.doctor
         where doctor_id = #{doctorId}
     </select>

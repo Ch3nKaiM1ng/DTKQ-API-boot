@@ -26,6 +26,71 @@ public class Case implements Serializable {
     
     private Date ctime;
 
+    //当前页
+    private int offset;
+    //显示数量
+    private int limit;
+    private int style;
+    private int caseChecknum;
+    private int caseThumbnum;
+    private User userData;
+    private Doctor doctorData;
+
+    public Doctor getDoctorData() {
+        return doctorData;
+    }
+
+    public void setDoctorData(Doctor doctorData) {
+        this.doctorData = doctorData;
+    }
+
+    public User getUserData() {
+        return userData;
+    }
+
+    public void setUserData(User userData) {
+        this.userData = userData;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public int getStyle() {
+        return style;
+    }
+
+    public void setStyle(int style) {
+        this.style = style;
+    }
+
+    public int getCaseChecknum() {
+        return caseChecknum;
+    }
+
+    public void setCaseChecknum(int caseChecknum) {
+        this.caseChecknum = caseChecknum;
+    }
+
+    public int getCaseThumbnum() {
+        return caseThumbnum;
+    }
+
+    public void setCaseThumbnum(int caseThumbnum) {
+        this.caseThumbnum = caseThumbnum;
+    }
 
     public Integer getId() {
         return id;
