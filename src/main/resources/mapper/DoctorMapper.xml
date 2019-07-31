@@ -241,7 +241,7 @@
   </select>
   <select id="selectAllByLimit" resultMap="BaseResultMap">
       select doctor_id, class_id, doctor_ch_name,
-      doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,doctor_goodat
+      doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,doctor_goodat,
       doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
       doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception,doctor_code
     from doctor
