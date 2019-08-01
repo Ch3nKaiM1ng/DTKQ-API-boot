@@ -47,6 +47,7 @@ public class AskAnswerController {
         }else if(currpage>1){
             entity.setOffset((currpage-1)*limit);
         }
+
         Integer countNum=service.countNum(entity);//查到所有数据数
         List<AskAnswer> list =service.queryAll(entity);
         /*List<ArticleComment> list =service.queryAllByLimit(entity);*/
