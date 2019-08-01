@@ -1,5 +1,6 @@
 package com.dtkq.api.service;
 
+import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.AskAnswer;
 import com.dtkq.api.entity.AskComment;
 
@@ -56,4 +57,5 @@ public interface AskAnswerService {
      */
     boolean deleteById(Integer id);
     AskAnswer addNum(AskAnswer ask);
+    Integer countNum(AskAnswer ask);
 }

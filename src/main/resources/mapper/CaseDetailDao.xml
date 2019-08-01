@@ -11,12 +11,13 @@
         <result property="days" column="days" jdbcType="INTEGER"/>
         <result property="content" column="content" jdbcType="OTHER"/>
         <result property="keyword" column="keyword" jdbcType="OTHER"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="CaseDetailMap">
         select
-          id, case_id, title, label, img, days, content, keyword
+          id, case_id, title, label, img, days, content, keyword,ctime
         from DTKQ.case_detail
         where id = #{id}
     </select>
@@ -24,7 +25,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CaseDetailMap">
         select
-          id, case_id, title, label, img, days, content, keyword
+          id, case_id, title, label, img, days, content, keyword,ctime
         from DTKQ.case_detail
         limit #{offset}, #{limit}
     </select>
@@ -32,7 +33,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="CaseDetailMap">
         select
-          id, case_id, title, label, img, days, content, keyword
+          id, case_id, title, label, img, days, content, keyword,ctime
         from DTKQ.case_detail
         <where>
             <if test="id != null">
@@ -64,8 +65,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into DTKQ.case_detail(case_id, title, label, img, days, content, keyword)
-        values (#{caseId}, #{title}, #{label}, #{img}, #{days}, #{content}, #{keyword})
+        insert into DTKQ.case_detail(case_id, title, label, img, days, content, keyword,ctime)
+        values (#{caseId}, #{title}, #{label}, #{img}, #{days}, #{content}, #{keyword},now())
     </insert>
 
     <!--通过主键修改数据-->
@@ -101,5 +102,14 @@
     <delete id="deleteById">
         delete from DTKQ.case_detail where id = #{id}
     </delete>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAllById" resultMap="CaseDetailMap">
+        select
+        id, case_id, title, label, img, days, content, keyword,ctime
+        from DTKQ.case_detail
+        where  case_id = #{caseId}
+        order by days desc
+    </select>
 
 </mapper>

@@ -2,6 +2,7 @@ package com.dtkq.api.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (Case)实体类
@@ -33,8 +34,26 @@ public class Case implements Serializable {
     private int style;
     private int caseChecknum;
     private int caseThumbnum;
+    private int caseCommentnum;
     private User userData;
     private Doctor doctorData;
+    private List<CaseDetail> caseDetailList;
+
+    public List<CaseDetail> getCaseDetailList() {
+        return caseDetailList;
+    }
+
+    public void setCaseDetailList(List<CaseDetail> caseDetailList) {
+        this.caseDetailList = caseDetailList;
+    }
+
+    public int getCaseCommentnum() {
+        return caseCommentnum;
+    }
+
+    public void setCaseCommentnum(int caseCommentnum) {
+        this.caseCommentnum = caseCommentnum;
+    }
 
     public Doctor getDoctorData() {
         return doctorData;

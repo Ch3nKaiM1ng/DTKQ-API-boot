@@ -42,7 +42,11 @@ public class ArticleCommentController {
     public Map<String, Object> findAll(@RequestBody ArticleComment entity) {
         int currpage=entity.getOffset();
         int limit=entity.getLimit();
-        entity.setOffset(currpage-1);
+        if(currpage==1){
+            entity.setOffset(currpage-1);
+        }else if(currpage>1){
+            entity.setOffset((currpage-1)*limit);
+        }
         List<ArticleComment> list =service.queryAllByLimit(entity);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("limit",limit);

@@ -42,12 +42,18 @@ public class AskAnswerController {
     public Map<String, Object> findAll(@RequestBody AskAnswer entity) {
         int currpage=entity.getOffset();//offset 查询起始位置
         int limit=entity.getLimit();//limit 查询条数
-        entity.setOffset(currpage-1);
+        if(currpage==1){
+            entity.setOffset(currpage-1);
+        }else if(currpage>1){
+            entity.setOffset((currpage-1)*limit);
+        }
+        Integer countNum=service.countNum(entity);//查到所有数据数
         List<AskAnswer> list =service.queryAll(entity);
         /*List<ArticleComment> list =service.queryAllByLimit(entity);*/
         JSONObject jsonObject=new JSONObject();//组成一个对象
         jsonObject.put("limit",limit);//返回当前页显示条数
         jsonObject.put("currpage",currpage);//返回当前页
+        jsonObject.put("countNum",countNum);//返回当前页
         jsonObject.put("dataList",list);//返回当前数组
         return re.SUCCESSOBJ(jsonObject);
     }

@@ -4,7 +4,7 @@
 
     <resultMap type="com.dtkq.api.entity.Ask" id="AskMap">
         <result property="askId" column="ask_id" jdbcType="INTEGER"/>
-        <result property="classId" column="class_id" jdbcType="INTEGER"/>
+        <result property="askClassId" column="class_id" jdbcType="INTEGER"/>
         <result property="askUserId" column="ask_user_id" jdbcType="INTEGER"/>
         <result property="askTitle" column="ask_title" jdbcType="VARCHAR"/>
         <result property="askContent" column="ask_content" jdbcType="OTHER"/>
@@ -66,8 +66,8 @@
             <if test="askId != null">
                 and a.ask_id = #{askId}
             </if>
-            <if test="classId != null">
-                and a.class_id = #{classId}
+            <if test="askClassId != null">
+                and a.class_id = #{askClassId}
             </if>
             <if test="askUserId != null">
                 and a.ask_user_id = #{askUserId}
@@ -96,15 +96,15 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="askId" useGeneratedKeys="true">
         insert into DTKQ.ask(class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, askLabel,askCheck_num,thumb_num)
-        values (#{classId}, #{askUserId}, #{askTitle}, #{askContent}, #{askImg}, #{askVedio}, now(), #{status}, #{askLabel},#{askCheckNum},#{thumbNum})
+        values (#{askClassId}, #{askUserId}, #{askTitle}, #{askContent}, #{askImg}, #{askVedio}, now(), #{status}, #{askLabel},#{askCheckNum},#{thumbNum})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update DTKQ.ask
         <set>
-            <if test="classId != null">
-                class_id = #{classId},
+            <if test="askClassId != null">
+                class_id = #{askClassId},
             </if>
             <if test="askUserId != null">
                 ask_user_id = #{askUserId},

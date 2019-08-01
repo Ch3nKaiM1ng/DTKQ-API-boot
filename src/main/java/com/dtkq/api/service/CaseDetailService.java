@@ -27,7 +27,7 @@ public interface CaseDetailService {
      * @return 对象列表
      */
     List<CaseDetail> queryAllByLimit(int offset, int limit);
-
+    List<CaseDetail> queryAll(CaseDetail caseDetail);
     /**
      * 新增数据
      *

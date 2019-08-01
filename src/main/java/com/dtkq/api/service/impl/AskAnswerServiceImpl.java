@@ -1,5 +1,6 @@
 package com.dtkq.api.service.impl;
 
+import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.AskAnswer;
 import com.dtkq.api.dao.AskAnswerDao;
 import com.dtkq.api.entity.AskComment;
@@ -86,5 +87,9 @@ public class AskAnswerServiceImpl implements AskAnswerService {
     public AskAnswer addNum(AskAnswer askAnswer) {
         this.askAnswerDao.addNum(askAnswer);
         return this.queryById(askAnswer.getId());
+    }
+    @Override
+    public Integer countNum(AskAnswer ask) {
+        return askAnswerDao.countNum(ask);
     }
 }

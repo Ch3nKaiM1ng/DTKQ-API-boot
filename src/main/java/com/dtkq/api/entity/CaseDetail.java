@@ -1,6 +1,7 @@
 package com.dtkq.api.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (CaseDetail)实体类
@@ -26,7 +27,16 @@ public class CaseDetail implements Serializable {
     private String content;
     //关键词
     private String keyword;
+    //关键词
+    private Date ctime;
 
+    public Date getCtime() {
+        return ctime;
+    }
+
+    public void setCtime(Date ctime) {
+        this.ctime = ctime;
+    }
 
     public Integer getId() {
         return id;

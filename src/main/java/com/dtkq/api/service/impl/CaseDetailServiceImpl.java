@@ -41,6 +41,10 @@ public class CaseDetailServiceImpl implements CaseDetailService {
     public List<CaseDetail> queryAllByLimit(int offset, int limit) {
         return this.caseDetailDao.queryAllByLimit(offset, limit);
     }
+    @Override
+    public List<CaseDetail> queryAll(CaseDetail caseDetail) {
+        return this.caseDetailDao.queryAll(caseDetail);
+    }
 
     /**
      * 新增数据

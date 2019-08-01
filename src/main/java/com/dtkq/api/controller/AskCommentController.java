@@ -44,7 +44,11 @@ public class AskCommentController {
     public Map<String, Object> findAll(@RequestBody AskComment entity) {
         int currpage=entity.getOffset();//offset 查询起始位置
         int limit=entity.getLimit();//limit 查询条数
-        entity.setOffset(currpage-1);
+        if(currpage==1){
+            entity.setOffset(currpage-1);
+        }else if(currpage>1){
+            entity.setOffset((currpage-1)*limit);
+        }
         List<AskComment> list =service.queryAll(entity);
         /*List<ArticleComment> list =service.queryAllByLimit(entity);*/
         JSONObject jsonObject=new JSONObject();//组成一个对象

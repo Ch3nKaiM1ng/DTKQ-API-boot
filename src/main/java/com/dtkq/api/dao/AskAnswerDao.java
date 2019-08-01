@@ -1,5 +1,6 @@
 package com.dtkq.api.dao;
 
+import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.AskAnswer;
 import com.dtkq.api.entity.AskComment;
 import org.apache.ibatis.annotations.Param;
@@ -63,4 +64,5 @@ public interface AskAnswerDao {
      */
     int deleteById(Integer id);
     int addNum(AskAnswer askAnswer);
+    int countNum(AskAnswer ask);
 }

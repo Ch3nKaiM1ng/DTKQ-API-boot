@@ -61,5 +61,5 @@ public interface CaseDetailDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
-
+    List<CaseDetail> queryAllById(Integer id);
 }
