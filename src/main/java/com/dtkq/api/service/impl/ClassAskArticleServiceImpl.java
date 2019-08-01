@@ -61,7 +61,7 @@ public class ClassAskArticleServiceImpl implements ClassAskArticleService {
      * @return 实例对象
      */
     @Override
-    public ClassAskArticle update(ClassAskArticle classAskArticle) {
+    public int update(ClassAskArticle classAskArticle) {
         this.classAskArticleDao.update(classAskArticle);
         return this.queryById(classAskArticle.getAcId());
     }
