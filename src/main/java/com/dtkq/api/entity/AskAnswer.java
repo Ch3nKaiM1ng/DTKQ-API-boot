@@ -35,6 +35,14 @@ public class AskAnswer implements Serializable {
 
     private Integer askUserId;
 
+    public Integer getAskUserId() {
+        return askUserId;
+    }
+
+    public void setAskUserId(Integer askUserId) {
+        this.askUserId = askUserId;
+    }
+
     public Integer getThumbNum() {
         return thumbNum;
     }
