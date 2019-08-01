@@ -63,7 +63,7 @@ public class ClassAskArticleServiceImpl implements ClassAskArticleService {
     @Override
     public int update(ClassAskArticle classAskArticle) {
         this.classAskArticleDao.update(classAskArticle);
-        return this.queryById(classAskArticle.getAcId());
+        return classAskArticle.getAcId();
     }
 
     /**
