@@ -44,19 +44,23 @@ public class ClassAskArticleController {
         }else {
             List<ClassAskArticle> askArticleList = this.classAskArticleService.queryAll(askArticle);
             for (int i =0 ;i<askArticleList.size();i++){
-                if (askArticleList.get(i).getAc_artId()!=null){
-                    askArticleList.get(i).getArticle().setArtCommentNum(123);
-                    askArticleList.get(i).setManNum(234);
-                    askArticleList.get(i).setWomanNum(234);
-                }else {
-                    askArticleList.get(i).getAsk().setAskCommentNum(123);
-                    askArticleList.get(i).setManNum(234);
-                    askArticleList.get(i).setWomanNum(234);
+                if (askArticleList.get(i).getAsk()!=null||askArticleList.get(i).getArticle()!=null) {
+                    if (askArticleList.get(i).getAc_artId() != null) {
+                        askArticleList.get(i).getArticle().setArtCommentNum(123);
+                        askArticleList.get(i).setManNum(234);
+                        askArticleList.get(i).setWomanNum(234);
+                    } else {
+                        askArticleList.get(i).getAsk().setAskCommentNum(123);
+                        askArticleList.get(i).setManNum(234);
+                        askArticleList.get(i).setWomanNum(234);
+                    }
                 }
             }
             return re.SUCCESSOBJ(askArticleList);
         }
     }
+
+//    插入
     @RequestMapping("/inset")
     public Map<String,Object> insetHot(@RequestBody ClassAskArticle askArticle){
         if (askArticle.getAc_askId()!=null||askArticle.getAc_artId()!=null){
@@ -69,5 +73,16 @@ public class ClassAskArticleController {
         return re.ERRORMSG("askId or articleId is null!");
     }
 
+    @RequestMapping("/update")
+    public Map<String,Object> updateClassAskArticle(@RequestBody ClassAskArticle askArticle){
+        if (askArticle.getAcId()!=null){
+            int count = this.classAskArticleService.update(askArticle);
+            if (count>0){
+                return re.SUCCESS();
+            }
+            return re.ERROR();
+        }
+        return re.SUCCESSOBJ("传入ID为空！");
+    }
 
 }

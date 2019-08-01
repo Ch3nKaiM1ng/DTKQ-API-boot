@@ -42,7 +42,7 @@ public interface ClassAskArticleService {
      * @param classAskArticle 实例对象
      * @return 实例对象
      */
-    ClassAskArticle update(ClassAskArticle classAskArticle);
+    int update(ClassAskArticle classAskArticle);
 
     /**
      * 通过主键删除数据
