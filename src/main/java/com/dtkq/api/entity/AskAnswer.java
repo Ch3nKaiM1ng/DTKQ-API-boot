@@ -33,6 +33,8 @@ public class AskAnswer implements Serializable {
     //点赞量
     private Integer thumbNum;
 
+    private Integer askUserId;
+
     public Integer getThumbNum() {
         return thumbNum;
     }
