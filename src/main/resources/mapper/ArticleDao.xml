@@ -174,36 +174,38 @@
         select count(*)
         from DTKQ.article a
         left  join user b on b.user_id=a.art_user_id
-        <if test="artId != null">
-            and art_id = #{artId}
-        </if>
-        <if test="classId != null">
-            and class_id = #{classId}
-        </if>
-        <if test="artUserId != null">
-            and art_user_id = #{artUserId}
-        </if>
-        <if test="artTitle != null and artTitle != ''">
-            and art_title = #{artTitle}
-        </if>
-        <if test="artContent != null">
-            and art_content = #{artContent}
-        </if>
-        <if test="artImg != null and artImg != ''">
-            and art_img = #{artImg}
-        </if>
-        <if test="artVedio != null and artVedio != ''">
-            and art_vedio = #{artVedio}
-        </if>
-        <if test="ctime != null and ctime != ''">
-            and ctime = #{ctime}
-        </if>
-        <if test="status != null">
-            and status = #{status}
-        </if>
-        <if test="label != null and label != ''">
-            and label = #{label}
-        </if>
+        <where>
+            <if test="artId != null">
+                and art_id = #{artId}
+            </if>
+            <if test="classId != null">
+                and class_id = #{classId}
+            </if>
+            <if test="artUserId != null">
+                and art_user_id = #{artUserId}
+            </if>
+            <if test="artTitle != null and artTitle != ''">
+                and art_title = #{artTitle}
+            </if>
+            <if test="artContent != null">
+                and art_content = #{artContent}
+            </if>
+            <if test="artImg != null and artImg != ''">
+                and art_img = #{artImg}
+            </if>
+            <if test="artVedio != null and artVedio != ''">
+                and art_vedio = #{artVedio}
+            </if>
+            <if test="ctime != null and ctime != ''">
+                and ctime = #{ctime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="label != null and label != ''">
+                and label = #{label}
+            </if>
+        </where>
 
     </select>
 </mapper>

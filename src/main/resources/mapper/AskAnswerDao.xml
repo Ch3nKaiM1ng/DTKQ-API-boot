@@ -138,30 +138,26 @@
         LEFT JOIN `user` b on a.user_id= b.user_id
 
         <where>
+            <if test="id != null">
+                and a.id = #{id}
+            </if>
             <if test="askId != null">
                 and a.ask_id = #{askId}
             </if>
-
-            <if test="askUserId != null">
-                and a.ask_user_id = #{askUserId}
+            <if test="userId != null">
+                and a.user_id = #{userId}
             </if>
-            <if test="askTitle != null and askTitle != ''">
-                and a.ask_title = #{askTitle}
+            <if test="title != null and title != ''">
+                and a.title = #{title}
             </if>
-            <if test="askContent != null">
-                and a.ask_content = #{askContent}
+            <if test="content != null">
+                and a.content = #{content}
             </if>
-            <if test="askImg != null and askImg != ''">
-                and a.ask_img = #{askImg}
+            <if test="ctime != null">
+                and a.ctime = #{ctime}
             </if>
-            <if test="askVedio != null and askVedio != ''">
-                and a.ask_vedio = #{askVedio}
-            </if>
-            <if test="status != null">
+            <if test="status != null and status != ''">
                 and a.status = #{status}
-            </if>
-            <if test="askLabel != null and askLabel != ''">
-                and a.askLabel = #{askLabel}
             </if>
         </where>
     </select>
