@@ -18,10 +18,12 @@ public class ArticleComment implements Serializable {
     private Integer artId;
     //父ID 以下情况：文章被用户A评论，然后B用户对A进行评论
     private Integer parentId;
+    private Integer topId;
     //评论等级：0回复文章，1回复评论人
     private Integer level;
     //用户ID
     private Integer userId;
+    private Integer receiveUserId;
     //内容
     private Object content;
     //创建时间
@@ -35,9 +37,48 @@ public class ArticleComment implements Serializable {
 
     private User user;
 
+    private User receiveUser;
+
+    private List<ArticleComment> sonArticle;
+
     private int commentList;
     //点赞量
     private Integer thumbNum;
+
+    public User getReceiveUser() {
+
+
+        return receiveUser;
+    }
+
+    public void setReceiveUser(User receiveUser) {
+        this.receiveUser = receiveUser;
+    }
+
+    public List<ArticleComment> getSonArticle() {
+        return sonArticle;
+    }
+
+    public void setSonArticle(List<ArticleComment> sonArticle) {
+        this.sonArticle = sonArticle;
+    }
+
+    public Integer getTopId() {
+        return topId;
+    }
+
+    public void setTopId(Integer topId) {
+        this.topId = topId;
+    }
+
+    public Integer getReceiveUserId() {
+        return receiveUserId;
+    }
+
+    public void setReceiveUserId(Integer receiveUserId) {
+        this.receiveUserId = receiveUserId;
+    }
+
 
     public Integer getThumbNum() {
         return thumbNum;

@@ -50,10 +50,12 @@ public class AskCommentController {
             entity.setOffset((currpage-1)*limit);
         }
         List<AskComment> list =service.queryAll(entity);
+        Integer countNum=service.countNum(entity);//查到所有数据数
         /*List<ArticleComment> list =service.queryAllByLimit(entity);*/
         JSONObject jsonObject=new JSONObject();//组成一个对象
         jsonObject.put("limit",limit);//返回当前页显示条数
         jsonObject.put("currpage",currpage);//返回当前页
+        jsonObject.put("countNum",countNum);//返回当前页
         jsonObject.put("dataList",list);//返回当前数组
         return re.SUCCESSOBJ(jsonObject);
     }
@@ -91,6 +93,17 @@ public class AskCommentController {
     public Map<String, Object> findObj(@RequestBody AskComment entity) {
         if (entity.getId() != null) {
             AskComment obj=service.queryById(entity.getId());
+            if(obj!=null){
+                return re.SUCCESSOBJ(obj);
+            }
+        }
+        return re.ERROR();
+    }
+    //  查看单个
+    @RequestMapping("/findSonList")
+    public Map<String, Object> findSonList(@RequestBody AskComment entity) {
+        if (entity.getAskAnswerId() != null) {
+            List<AskComment> obj=service.findAllData(entity);
             if(obj!=null){
                 return re.SUCCESSOBJ(obj);
             }

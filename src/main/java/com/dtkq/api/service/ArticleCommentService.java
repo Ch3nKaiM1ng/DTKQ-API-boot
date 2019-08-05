@@ -20,8 +20,10 @@ public interface ArticleCommentService {
      * @return 实例对象
      */
     ArticleComment queryById(Integer id);
-
     List<ArticleComment> queryAllByLimit(ArticleComment entity);
+    List<ArticleComment> findAllData(ArticleComment entity);
+
+    ArticleComment findSonObj(Integer id);
 
 
     /**
@@ -48,4 +50,5 @@ public interface ArticleCommentService {
      */
     boolean deleteById(Integer id);
     ArticleComment addNum(ArticleComment ask);
+    Integer countNum(ArticleComment ask);
 }

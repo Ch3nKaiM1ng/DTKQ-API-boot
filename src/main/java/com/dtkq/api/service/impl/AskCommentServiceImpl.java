@@ -1,5 +1,6 @@
 package com.dtkq.api.service.impl;
 
+import com.dtkq.api.entity.ArticleComment;
 import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.AskComment;
 import com.dtkq.api.dao.AskCommentDao;
@@ -86,5 +87,15 @@ public class AskCommentServiceImpl implements AskCommentService {
     public AskComment addNum(AskComment askComment) {
         this.askCommentDao.addNum(askComment);
         return this.queryById(askComment.getId());
+    }
+    @Override
+    public Integer countNum(AskComment article) {
+        return askCommentDao.countNum(article);
+    }
+    @Override
+    public List<AskComment> findAllData(AskComment entity) {
+
+        List<AskComment>  list =  this.askCommentDao.findAllData(entity);
+        return list;
     }
 }

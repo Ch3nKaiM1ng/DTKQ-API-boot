@@ -1,5 +1,6 @@
 package com.dtkq.api.service.impl;
 
+import com.dtkq.api.entity.AskComment;
 import com.dtkq.api.entity.CaseComment;
 import com.dtkq.api.dao.CaseCommentDao;
 import com.dtkq.api.service.CaseCommentService;
@@ -76,4 +77,24 @@ public class CaseCommentServiceImpl implements CaseCommentService {
     public boolean deleteById(Integer id) {
         return this.caseCommentDao.deleteById(id) > 0;
     }
+
+    @Override
+    public boolean addNum(CaseComment entity) {
+        return this.caseCommentDao.addNum(entity) > 0;
+    }
+    @Override
+    public Integer countNum(CaseComment entity) {
+        return caseCommentDao.countNum(entity);
+    }
+    @Override
+    public List<CaseComment> findAllData(CaseComment entity) {
+
+        List<CaseComment>  list =  this.caseCommentDao.findAllData(entity);
+        return list;
+    }
+    @Override
+    public List<CaseComment> queryAll(CaseComment entity) {
+        return this.caseCommentDao.queryAll(entity);
+    }
+
 }

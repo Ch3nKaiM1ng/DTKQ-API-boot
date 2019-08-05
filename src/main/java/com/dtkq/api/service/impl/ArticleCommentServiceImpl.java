@@ -30,6 +30,10 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     public ArticleComment queryById(Integer id) {
         return this.articleCommentDao.queryById(id);
     }
+    @Override
+    public ArticleComment findSonObj(Integer id) {
+        return this.articleCommentDao.findSonObj(id);
+    }
 
     @Override
     public List<ArticleComment> queryAllByLimit(ArticleComment entity) {
@@ -42,6 +46,12 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
                     checkParam.setLimit(50);//显示的评论数
                     obj.setCommentList(articleCommentDao.countNum(checkParam));
                 }
+        return list;
+    }
+    @Override
+    public List<ArticleComment> findAllData(ArticleComment entity) {
+
+        List<ArticleComment>  list =  this.articleCommentDao.findAllData(entity);
         return list;
     }
 
@@ -83,6 +93,10 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     public ArticleComment addNum(ArticleComment articleComment) {
         this.articleCommentDao.addNum(articleComment);
         return this.queryById(articleComment.getId());
+    }
+    @Override
+    public Integer countNum(ArticleComment article) {
+        return articleCommentDao.countNum(article);
     }
 
 }

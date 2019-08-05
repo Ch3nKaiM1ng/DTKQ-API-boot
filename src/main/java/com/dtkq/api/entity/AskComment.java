@@ -2,6 +2,7 @@ package com.dtkq.api.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (AskComment)实体类
@@ -32,8 +33,47 @@ public class AskComment implements Serializable {
     //显示数量
     private int limit;
     private User user;
+    private User receiveUser;
     //点赞量
     private Integer thumbNum;
+
+    private Integer topId;
+
+    private Integer receiveUserId;
+
+    private List<AskComment> sonComment;
+
+    public List<AskComment> getSonComment() {
+        return sonComment;
+    }
+
+    public void setSonComment(List<AskComment> sonComment) {
+        this.sonComment = sonComment;
+    }
+
+    public User getReceiveUser() {
+        return receiveUser;
+    }
+
+    public void setReceiveUser(User receiveUser) {
+        this.receiveUser = receiveUser;
+    }
+
+    public Integer getTopId() {
+        return topId;
+    }
+
+    public void setTopId(Integer topId) {
+        this.topId = topId;
+    }
+
+    public Integer getReceiveUserId() {
+        return receiveUserId;
+    }
+
+    public void setReceiveUserId(Integer receiveUserId) {
+        this.receiveUserId = receiveUserId;
+    }
 
     public Integer getThumbNum() {
         return thumbNum;

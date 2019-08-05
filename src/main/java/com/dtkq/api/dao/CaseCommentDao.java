@@ -1,5 +1,6 @@
 package com.dtkq.api.dao;
 
+import com.dtkq.api.entity.AskComment;
 import com.dtkq.api.entity.CaseComment;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -61,5 +62,8 @@ public interface CaseCommentDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
-
+    int addNum(CaseComment askComment);
+    int countNum(CaseComment askComment);
+    List<CaseComment> findAllData(CaseComment articleComment);
+    List<CaseComment> findSonList(CaseComment articleComment);
 }

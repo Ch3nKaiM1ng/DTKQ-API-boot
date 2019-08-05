@@ -9,6 +9,7 @@
         <result property="label" column="label" jdbcType="VARCHAR"/>
         <result property="img" column="img" jdbcType="OTHER"/>
         <result property="days" column="days" jdbcType="INTEGER"/>
+        <result property="address" column="address" jdbcType="INTEGER"/>
         <result property="content" column="content" jdbcType="OTHER"/>
         <result property="keyword" column="keyword" jdbcType="OTHER"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
@@ -17,7 +18,8 @@
     <!--查询单个-->
     <select id="queryById" resultMap="CaseDetailMap">
         select
-          id, case_id, title, label, img, days, content, keyword,ctime
+          id, case_id, title, label, img, days, content, keyword,ctime,address
+
         from DTKQ.case_detail
         where id = #{id}
     </select>
@@ -25,7 +27,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CaseDetailMap">
         select
-          id, case_id, title, label, img, days, content, keyword,ctime
+          id, case_id, title, label, img, days, content, keyword,ctime,address
         from DTKQ.case_detail
         limit #{offset}, #{limit}
     </select>
@@ -33,7 +35,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="CaseDetailMap">
         select
-          id, case_id, title, label, img, days, content, keyword,ctime
+          id, case_id, title, label, img, days, content, keyword,ctime,address
         from DTKQ.case_detail
         <where>
             <if test="id != null">
@@ -60,13 +62,16 @@
             <if test="keyword != null">
                 and keyword = #{keyword}
             </if>
+            <if test="address != null">
+                and address = #{address}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into DTKQ.case_detail(case_id, title, label, img, days, content, keyword,ctime)
-        values (#{caseId}, #{title}, #{label}, #{img}, #{days}, #{content}, #{keyword},now())
+        insert into DTKQ.case_detail(case_id, title, label, img, days, content, keyword,ctime,address)
+        values (#{caseId}, #{title}, #{label}, #{img}, #{days}, #{content}, #{keyword},now(),#{address})
     </insert>
 
     <!--通过主键修改数据-->
@@ -94,6 +99,9 @@
             <if test="keyword != null">
                 keyword = #{keyword},
             </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
         </set>
         where id = #{id}
     </update>
@@ -106,7 +114,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAllById" resultMap="CaseDetailMap">
         select
-        id, case_id, title, label, img, days, content, keyword,ctime
+        id, case_id, title, label, img, days, content, keyword,ctime,address
         from DTKQ.case_detail
         where  case_id = #{caseId}
         order by days desc

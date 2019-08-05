@@ -1,6 +1,8 @@
 package com.dtkq.api.service;
 
+import com.dtkq.api.entity.ArticleComment;
 import com.dtkq.api.entity.Ask;
+import com.dtkq.api.entity.AskAnswer;
 import com.dtkq.api.entity.AskComment;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public interface AskCommentService {
     List<AskComment> queryAllByLimit(int offset, int limit);
 
     List<AskComment> queryAll(AskComment askComment);
-
+    List<AskComment> findAllData(AskComment entity);
     /**
      * 新增数据
      *
@@ -55,4 +57,5 @@ public interface AskCommentService {
      */
     boolean deleteById(Integer id);
     AskComment addNum(AskComment ask);
+    Integer countNum(AskComment ask);
 }
