@@ -1,5 +1,6 @@
 package com.dtkq.api.dao;
 
+import com.dtkq.api.entity.ArticleComment;
 import com.dtkq.api.entity.AskComment;
 import com.dtkq.api.entity.AskThumbs;
 import org.apache.ibatis.annotations.Param;
@@ -63,4 +64,7 @@ public interface AskCommentDao {
      */
     int deleteById(Integer id);
     int addNum(AskComment askComment);
+    int countNum(AskComment askComment);
+    List<AskComment> findAllData(AskComment articleComment);
+    List<AskComment> findSonList(AskComment articleComment);
 }

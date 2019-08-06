@@ -47,9 +47,14 @@ public class ArticleCommentController {
         }else if(currpage>1){
             entity.setOffset((currpage-1)*limit);
         }
+        Integer countNum=service.countNum(entity);//查到所有数据数
         List<ArticleComment> list =service.queryAllByLimit(entity);
+        for(ArticleComment x:list){
+            System.out.println(x.getId());
+        }
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("limit",limit);
+        jsonObject.put("countNum",countNum);
         jsonObject.put("currpage",currpage);
         jsonObject.put("dataList",list);
         return re.SUCCESSOBJ(jsonObject);
@@ -94,7 +99,17 @@ public class ArticleCommentController {
         }
         return re.ERROR();
     }
-
+    //  查看单个
+    @RequestMapping("/findSonList")
+    public Map<String, Object> findSonList(@RequestBody ArticleComment entity) {
+        if (entity.getArtId() != null) {
+            List<ArticleComment> obj=service.findAllData(entity);
+            if(obj!=null){
+                return re.SUCCESSOBJ(obj);
+            }
+        }
+        return re.ERROR();
+    }
     //  点赞
     @RequestMapping("/DoThumb")
     public Map<String, Object> DoThumb(@RequestBody ArticleComment entity) {

@@ -8,6 +8,8 @@
         <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
         <result property="level" column="level" jdbcType="INTEGER"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="topId" column="top_id" jdbcType="INTEGER"/>
+        <result property="receiveUserId" column="receive_user_id" jdbcType="INTEGER"/>
         <result property="content" column="content" jdbcType="OTHER"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
@@ -28,19 +30,64 @@
         </collection>
     </resultMap>
 
+    <resultMap type="com.dtkq.api.entity.ArticleComment" id="allList">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="artId" column="art_id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="topId" column="top_id" jdbcType="INTEGER"/>
+        <result property="receiveUserId" column="receive_user_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="OTHER"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
+        <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
+        </association>
+        <association property="sonArticle"  select="com.dtkq.api.dao.ArticleCommentDao.findSonList" column="id">
+        </association>
+    </resultMap>
+
+    <resultMap type="com.dtkq.api.entity.ArticleComment" id="sonList">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="artId" column="art_id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="topId" column="top_id" jdbcType="INTEGER"/>
+        <result property="receiveUserId" column="receive_user_id" jdbcType="INTEGER"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="OTHER"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
+        <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
+        </association>
+        <association property="receiveUser"  select="com.dtkq.api.dao.UserDao.queryById" column="receive_user_id">
+        </association>
+
+    </resultMap>
+
 
     <!--查询单个-->
     <select id="queryById" resultMap="ArticleCommentMap">
-        select a.id, a.art_id, a.parent_id, a.level, a.user_id, a.content, a.ctime, a.status,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        select a.id, a.art_id, a.parent_id, a.level, a.user_id, a.content,a.top_id,a.receive_user_id, a.ctime, a.status,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
         from DTKQ.article_comment a
 				left join user b on a.user_id =b.user_id
         where a.id = #{id}
     </select>
 
+    <!--查询单个-->
+    <select id="findSonList" resultMap="sonList">
+        select * from article_comment
+        where level=1
+        and top_id=#{id}
+        ORDER BY ctime asc
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ArticleCommentMap">
-        select a.id, a.art_id, a.parent_id, a.level, a.user_id, a.content, a.ctime, a.status,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        select a.id, a.art_id, a.parent_id, a.level, a.user_id, a.content,a.top_id,a.receive_user_id, a.ctime, a.status,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
         from DTKQ.article_comment a
 				left join user b on a.user_id =b.user_id
@@ -49,37 +96,46 @@
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ArticleCommentMap">
-        select a.id, a.art_id, a.parent_id, a.level, a.user_id, a.content, a.ctime, a.status,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        select a.id, a.art_id, a.parent_id, a.level, a.user_id, a.content,a.top_id,a.receive_user_id, a.ctime, a.status,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
         from DTKQ.article_comment a
         left join user b on a.user_id =b.user_id
         where 1=1
             <if test="id != null">
-                and id = #{id}
+                and a.id = #{id}
             </if>
             <if test="artId != null">
-                and art_id = #{artId}
+                and a.art_id = #{artId}
             </if>
             <if test="parentId != null">
-                and parent_id = #{parentId}
+                and a.parent_id = #{parentId}
             </if>
             <if test="level != null">
-                and level = #{level}
+                and a.level = #{level}
             </if>
             <if test="userId != null">
-                and user_id = #{userId}
+                and a.user_id = #{userId}
             </if>
             <if test="content != null">
-                and content = #{content}
+                and a.content = #{content}
             </if>
             <if test="ctime != null">
-                and ctime = #{ctime}
+                and a.ctime = #{ctime}
             </if>
             <if test="status != null">
-                and status = #{status}
+                and a.status = #{status}
             </if>
         limit #{offset}, #{limit}
     </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="findAllData" resultMap="allList">
+        select * from article_comment
+        where level=0
+        and art_id=#{artId}
+        ORDER BY ctime asc
+    </select>
+
     <select id="countNum"  resultType="java.lang.Integer">
         select count(*)
         from DTKQ.article_comment a
@@ -108,12 +164,17 @@
         <if test="status != null">
             and status = #{status}
         </if>
-
+        <if test="topId != null">
+            and top_id = #{topId}
+        </if>
+        <if test="receiveUserId != null">
+           and  receive_user_id = #{receiveUserId}
+        </if>
     </select>
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into DTKQ.article_comment(art_id, parent_id, level, user_id, content, ctime, status,thumb_num)
-        values (#{artId}, #{parentId}, #{level}, #{userId}, #{content}, now(), #{status},#{thumbNum})
+        insert into DTKQ.article_comment(art_id, parent_id, level, user_id, content, ctime, status,thumb_num,top_id,receive_user_id)
+        values (#{artId}, #{parentId}, #{level}, #{userId}, #{content}, now(), #{status},#{thumbNum},#{topId},#{receiveUserId})
     </insert>
 
     <!--通过主键修改数据-->
@@ -140,6 +201,12 @@
             </if>
             <if test="thumbNum != null and thumbNum != ''">
                 thumb_num = #{thumbNum},
+            </if>
+            <if test="topId != null">
+                top_id = #{topId},
+            </if>
+            <if test="receiveUserId != null">
+                receive_user_id = #{receiveUserId},
             </if>
         </set>
         where id = #{id}

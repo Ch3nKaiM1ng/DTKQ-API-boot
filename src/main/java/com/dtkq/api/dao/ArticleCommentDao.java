@@ -20,6 +20,8 @@ public interface ArticleCommentDao {
      * @return 实例对象
      */
     ArticleComment queryById(Integer id);
+    ArticleComment findSonObj(Integer id);
+    ArticleComment findSonList(Integer id);
 
     /**
      * 查询指定行数据
@@ -38,6 +40,8 @@ public interface ArticleCommentDao {
      * @return 对象列表
      */
     List<ArticleComment> queryAll(ArticleComment articleComment);
+
+    List<ArticleComment> findAllData(ArticleComment articleComment);
 
     /**
      * 新增数据

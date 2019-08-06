@@ -2,6 +2,7 @@ package com.dtkq.api.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (CaseComment)实体类
@@ -27,7 +28,84 @@ public class CaseComment implements Serializable {
     private Date ctime;
     //0正常 1已删除
     private Integer status;
+    //当前页
+    private int offset;
+    //显示数量
+    private int limit;
+    private User user;
+    private User receiveUser;
+    //点赞量
+    private Integer thumbNum;
 
+    private Integer topId;
+
+    private Integer receiveUserId;
+
+    private List<CaseComment> sonComment;
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getReceiveUser() {
+        return receiveUser;
+    }
+
+    public void setReceiveUser(User receiveUser) {
+        this.receiveUser = receiveUser;
+    }
+
+    public Integer getThumbNum() {
+        return thumbNum;
+    }
+
+    public void setThumbNum(Integer thumbNum) {
+        this.thumbNum = thumbNum;
+    }
+
+    public Integer getTopId() {
+        return topId;
+    }
+
+    public void setTopId(Integer topId) {
+        this.topId = topId;
+    }
+
+    public Integer getReceiveUserId() {
+        return receiveUserId;
+    }
+
+    public void setReceiveUserId(Integer receiveUserId) {
+        this.receiveUserId = receiveUserId;
+    }
+
+    public List<CaseComment> getSonComment() {
+        return sonComment;
+    }
+
+    public void setSonComment(List<CaseComment> sonComment) {
+        this.sonComment = sonComment;
+    }
 
     public Integer getId() {
         return id;

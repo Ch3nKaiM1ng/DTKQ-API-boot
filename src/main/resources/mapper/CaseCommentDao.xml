@@ -11,12 +11,50 @@
         <result property="content" column="content" jdbcType="OTHER"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="topId" column="top_id" jdbcType="INTEGER"/>
+        <result property="receiveUserId" column="receive_user_id" jdbcType="INTEGER"/>
+        <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
+        <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
+        </association>
     </resultMap>
-
+    <resultMap type="com.dtkq.api.entity.CaseComment" id="allList">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="caseId" column="case_id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="OTHER"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="topId" column="top_id" jdbcType="INTEGER"/>
+        <result property="receiveUserId" column="receive_user_id" jdbcType="INTEGER"/>
+        <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
+        <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
+        </association>
+        <association property="sonComment"  select="com.dtkq.api.dao.AskCommentDao.findSonList" column="id">
+        </association>
+    </resultMap>
+    <resultMap type="com.dtkq.api.entity.AskComment" id="sonList">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="askAnswerId" column="ask_answer_id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="topId" column="top_id" jdbcType="INTEGER"/>
+        <result property="receiveUserId" column="receive_user_id" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="OTHER"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
+        <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
+        </association>
+        <association property="receiveUser"  select="com.dtkq.api.dao.UserDao.queryById" column="receive_user_id">
+        </association>
+    </resultMap>
     <!--查询单个-->
     <select id="queryById" resultMap="CaseCommentMap">
         select
-          id, case_id, parent_id, level, user_id, content, ctime, status
+          id, case_id, parent_id, level, user_id, content, ctime, status,receive_user_id,top_id,thumb_num
         from DTKQ.case_comment
         where id = #{id}
     </select>
@@ -24,7 +62,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CaseCommentMap">
         select
-          id, case_id, parent_id, level, user_id, content, ctime, status
+          id, case_id, parent_id, level, user_id, content, ctime, status,receive_user_id,top_id,thumb_num
         from DTKQ.case_comment
         limit #{offset}, #{limit}
     </select>
@@ -32,7 +70,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="CaseCommentMap">
         select
-          id, case_id, parent_id, level, user_id, content, ctime, status
+          id, case_id, parent_id, level, user_id, content, ctime, status,receive_user_id,top_id,thumb_num
         from DTKQ.case_comment
         <where>
             <if test="id != null">
@@ -59,13 +97,36 @@
             <if test="status != null">
                 and status = #{status}
             </if>
+            <if test="topId != null">
+                and top_id = #{topId}
+            </if>
+            <if test="receiveUserId != null">
+                and receive_user_id = #{receiveUserId}
+            </if>
         </where>
+        limit #{offset}, #{limit}
     </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="findAllData" resultMap="allList">
+        select * from case_comment
+        where level=0
+        and case_id=#{caseId}
+        ORDER BY ctime asc
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="findSonList" resultMap="sonList">
+        select * from case_comment
+        where  level=1
+        and top_id=#{topId}
+        ORDER BY ctime asc
+    </select>
+
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into DTKQ.case_comment(case_id, parent_id, level, user_id, content, ctime, status)
-        values (#{caseId}, #{parentId}, #{level}, #{userId}, #{content}, #{ctime}, #{status})
+        insert into DTKQ.case_comment(case_id, parent_id, level, user_id, content, ctime, status,thumb_num,top_id,receive_user_id)
+        values (#{caseId}, #{parentId}, #{level}, #{userId}, #{content}, now(), #{status},#{thumbNum},#{topId},#{receiveUserId})
     </insert>
 
     <!--通过主键修改数据-->
@@ -93,6 +154,15 @@
             <if test="status != null">
                 status = #{status},
             </if>
+            <if test="thumbNum != null and thumbNum != ''">
+                thumb_num = #{thumbNum},
+            </if>
+            <if test="topId != null">
+                top_id = #{topId},
+            </if>
+            <if test="receiveUserId != null">
+                receive_user_id = #{receiveUserId},
+            </if>
         </set>
         where id = #{id}
     </update>
@@ -101,5 +171,52 @@
     <delete id="deleteById">
         delete from DTKQ.case_comment where id = #{id}
     </delete>
+    <update id="addNum">
+        update DTKQ.case_comment
+        <set>
+            <if test="thumbNum != null and thumbNum != ''">
+                thumb_num = thumb_num +1
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
+    <select id="countNum"  resultType="java.lang.Integer" >
+        select
+          count(*)
+        from case_comment
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="caseId != null">
+                and case_id = #{caseId}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="level != null">
+                and level = #{level}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="ctime != null">
+                and ctime = #{ctime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="topId != null">
+                and top_id = #{topId}
+            </if>
+            <if test="receiveUserId != null">
+                and receive_user_id = #{receiveUserId}
+            </if>
+        </where>
+
+    </select>
 </mapper>

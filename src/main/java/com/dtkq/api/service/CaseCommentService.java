@@ -1,5 +1,6 @@
 package com.dtkq.api.service;
 
+import com.dtkq.api.entity.AskComment;
 import com.dtkq.api.entity.CaseComment;
 import java.util.List;
 
@@ -52,4 +53,8 @@ public interface CaseCommentService {
      */
     boolean deleteById(Integer id);
 
+    boolean addNum(CaseComment entity);
+    Integer countNum(CaseComment entity);
+    List<CaseComment> queryAll(CaseComment entity);
+    List<CaseComment> findAllData(CaseComment entity);
 }

@@ -27,8 +27,18 @@ public class CaseDetail implements Serializable {
     private String content;
     //关键词
     private String keyword;
+
+    private String address;
     //关键词
     private Date ctime;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Date getCtime() {
         return ctime;
