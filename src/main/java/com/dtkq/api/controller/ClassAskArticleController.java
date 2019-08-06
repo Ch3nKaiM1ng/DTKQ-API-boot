@@ -40,7 +40,7 @@ public class ClassAskArticleController {
     @RequestMapping("/selectHot")
     public Map<String,Object> selectHot(@RequestBody ClassAskArticle askArticle){
         if (askArticle.getBelong()==null){
-            return re.ERRORMSG("归属值为空！");
+            return re.ERRORMSG("pass in a null value!");
         }else {
             List<ClassAskArticle> askArticleList = this.classAskArticleService.queryAll(askArticle);
             for (int i =0 ;i<askArticleList.size();i++){
@@ -70,9 +70,10 @@ public class ClassAskArticleController {
             }
             return re.ERRORMSG("inset error!");
         }
-        return re.ERRORMSG("askId or articleId is null!");
+        return re.ERRORMSG("pass in a null value!");
     }
 
+//    修改
     @RequestMapping("/update")
     public Map<String,Object> updateClassAskArticle(@RequestBody ClassAskArticle askArticle){
         if (askArticle.getAcId()!=null){
@@ -82,7 +83,20 @@ public class ClassAskArticleController {
             }
             return re.ERROR();
         }
-        return re.SUCCESSOBJ("传入ID为空！");
+        return re.SUCCESSOBJ("pass in a null value!");
+    }
+
+//    查询
+    @RequestMapping("/selectById")
+    public Map<String,Object>selectById(@RequestBody ClassAskArticle askArticle){
+        if (askArticle.getAcId()!=null){
+            ClassAskArticle classAskArticle = this.classAskArticleService.queryById(askArticle.getAcId());
+            if (classAskArticle!=null){
+                return re.SUCCESSOBJ(classAskArticle);
+            }
+            return re.ERRORMSG("not countent fount!");
+        }
+        return re.ERRORMSG("pass in a null value!");
     }
 
 }

@@ -26,61 +26,59 @@ public class Subscribe implements Serializable {
     
     private Date sAddtime;
 
-
-    public Integer getSId() {
+    public Integer getsId() {
         return sId;
     }
 
-    public void setSId(Integer sId) {
+    public void setsId(Integer sId) {
         this.sId = sId;
     }
 
-    public Integer getDId() {
+    public Integer getdId() {
         return dId;
     }
 
-    public void setDId(Integer dId) {
+    public void setdId(Integer dId) {
         this.dId = dId;
     }
 
-    public String getSName() {
+    public String getsName() {
         return sName;
     }
 
-    public void setSName(String sName) {
+    public void setsName(String sName) {
         this.sName = sName;
     }
 
-    public String getSPhone() {
+    public String getsPhone() {
         return sPhone;
     }
 
-    public void setSPhone(String sPhone) {
+    public void setsPhone(String sPhone) {
         this.sPhone = sPhone;
     }
 
-    public String getSDate() {
+    public String getsDate() {
         return sDate;
     }
 
-    public void setSDate(String sDate) {
+    public void setsDate(String sDate) {
         this.sDate = sDate;
     }
 
-    public String getSTime() {
+    public String getsTime() {
         return sTime;
     }
 
-    public void setSTime(String sTime) {
+    public void setsTime(String sTime) {
         this.sTime = sTime;
     }
 
-    public Date getSAddtime() {
+    public Date getsAddtime() {
         return sAddtime;
     }
 
-    public void setSAddtime(Date sAddtime) {
+    public void setsAddtime(Date sAddtime) {
         this.sAddtime = sAddtime;
     }
-
 }

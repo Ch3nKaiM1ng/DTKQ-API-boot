@@ -63,7 +63,7 @@ public class SubscribeServiceImpl implements SubscribeService {
     @Override
     public Subscribe update(Subscribe subscribe) {
         this.subscribeDao.update(subscribe);
-        return this.queryById(subscribe.getSId());
+        return this.queryById(subscribe.getsId());
     }
 
     /**

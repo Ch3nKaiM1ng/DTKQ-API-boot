@@ -41,13 +41,13 @@
     <!--查询单个-->
     <select id="queryById" resultMap="ClassAskArticleMap">
         select
-          cl.ac_id, cl.ac_art_id, cl.ac_ask_id, cl.vio_id, cl.belong
---          ,ar.art_id, ar.class_id, ar.art_user_id, ar.art_title, ar.art_content, ar.art_img, ar.art_vedio, ar.status, ar.label, ar.ctime,
---          ask.ask_id, ask.class_id, ask.ask_user_id, ask.ask_title, ask.ask_content, ask.ask_img, ask.ask_vedio, ask.ctime, ask.status, ask.label
+          cl.ac_id, cl.ac_art_id, cl.ac_ask_id, cl.vio_id, cl.belong,
+          ar.art_title,
+          ask.ask_title
         from DTKQ.class_ask_article cl
---         left join  DTKQ.article ar on cl.ac_art_id = ar.art_id
---         left join  DTKQ.ask ask on cl.ac_ask_id = ask.ask_id
-        where ac_id = #{acId}
+        left join  DTKQ.article ar on cl.ac_art_id = ar.art_id
+        left join  DTKQ.ask ask on cl.ac_ask_id = ask.ask_id
+        where cl.ac_id = #{acId}
     </select>
 
     <!--查询指定行数据-->
@@ -100,8 +100,10 @@
         <set>
             <if test="ac_artId != null">
                 ac_art_id = #{ac_artId},
+                ac_ask_id = #{ac_askId},
             </if>
             <if test="ac_askId != null">
+                ac_art_id = #{ac_artId},
                 ac_ask_id = #{ac_askId},
             </if>
             <if test="vioId != null">
