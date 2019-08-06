@@ -62,6 +62,15 @@ public class UserController {
         List<User> list =service.queryAll(entity);
         return re.SUCCESSOBJ(list);
     }
+    @RequestMapping("/findRegisterList")
+    public Map<String, Object> findRegisterList() {
+        User entity =new User();
+        entity.setLimit(5000);
+        entity.setOffset(0);
+        entity.setAuth(0);
+        List<User> list =service.queryAll(entity);
+        return re.SUCCESSOBJ(list);
+    }
     //  添加
     @RequestMapping("/addObj")
     public Map<String, Object> addObj(@RequestBody User entity) {
