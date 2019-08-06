@@ -5,17 +5,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.Doctor;
-import com.dtkq.api.entity.TopMenu;
 import com.dtkq.api.service.ArticleService;
 import com.dtkq.api.service.AskService;
 import com.dtkq.api.service.DoctorService;
 import com.dtkq.api.utils.ReturnDiscern;
-import com.google.gson.JsonObject;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 

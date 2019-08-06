@@ -76,4 +76,9 @@ public class SubscribeServiceImpl implements SubscribeService {
     public boolean deleteById(Integer sId) {
         return this.subscribeDao.deleteById(sId) > 0;
     }
+
+    @Override
+    public List<Subscribe> selectAll() {
+        return this.subscribeDao.selectAll();
+    }
 }

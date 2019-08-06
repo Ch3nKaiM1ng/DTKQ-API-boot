@@ -62,4 +62,5 @@ public interface SubscribeDao {
      */
     int deleteById(Integer sId);
 
+    List<Subscribe> selectAll();
 }

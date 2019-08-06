@@ -28,6 +28,13 @@
         limit #{offset}, #{limit}
     </select>
 
+
+    <select id="selectAll" resultMap="SubscribeMap">
+        select
+          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime
+        from DTKQ.subscribe
+    </select>
+
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="SubscribeMap">
         select
