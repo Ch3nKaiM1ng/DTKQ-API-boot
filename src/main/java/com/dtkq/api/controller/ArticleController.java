@@ -138,8 +138,7 @@ public class ArticleController {
 
 
     //  获取前台模块列表（文章+问答+医生
-    @RequestMapping("/" +
-            "")
+    @RequestMapping("/webPageBlockList")
     public Map<String, Object> webPageBlockList(@RequestBody JSONObject jsonObject) {
         JSONObject data=pageList(jsonObject);//获取数据列表
         if(data.getBoolean("result")==false){//接口返回结果
