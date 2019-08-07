@@ -63,4 +63,5 @@ public interface CaseDao {
      */
     int deleteById(Integer id);
     int countNum(Case entity);
+    int countCommentNum(Integer id);
 }

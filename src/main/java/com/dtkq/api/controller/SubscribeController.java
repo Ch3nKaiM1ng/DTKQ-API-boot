@@ -53,14 +53,18 @@ public class SubscribeController {
      */
     @RequestMapping("/inset")
     public Map<String,Object> inset(@RequestBody Subscribe subscribe){
+        System.out.println(subscribe.getdId());
+        subscribe.setsName(subscribe.getsName().replace(" ",""));
         if (subscribe!=null){
             subscribe.setsAddtime(this.time.NewDate());
             Subscribe count = this.subscribeService.insert(subscribe);
+
             if (count!=null){
                 return re.SUCCESS();
             }
             return re.ERRORMSG("inset error!");
         }
+
         return re.ERRORMSG("pass in a null value!");
     }
 

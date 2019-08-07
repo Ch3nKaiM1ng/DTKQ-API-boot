@@ -20,6 +20,8 @@
         </association>
         <association property="caseDetailList"  select="com.dtkq.api.dao.CaseDetailDao.queryAllById" column="id">
         </association>
+        <association property="caseCommentnum"  select="countCommentNum" column="id">
+        </association>
     </resultMap>
 
     <!--查询单个-->
@@ -155,5 +157,14 @@
                 and ctime = #{ctime}
             </if>
         </where>
+    </select>
+
+    <select id="countCommentNum"  resultType="java.lang.Integer" >
+        select
+        count(*)
+        from case_comment
+        where 1=1
+        and case_id =#{caseId}
+
     </select>
 </mapper>
