@@ -19,7 +19,9 @@ public class Ask implements Serializable {
     private Integer askUserId;
     //问答标题
     private String askTitle;
-    
+
+    private String askIntroduction;
+
     private Object askContent;
     //问答图片
     private String askImg;
@@ -44,6 +46,14 @@ public class Ask implements Serializable {
     private Integer askCheckNum;
     //点赞量
     private Integer thumbNum;
+
+    public String getAskIntroduction() {
+        return askIntroduction;
+    }
+
+    public void setAskIntroduction(String askIntroduction) {
+        this.askIntroduction = askIntroduction;
+    }
 
     public Integer getAskId() {
         return askId;

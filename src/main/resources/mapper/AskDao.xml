@@ -8,6 +8,7 @@
         <result property="askUserId" column="ask_user_id" jdbcType="INTEGER"/>
         <result property="askTitle" column="ask_title" jdbcType="VARCHAR"/>
         <result property="askContent" column="ask_content" jdbcType="OTHER"/>
+        <result property="askIntroduction" column="ask_introduction" jdbcType="OTHER"/>
         <result property="askImg" column="ask_img" jdbcType="VARCHAR"/>
         <result property="askVedio" column="ask_vedio" jdbcType="VARCHAR"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
@@ -35,7 +36,8 @@
     <!--查询单个-->
     <select id="queryById" resultMap="AskMap">
         select
-          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img, a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
+          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img,a.ask_introduction
+        ,a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
 
         from DTKQ.ask a
@@ -46,7 +48,8 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AskMap">
         select
-          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img, a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
+          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img,a.ask_introduction
+        ,a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
 
         from DTKQ.ask a
@@ -57,7 +60,8 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="AskMap">
         select
-        a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img, a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img,a.ask_introduction
+        ,a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
 
         from DTKQ.ask a
@@ -95,8 +99,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="askId" useGeneratedKeys="true">
-        insert into DTKQ.ask(class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, askLabel,askCheck_num,thumb_num)
-        values (#{askClassId}, #{askUserId}, #{askTitle}, #{askContent}, #{askImg}, #{askVedio}, now(), #{status}, #{askLabel},#{askCheckNum},#{thumbNum})
+        insert into DTKQ.ask(class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, askLabel,askCheck_num,thumb_num,ask_introduction)
+        values (#{askClassId}, #{askUserId}, #{askTitle}, #{askContent}, #{askImg}, #{askVedio}, now(), #{status}, #{askLabel},#{askCheckNum},#{thumbNum},#{askIntroduction})
     </insert>
 
     <!--通过主键修改数据-->
@@ -114,6 +118,9 @@
             </if>
             <if test="askContent != null">
                 ask_content = #{askContent},
+            </if>
+            <if test="askIntroduction != null">
+                ask_introduction = #{askIntroduction},
             </if>
             <if test="askImg != null and askImg != ''">
                 ask_img = #{askImg},
@@ -175,6 +182,9 @@
             </if>
             <if test="askContent != null">
                 and a.ask_content = #{askContent}
+            </if>
+            <if test="askIntroduction != null">
+                and a.ask_introduction = #{askIntroduction}
             </if>
             <if test="askImg != null and askImg != ''">
                 and a.ask_img = #{askImg}

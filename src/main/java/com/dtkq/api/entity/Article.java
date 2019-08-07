@@ -20,6 +20,8 @@ public class Article implements Serializable {
     private String artTitle;
     //文章内容
     private Object artContent;
+    //文章简介
+    private Object artIntroduction;
     //文章图片
     private String artImg;
     //文章视频
@@ -40,6 +42,14 @@ public class Article implements Serializable {
     private Integer thumbNum;
 
     private Integer artCommentNum;
+
+    public Object getArtIntroduction() {
+        return artIntroduction;
+    }
+
+    public void setArtIntroduction(Object artIntroduction) {
+        this.artIntroduction = artIntroduction;
+    }
 
     public Integer getArtCommentNum() {
         return artCommentNum;
