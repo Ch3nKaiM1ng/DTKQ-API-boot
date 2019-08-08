@@ -5,6 +5,7 @@
     <resultMap type="com.dtkq.api.entity.Case" id="CaseMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="classId" column="class_id" jdbcType="INTEGER"/>
         <result property="doctorId" column="doctor_id" jdbcType="INTEGER"/>
         <result property="caseName" column="case_name" jdbcType="VARCHAR"/>
         <result property="caseTitle" column="case_title" jdbcType="VARCHAR"/>
@@ -20,6 +21,8 @@
         </association>
         <association property="caseDetailList"  select="com.dtkq.api.dao.CaseDetailDao.queryAllById" column="id">
         </association>
+        <association property="classDetail"  select="com.dtkq.api.dao.TalkClassDao.queryById" column="class_id">
+        </association>
         <association property="caseCommentnum"  select="countCommentNum" column="id">
         </association>
     </resultMap>
@@ -27,7 +30,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="CaseMap">
         select
-          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum
+          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id
         from DTKQ.case
         where id = #{id}
     </select>
@@ -35,7 +38,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CaseMap">
         select
-          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum
+          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id
         from DTKQ.case
         limit #{offset}, #{limit}
     </select>
@@ -43,7 +46,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="CaseMap">
         select
-          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum
+          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id
         from DTKQ.case
         <where>
             <if test="id != null">
@@ -54,6 +57,9 @@
             </if>
             <if test="doctorId != null">
                 and doctor_id = #{doctorId}
+            </if>
+            <if test="classId != null and classId != ''">
+                and  class_id = #{classId}
             </if>
             <if test="caseName != null and caseName != ''">
                 and case_name = #{caseName}
@@ -73,8 +79,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into DTKQ.case(user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum)
-        values (#{userId}, #{doctorId}, #{caseName}, #{caseTitle}, #{caseImg}, now(),#{caseChecknum},#{caseThumbnum},#{style},#{caseCommentnum})
+        insert into DTKQ.case(user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id)
+        values (#{userId}, #{doctorId}, #{caseName}, #{caseTitle}, #{caseImg}, now(),#{caseChecknum},#{caseThumbnum},#{style},#{caseCommentnum},#{classId})
     </insert>
 
     <!--通过主键修改数据-->
@@ -89,8 +95,9 @@
             </if>
             <if test="caseName != null and caseName != ''">
                 case_name = #{caseName},
-
-
+            </if>
+            <if test="classId != null and classId != ''">
+                class_id = #{classId},
             </if>
             <if test="caseTitle != null and caseTitle != ''">
                 case_title = #{caseTitle},
@@ -152,6 +159,9 @@
             </if>
             <if test="caseImg != null and caseImg != ''">
                 and case_img = #{caseImg}
+            </if>
+            <if test="classId != null and classId != ''">
+               and  class_id = #{classId}
             </if>
             <if test="ctime != null">
                 and ctime = #{ctime}

@@ -46,6 +46,10 @@ public class AskServiceImpl implements AskService {
     public List<Ask> queryAllByLimit(int offset, int limit) {
         return this.askDao.queryAllByLimit(offset, limit);
     }
+    @Override
+    public List<Ask> queryAll(Ask ask) {
+        return this.askDao.queryAll(ask);
+    }
 
     /**
      * 新增数据

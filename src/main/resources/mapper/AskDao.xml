@@ -16,8 +16,11 @@
         <result property="askLabel" column="askLabel" jdbcType="VARCHAR"/>
         <result property="askCheckNum" column="askCheck_num" jdbcType="INTEGER"/>
         <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
-
-        <collection property="user" ofType="com.dtkq.api.entity.User">
+        <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
+        </association>
+        <association property="classDetail"  select="com.dtkq.api.dao.TalkClassDao.queryById" column="class_id">
+        </association>
+        <!--<collection property="user" ofType="com.dtkq.api.entity.User">
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="userChName" column="user_ch_name" jdbcType="VARCHAR"/>
             <result property="userEnName" column="user_en_name" jdbcType="VARCHAR"/>
@@ -30,7 +33,7 @@
             <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
             <result property="auth" column="auth" jdbcType="INTEGER"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
-        </collection>
+        </collection>-->
     </resultMap>
 
     <!--查询单个-->
@@ -95,6 +98,7 @@
                 and a.askLabel = #{askLabel}
             </if>
         </where>
+        limit #{offset}, #{limit}
     </select>
 
     <!--新增所有列-->

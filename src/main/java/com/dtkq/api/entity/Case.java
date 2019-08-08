@@ -18,7 +18,9 @@ public class Case implements Serializable {
     private Integer userId;
     
     private Integer doctorId;
-    
+
+    private Integer classId;
+
     private String caseName;
     
     private String caseTitle;
@@ -37,7 +39,24 @@ public class Case implements Serializable {
     private int caseCommentnum;
     private User userData;
     private Doctor doctorData;
+    private TalkClass classDetail;
     private List<CaseDetail> caseDetailList;
+
+    public TalkClass getClassDetail() {
+        return classDetail;
+    }
+
+    public void setClassDetail(TalkClass classDetail) {
+        this.classDetail = classDetail;
+    }
+
+    public Integer getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Integer classId) {
+        this.classId = classId;
+    }
 
     public List<CaseDetail> getCaseDetailList() {
         return caseDetailList;

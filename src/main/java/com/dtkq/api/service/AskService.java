@@ -30,6 +30,7 @@ public interface AskService {
      * @return 对象列表
      */
     List<Ask> queryAllByLimit(int offset, int limit);
+    List<Ask> queryAll(Ask ask);
 
     /**
      * 新增数据

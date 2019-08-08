@@ -46,6 +46,15 @@ public class Ask implements Serializable {
     private Integer askCheckNum;
     //点赞量
     private Integer thumbNum;
+    private TalkClass classDetail;
+
+    public TalkClass getClassDetail() {
+        return classDetail;
+    }
+
+    public void setClassDetail(TalkClass classDetail) {
+        this.classDetail = classDetail;
+    }
 
     public String getAskIntroduction() {
         return askIntroduction;

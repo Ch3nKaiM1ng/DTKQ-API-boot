@@ -53,7 +53,7 @@ public class AskController {
             entity.setOffset((currpage-1)*limit);
         }
         Integer countNum=service.countNum(entity);//查到所有数据数
-        List<Ask> list =service.queryAllByLimit(entity.getOffset(),limit);
+        List<Ask> list =service.queryAll(entity);
         /*List<ArticleComment> list =service.queryAllByLimit(entity);*/
         JSONObject jsonObject=new JSONObject();//组成一个对象
         jsonObject.put("limit",limit);//返回当前页显示条数

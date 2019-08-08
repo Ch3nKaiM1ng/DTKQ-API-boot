@@ -16,6 +16,8 @@
         <result property="label" column="label" jdbcType="VARCHAR"/>
         <result property="checkNum" column="check_num" jdbcType="INTEGER"/>
         <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
+        <association property="classDetail"  select="com.dtkq.api.dao.TalkClassDao.queryById" column="class_id">
+        </association>
     </resultMap>
 
     <resultMap type="com.dtkq.api.entity.Article" id="articleObj">
@@ -31,7 +33,9 @@
         <result property="label" column="label" jdbcType="VARCHAR"/>
         <result property="checkNum" column="check_num" jdbcType="INTEGER"/>
         <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
-        <collection property="user" ofType="com.dtkq.api.entity.User">
+        <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
+        </association>
+        <!--<collection property="user" ofType="com.dtkq.api.entity.User">
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="userChName" column="user_ch_name" jdbcType="VARCHAR"/>
             <result property="userEnName" column="user_en_name" jdbcType="VARCHAR"/>
@@ -44,7 +48,9 @@
             <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
             <result property="auth" column="auth" jdbcType="INTEGER"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
-        </collection>
+        </collection>-->
+        <association property="classDetail"  select="com.dtkq.api.dao.TalkClassDao.queryById" column="class_id">
+        </association>
     </resultMap>
     <!--查询单个-->
     <select id="queryById" resultMap="articleObj">

@@ -42,6 +42,15 @@ public class Article implements Serializable {
     private Integer thumbNum;
 
     private Integer artCommentNum;
+    private TalkClass classDetail;
+
+    public TalkClass getClassDetail() {
+        return classDetail;
+    }
+
+    public void setClassDetail(TalkClass classDetail) {
+        this.classDetail = classDetail;
+    }
 
     public Object getArtIntroduction() {
         return artIntroduction;
