@@ -8,6 +8,9 @@ import com.dtkq.api.utils.ReturnDiscern;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -74,19 +77,34 @@ public class UserController {
     //  添加
     @RequestMapping("/addObj")
     public Map<String, Object> addObj(@RequestBody User entity) {
-        service.insert(entity);
-        if (entity.getUserId() != null) {
-            return re.SUCCESS();
+        try {
+            String birthDay=entity.getBirthday();
+            Integer Age=getAge(parse(birthDay));
+            entity.setAge(Age);
+            service.insert(entity);
+            if (entity.getUserId() != null) {
+                return re.SUCCESS();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return re.ERROR();
     }
     //  修改
     @RequestMapping("/updateObj")
     public Map<String, Object> updateObj(@RequestBody User entity) {
+        try {
+            String birthDay=entity.getBirthday();
+            Integer Age = getAge(parse(birthDay));
+            entity.setAge(Age);
         if (entity.getUserId() != null) {
             service.update(entity);
             return re.SUCCESS();
         }else{
+            return re.ERRORMSG("缺少参数ID");
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
             return re.ERRORMSG("缺少参数ID");
         }
     }
@@ -110,5 +128,37 @@ public class UserController {
             }
         }
         return re.ERROR();
+    }
+
+    public static int getAge(Date birthDay) throws Exception {
+        Calendar cal = Calendar.getInstance();
+
+        if (cal.before(birthDay)) {
+            throw new IllegalArgumentException(
+                    "The birthDay is before Now.It's unbelievable!");
+        }
+        int yearNow = cal.get(Calendar.YEAR);
+        int monthNow = cal.get(Calendar.MONTH);
+        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+        cal.setTime(birthDay);
+
+        int yearBirth = cal.get(Calendar.YEAR);
+        int monthBirth = cal.get(Calendar.MONTH);
+        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+
+        int age = yearNow - yearBirth;
+
+        if (monthNow <= monthBirth) {
+            if (monthNow == monthBirth) {
+                if (dayOfMonthNow < dayOfMonthBirth) age--;
+            }else{
+                age--;
+            }
+        }
+        return age;
+    }
+    public static Date parse(String strDate) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.parse(strDate);
     }
 }

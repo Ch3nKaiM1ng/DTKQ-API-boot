@@ -60,6 +60,29 @@ public class CaseController {
         jsonObject.put("dataList",list);//返回当前数组
         return re.SUCCESSOBJ(jsonObject);
     }
+
+    //  查找所有
+    @RequestMapping("/queryByfunction")
+    public Map<String, Object> queryByfunction(@RequestBody Case entity) {
+        int currpage=entity.getOffset();//offset 查询起始位置
+        int limit=entity.getLimit();//limit 查询条数
+        if(currpage==1){
+            entity.setOffset(currpage-1);
+        }else if(currpage>1){
+            entity.setOffset((currpage-1)*limit);
+        }
+
+        List<Case> list =service.queryByfunction(entity);
+        Integer countNum =service.countFunction(entity);
+        /*List<ArticleComment> list =service.queryAllByLimit(entity);*/
+        JSONObject jsonObject=new JSONObject();//组成一个对象
+        jsonObject.put("limit",limit);//返回当前页显示条数
+        jsonObject.put("currpage",currpage);//返回当前页
+        jsonObject.put("countNum",countNum);//总数据
+        jsonObject.put("dataList",list);//返回当前数组
+        return re.SUCCESSOBJ(jsonObject);
+    }
+
     //  添加
     @RequestMapping("/addObj")
     public Map<String, Object> addObj(@RequestBody Case entity) {

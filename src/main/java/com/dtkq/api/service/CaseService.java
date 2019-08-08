@@ -29,6 +29,7 @@ public interface CaseService {
      */
     List<Case> queryAllByLimit(int offset, int limit);
     List<Case> queryAll(Case entity);
+    List<Case> queryByfunction(Case entity);
     /**
      * 新增数据
      *
@@ -55,4 +56,5 @@ public interface CaseService {
     Case addNum(Case entity);
 
     Integer countNum(Case entity);
+    Integer countFunction(Case entity);
 }

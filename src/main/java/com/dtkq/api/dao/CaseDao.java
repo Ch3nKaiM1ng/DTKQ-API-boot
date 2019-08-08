@@ -38,6 +38,7 @@ public interface CaseDao {
      * @return 对象列表
      */
     List<Case> queryAll(Case entity);
+    List<Case> queryByfunction(Case entity);
     int addNum(Case entity);
     /**
      * 新增数据
@@ -63,5 +64,6 @@ public interface CaseDao {
      */
     int deleteById(Integer id);
     int countNum(Case entity);
+    int countFunction(Case entity);
     int countCommentNum(Integer id);
 }

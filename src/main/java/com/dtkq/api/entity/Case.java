@@ -20,19 +20,24 @@ public class Case implements Serializable {
     private Integer doctorId;
 
     private Integer classId;
+    private Integer caseClassId;
 
     private String caseName;
     
     private String caseTitle;
     
     private String caseImg;
-    
+    private String caseOldImg;
+
     private Date ctime;
 
     //当前页
     private int offset;
     //显示数量
     private int limit;
+    private int ageS;
+    private int ageE;
+    private String userSex;
     private int style;
     private int caseChecknum;
     private int caseThumbnum;
@@ -40,7 +45,56 @@ public class Case implements Serializable {
     private User userData;
     private Doctor doctorData;
     private TalkClass classDetail;
+    private TalkClass caseClassDetail;
     private List<CaseDetail> caseDetailList;
+
+    public String getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
+    }
+
+    public int getAgeS() {
+        return ageS;
+    }
+
+    public void setAgeS(int ageS) {
+        this.ageS = ageS;
+    }
+
+    public int getAgeE() {
+        return ageE;
+    }
+
+    public void setAgeE(int ageE) {
+        this.ageE = ageE;
+    }
+
+    public String getCaseOldImg() {
+        return caseOldImg;
+    }
+
+    public void setCaseOldImg(String caseOldImg) {
+        this.caseOldImg = caseOldImg;
+    }
+
+    public Integer getCaseClassId() {
+        return caseClassId;
+    }
+
+    public void setCaseClassId(Integer caseClassId) {
+        this.caseClassId = caseClassId;
+    }
+
+    public TalkClass getCaseClassDetail() {
+        return caseClassDetail;
+    }
+
+    public void setCaseClassDetail(TalkClass caseClassDetail) {
+        this.caseClassDetail = caseClassDetail;
+    }
 
     public TalkClass getClassDetail() {
         return classDetail;

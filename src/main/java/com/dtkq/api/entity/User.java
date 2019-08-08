@@ -35,10 +35,28 @@ public class User implements Serializable {
     private Integer auth;
     //用户状态：0：正常，1黑名单用户
     private Integer status;
+    private Integer age;
+    private String birthday;
     //当前页
     private int offset;
     //显示数量
     private int limit;
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
 
     public int getOffset() {
         return offset;

@@ -114,7 +114,6 @@ public class ClassObjController {
     //  前端首页查找所有分类
     @RequestMapping("/WebFindAllClass")
     public Map<String, Object> findAll(@RequestBody TalkClass talkClass) {
-        talkClassService.findWebList(talkClass);
         return re.SUCCESSOBJ(talkClassService.findWebList(talkClass));
     }
 

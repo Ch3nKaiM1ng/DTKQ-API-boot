@@ -46,6 +46,10 @@ public class CaseServiceImpl implements CaseService {
     public List<Case> queryAll(Case entity) {
         return this.caseDao.queryAll(entity);
     }
+    @Override
+    public List<Case> queryByfunction(Case entity) {
+        return this.caseDao.queryByfunction(entity);
+    }
     /**
      * 新增数据
      *
@@ -88,5 +92,9 @@ public class CaseServiceImpl implements CaseService {
     @Override
     public Integer countNum(Case entity) {
         return caseDao.countNum(entity);
+    }
+    @Override
+    public Integer countFunction(Case entity) {
+        return caseDao.countFunction(entity);
     }
 }

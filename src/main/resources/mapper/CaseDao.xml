@@ -6,10 +6,12 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="classId" column="class_id" jdbcType="INTEGER"/>
+        <result property="caseClassId" column="case_class_id" jdbcType="INTEGER"/>
         <result property="doctorId" column="doctor_id" jdbcType="INTEGER"/>
         <result property="caseName" column="case_name" jdbcType="VARCHAR"/>
         <result property="caseTitle" column="case_title" jdbcType="VARCHAR"/>
         <result property="caseImg" column="case_img" jdbcType="VARCHAR"/>
+        <result property="caseOldImg" column="case_old_img" jdbcType="VARCHAR"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="caseChecknum" column="case_checknum" jdbcType="INTEGER"/>
         <result property="caseThumbnum" column="case_thumbnum" jdbcType="INTEGER"/>
@@ -23,14 +25,39 @@
         </association>
         <association property="classDetail"  select="com.dtkq.api.dao.TalkClassDao.queryById" column="class_id">
         </association>
+        <association property="caseClassDetail"  select="com.dtkq.api.dao.TalkClassDao.queryById"    column="class_id">
+        </association>
         <association property="caseCommentnum"  select="countCommentNum" column="id">
         </association>
+    </resultMap>
+    <resultMap type="com.dtkq.api.entity.Case" id="baseMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="classId" column="class_id" jdbcType="INTEGER"/>
+        <result property="caseClassId" column="case_class_id" jdbcType="INTEGER"/>
+        <result property="doctorId" column="doctor_id" jdbcType="INTEGER"/>
+        <result property="caseName" column="case_name" jdbcType="VARCHAR"/>
+        <result property="caseTitle" column="case_title" jdbcType="VARCHAR"/>
+        <result property="caseImg" column="case_img" jdbcType="VARCHAR"/>
+        <result property="caseOldImg" column="case_old_img" jdbcType="VARCHAR"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+        <result property="caseChecknum" column="case_checknum" jdbcType="INTEGER"/>
+        <result property="caseThumbnum" column="case_thumbnum" jdbcType="INTEGER"/>
+        <result property="caseCommentnum" column="case_commentnum" jdbcType="INTEGER"/>
+        <result property="style" column="style" jdbcType="INTEGER"/>
+        <collection property="userData" ofType="com.dtkq.api.entity.User">
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="userChName" column="user_ch_name" jdbcType="VARCHAR"/>
+            <result property="userNickname" column="user_nickname" jdbcType="VARCHAR"/>
+            <result property="userImg" column="user_img" jdbcType="VARCHAR"/>
+            <result property="userSex" column="user_sex" jdbcType="INTEGER"/>
+        </collection>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="CaseMap">
         select
-          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id
+          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id,case_class_id,case_old_img
         from DTKQ.case
         where id = #{id}
     </select>
@@ -38,7 +65,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CaseMap">
         select
-          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id
+          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id,case_class_id,case_old_img
         from DTKQ.case
         limit #{offset}, #{limit}
     </select>
@@ -46,7 +73,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="CaseMap">
         select
-          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id
+          id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id,case_class_id,case_old_img
         from DTKQ.case
         <where>
             <if test="id != null">
@@ -60,6 +87,9 @@
             </if>
             <if test="classId != null and classId != ''">
                 and  class_id = #{classId}
+            </if>
+            <if test="caseClassId != null and caseClassId != ''">
+                and  case_class_id = #{caseClassId}
             </if>
             <if test="caseName != null and caseName != ''">
                 and case_name = #{caseName}
@@ -76,11 +106,50 @@
         </where>
         limit #{offset}, #{limit}
     </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryByfunction" resultMap="baseMap">
+        select a.id, a.user_id,a.doctor_id, a.case_name, a.case_title
+        ,a.case_img,a.ctime,a.case_checknum,a.case_thumbnum,a.style
+        ,a.case_commentnum,a.class_id,a.case_class_id,a.case_old_img
+        ,b.user_ch_name
+        from DTKQ.case a
+        left join user b on a.user_id = b.user_id
+        <where>
+            <if test="id != null">
+                and a.id = #{id}
+            </if>
+            <if test="userId != null">
+                and a.user_id = #{userId}
+            </if>
+            <if test="ageS != null and ageE!=null">
+               and  b.age BETWEEN #{ageS} and #{ageE}
+            </if>
+            <if test="userSex != null">
+                and b.user_sex = #{userSex}
+            </if>
+            <if test="doctorId != null">
+                and a.doctor_id = #{doctorId}
+            </if>
+            <if test="classId != null and classId != ''">
+                and  a.class_id = #{classId}
+            </if>
+            <if test="caseClassId != null and caseClassId != ''">
+                and  a.case_class_id = #{caseClassId}
+            </if>
+            <if test="caseName != null and caseName != ''">
+                and a.case_name = #{caseName}
+            </if>
+            <if test="caseTitle != null and caseTitle != ''">
+                and a.case_title = #{caseTitle}
+            </if>
+        </where>
+        limit #{offset}, #{limit}
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into DTKQ.case(user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id)
-        values (#{userId}, #{doctorId}, #{caseName}, #{caseTitle}, #{caseImg}, now(),#{caseChecknum},#{caseThumbnum},#{style},#{caseCommentnum},#{classId})
+        insert into DTKQ.case(user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id,case_class_id,case_old_img)
+        values (#{userId}, #{doctorId}, #{caseName}, #{caseTitle}, #{caseImg}, now(),#{caseChecknum},#{caseThumbnum},#{style},#{caseCommentnum},#{classId},#{caseClassId},#{caseOldImg})
     </insert>
 
     <!--通过主键修改数据-->
@@ -99,11 +168,17 @@
             <if test="classId != null and classId != ''">
                 class_id = #{classId},
             </if>
+            <if test="caseClassId != null and caseClassId != ''">
+                case_class_id = #{caseClassId},
+            </if>
             <if test="caseTitle != null and caseTitle != ''">
                 case_title = #{caseTitle},
             </if>
             <if test="caseImg != null and caseImg != ''">
                 case_img = #{caseImg},
+            </if>
+            <if test="caseOldImg != null and caseOldImg != ''">
+                case_old_img = #{caseOldImg},
             </if>
             <if test="caseChecknum != null">
                 case_checknum = #{caseChecknum},
@@ -160,15 +235,54 @@
             <if test="caseImg != null and caseImg != ''">
                 and case_img = #{caseImg}
             </if>
+            <if test="caseOldImg != null and caseImg != ''">
+                and case_old_img = #{caseOldImg}
+            </if>
             <if test="classId != null and classId != ''">
                and  class_id = #{classId}
             </if>
             <if test="ctime != null">
                 and ctime = #{ctime}
             </if>
+            <if test="caseClassId != null and caseClassId != ''">
+                and  case_class_id = #{caseClassId}
+            </if>
         </where>
     </select>
-
+    <select id="countFunction" resultType="java.lang.Integer">
+        select count(*)
+        from DTKQ.case a
+        left join user b on a.user_id = b.user_id
+        <where>
+            <if test="id != null">
+                and a.id = #{id}
+            </if>
+            <if test="userId != null">
+                and a.user_id = #{userId}
+            </if>
+            <if test="ageS != null and ageE!=null">
+                and   b.age BETWEEN #{ageS} and #{ageE}
+            </if>
+            <if test="doctorId != null">
+                and a.doctor_id = #{doctorId}
+            </if>
+            <if test="classId != null and classId != ''">
+                and  a.class_id = #{classId}
+            </if>
+            <if test="caseClassId != null and caseClassId != ''">
+                and  a.case_class_id = #{caseClassId}
+            </if>
+            <if test="caseName != null and caseName != ''">
+                and a.case_name = #{caseName}
+            </if>
+            <if test="caseTitle != null and caseTitle != ''">
+                and a.case_title = #{caseTitle}
+            </if>
+            <if test="userSex != null">
+                and b.user_sex = #{userSex}
+            </if>
+        </where>
+    </select>
     <select id="countCommentNum"  resultType="java.lang.Integer" >
         select
         count(*)
