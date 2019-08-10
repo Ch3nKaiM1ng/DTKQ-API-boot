@@ -53,7 +53,7 @@ public class ComplaintController {
         return re.ERRORMSG("complaint is null value!");
     }
 //    修改投诉建议
-    @RequestMapping("update")
+    @RequestMapping("/update")
     public Map<String,Object>update(@RequestBody Complaint complaint){
         if (complaint.getId()!=null){
             int count = this.complaintService.update(complaint);
@@ -68,5 +68,18 @@ public class ComplaintController {
     @RequestMapping("/select")
     public Map<String,Object>select(@RequestParam(defaultValue = "0") int offset, @RequestParam(defaultValue = "100") int limit){
         return re.SUCCESSOBJ(this.complaintService.queryAllByLimit(offset,limit));
+    }
+
+//    删除
+    @RequestMapping("/delete")
+    public Map<String,Object>delete(@RequestBody Complaint complaint){
+        if (complaint.getId()!=null){
+            boolean count = this.complaintService.deleteById(complaint.getId());
+            if (count){
+                return re.SUCCESS();
+            }
+            return re.ERRORMSG("delete error!");
+        }
+        return re.ERRORMSG("Id as null value!");
     }
 }
