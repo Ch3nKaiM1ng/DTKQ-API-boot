@@ -17,10 +17,7 @@ public class ClassAskArticle implements Serializable {
     //问答ID
     private Integer ac_askId;
     //视频ID
-
     private Integer vioId;
-    //排序
-    private Integer rank;
     //归属
     private String belong;
 
@@ -33,14 +30,6 @@ public class ClassAskArticle implements Serializable {
 
 //    女性数量
     private Integer womanNum;
-
-    public Integer getRank() {
-        return rank;
-    }
-
-    public void setRank(Integer rank) {
-        this.rank = rank;
-    }
 
     public Integer getManNum() {
         return manNum;
