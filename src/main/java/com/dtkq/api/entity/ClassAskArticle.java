@@ -31,6 +31,45 @@ public class ClassAskArticle implements Serializable {
 //    女性数量
     private Integer womanNum;
 
+    //当前页
+    private Integer offset;
+    //显示数量
+    private Integer limit;
+    private User user;
+    private Integer rank;
+
+    public Integer getOffset() {
+        return offset;
+    }
+
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
     public Integer getManNum() {
         return manNum;
     }
