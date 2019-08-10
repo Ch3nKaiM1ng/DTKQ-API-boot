@@ -147,6 +147,46 @@ public class ArticleController {
         }
         return re.ERROR();
     }
+    //  获取问大家模块内容（文章+问答
+    @RequestMapping("/hotListFromAskAndArt")
+    public Map<String, Object> hotListFromAskAndArt(@RequestBody JSONObject jsonObject) {
+        JSONObject data=artAndAskList(jsonObject);//获取数据列表
+        if(data.getBoolean("result")==false){//接口返回结果
+            return re.ERRORMSG("超过可显示的页数");
+        }
+        if(data!=null){
+            return re.SUCCESSOBJ(data);
+        }
+        return re.ERROR();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //方法往下↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    //方法往下↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    //方法往下↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    //方法往下↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    //方法往下↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
     private JSONObject articleList(JSONObject jsonObject){
         int currpage=jsonObject.getInteger("offset");//offset 查询起始位置
         int limit=3;//limit 查询条数\
@@ -167,10 +207,54 @@ public class ArticleController {
         js.put("objList",list);
         return js;//返回json数据
     }
+    //榜单查看文章列表
+    private JSONObject artFindList(JSONObject jsonObject){
+        int currpage=jsonObject.getInteger("offset");//offset 查询起始位置
+        int limit=3;//limit 查询条数\
+        Article entity=new Article();
+        entity.setClassId(jsonObject.getInteger("classId"));
+        Integer countNum=service.countNum(entity);//查到所有数据数
+        Integer allPage=countNum/3;//获取总页数
+
+        if(currpage==1){
+            entity.setOffset(currpage-1);
+        }else if(currpage>1){
+            entity.setOffset((currpage-1)*limit);
+        }
+        entity.setLimit(limit);
+        List<Article> list =service.queryAll(entity);//获根据分页获取数据
+        JSONObject js=new JSONObject();
+        js.put("countNum",countNum);
+        js.put("allPage",allPage);
+        js.put("objList",list);
+        return js;//返回json数据
+    }
+
+    //模块搜索问答列表
     private JSONObject askList(JSONObject jsonObject){
         int currpage=jsonObject.getInteger("offset");//offset 查询起始位置
         int limit=2;//limit 查询条数\
         Ask entity=new Ask();
+        Integer countNum=askService.countNum(entity);//查到所有数据数
+        Integer allPage=countNum/2;//获取总页数
+        if(currpage==1){
+            currpage--;
+        }else if(currpage>1){
+            currpage=(currpage-1)*limit;
+        }
+        List<Ask> list =askService.queryAllByLimit(currpage,limit);//获根据分页获取数据
+        JSONObject js=new JSONObject();
+        js.put("countNum",countNum);
+        js.put("allPage",allPage);
+        js.put("objList",list);
+        return js;//返回json数据
+    }
+    //榜单问答列表
+    private JSONObject askFindList(JSONObject jsonObject){
+        int currpage=jsonObject.getInteger("offset");//offset 查询起始位置
+        int limit=2;//limit 查询条数\
+        Ask entity=new Ask();
+        entity.setAskClassId(jsonObject.getInteger("classId"));
         Integer countNum=askService.countNum(entity);//查到所有数据数
         Integer allPage=countNum/2;//获取总页数
         if(currpage==1){
@@ -234,6 +318,34 @@ public class ArticleController {
         reObj.put("dataList",jsonArray);
          return  reObj;//返回数据
     }
+
+    private JSONObject artAndAskList(JSONObject jsonObject){
+        int currpage=jsonObject.getInteger("offset");
+        JSONObject artObj=artFindList(jsonObject);//获取文章数据
+        JSONObject askObj=askFindList(jsonObject);//获取问答数据
+        //比较三个数组计算最少可显示页数--start
+        Integer artPage=artObj.getInteger("allPage");
+        Integer askPage=askObj.getInteger("allPage");
+        Integer showPage=1;
+        if(artPage<askPage){
+            showPage=artPage;
+        }else{
+            showPage=askPage;
+        }
+        //比较三个数组计算最少可显示页数--end
+        JSONObject reObj=new JSONObject();
+        reObj.put("result",true);
+        if(currpage>showPage){//当传过来的当前页超过了可显示的页，则返回错误
+            reObj.put("result",false);
+            return reObj;
+        }
+        JSONArray jsonArray=putListJson(artObj,askObj);//拼接数组
+        reObj.put("showPage",showPage);
+        reObj.put("currpage",currpage);
+        reObj.put("dataList",jsonArray);
+        return  reObj;//返回数据
+    }
+
     private JSONArray putJson(JSONObject artObject,JSONObject askObj,JSONObject doctorObj){
 
         JSONArray jsonArray=new JSONArray();
@@ -245,6 +357,19 @@ public class ArticleController {
         jsonArray.add(artlist.get(1));//获取文章第二条数据，并且插入json列表
         jsonArray.add(asklist.get(1));//获取问答第二条数据，并且插入json列表
         jsonArray.add(doctorlist.get(0));//获取医生第一条数据，并且插入json列表
+        jsonArray.add(artlist.get(2));//获取文章第三条数据，并且插入json列表
+        return jsonArray;//将列表返回
+    }
+
+    private JSONArray putListJson(JSONObject artObject,JSONObject askObj){
+
+        JSONArray jsonArray=new JSONArray();
+        List artlist=(List)  artObject.get("objList");
+        List asklist=(List)  askObj.get("objList");
+        jsonArray.add(artlist.get(0));//获取文章第一条数据，并且插入json列表
+        jsonArray.add(asklist.get(0));//获取问答第一条数据，并且插入json列表
+        jsonArray.add(artlist.get(1));//获取文章第二条数据，并且插入json列表
+        jsonArray.add(asklist.get(1));//获取问答第二条数据，并且插入json列表
         jsonArray.add(artlist.get(2));//获取文章第三条数据，并且插入json列表
         return jsonArray;//将列表返回
     }
