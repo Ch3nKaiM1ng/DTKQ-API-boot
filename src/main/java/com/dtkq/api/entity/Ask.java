@@ -1,7 +1,11 @@
 package com.dtkq.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (Ask)实体类
@@ -27,7 +31,11 @@ public class Ask implements Serializable {
     private String askImg;
     //问答视频
     private String askVedio;
-    
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
+    )
     private Date ctime;
     //0正常 1删除
     private Integer status;
@@ -46,7 +54,18 @@ public class Ask implements Serializable {
     private Integer askCheckNum;
     //点赞量
     private Integer thumbNum;
+
+    private List<AskAnswer> askAnswerList;
+
     private TalkClass classDetail;
+
+    public List<AskAnswer> getAskAnswerList() {
+        return askAnswerList;
+    }
+
+    public void setAskAnswerList(List<AskAnswer> askAnswerList) {
+        this.askAnswerList = askAnswerList;
+    }
 
     public TalkClass getClassDetail() {
         return classDetail;

@@ -18,6 +18,8 @@
         <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
         <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
         </association>
+        <association property="askAnswerList"  select="com.dtkq.api.dao.AskAnswerDao.queryByAskId" column="ask_id">
+        </association>
         <association property="classDetail"  select="com.dtkq.api.dao.TalkClassDao.queryById" column="class_id">
         </association>
         <!--<collection property="user" ofType="com.dtkq.api.entity.User">

@@ -161,4 +161,15 @@
             </if>
         </where>
     </select>
+
+    <!--查询单个-->
+    <select id="queryByAskId" resultMap="AskAnswerMap">
+        select
+        a.id, a.ask_id, a.user_id, a.title, a.content, a.ctime, a.status,a.thumb_num
+		,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
+        from DTKQ.ask_answer a
+		LEFT JOIN `user` b on a.user_id= b.user_id
+        where ask_id = #{id}
+    </select>
 </mapper>

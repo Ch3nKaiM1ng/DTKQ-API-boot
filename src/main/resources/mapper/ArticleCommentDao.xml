@@ -14,20 +14,10 @@
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
         <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
-        <collection property="user" ofType="com.dtkq.api.entity.User">
-            <result property="userId" column="user_id" jdbcType="INTEGER"/>
-            <result property="userChName" column="user_ch_name" jdbcType="VARCHAR"/>
-            <result property="userEnName" column="user_en_name" jdbcType="VARCHAR"/>
-            <result property="userNickname" column="user_nickname" jdbcType="VARCHAR"/>
-            <result property="userImg" column="user_img" jdbcType="VARCHAR"/>
-            <result property="userSex" column="user_sex" jdbcType="INTEGER"/>
-            <result property="userMobile" column="user_mobile" jdbcType="VARCHAR"/>
-            <result property="userEmail" column="user_email" jdbcType="VARCHAR"/>
-            <result property="password" column="password" jdbcType="VARCHAR"/>
-            <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
-            <result property="auth" column="auth" jdbcType="INTEGER"/>
-            <result property="status" column="status" jdbcType="INTEGER"/>
-        </collection>
+        <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
+        </association>
+        <association property="receiveUser"  select="com.dtkq.api.dao.UserDao.queryById" column="receive_user_id">
+        </association>
     </resultMap>
 
     <resultMap type="com.dtkq.api.entity.ArticleComment" id="allList">
