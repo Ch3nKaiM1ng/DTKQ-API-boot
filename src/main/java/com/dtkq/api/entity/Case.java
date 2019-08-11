@@ -1,5 +1,8 @@
 package com.dtkq.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import java.io.Serializable;
 import java.util.List;
@@ -28,7 +31,11 @@ public class Case implements Serializable {
     
     private String caseImg;
     private String caseOldImg;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
+    )
     private Date ctime;
 
     //当前页

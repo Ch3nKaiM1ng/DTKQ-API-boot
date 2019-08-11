@@ -36,11 +36,9 @@ public class ClassAskArticle implements Serializable {
     //显示数量
     private Integer limit;
     private User user;
+    private Integer rank;
 
     public Integer getOffset() {
-        if ("".equals(offset)||offset==null){
-            return 0;
-        }
         return offset;
     }
 
@@ -49,13 +47,10 @@ public class ClassAskArticle implements Serializable {
     }
 
     public Integer getLimit() {
-        if("".equals(limit)||limit==null){
-            return 5 ;//去除该属性的前后空格并进行非空非null判断
-        }
         return limit;
     }
 
-    public void setLimit(int limit) {
+    public void setLimit(Integer limit) {
         this.limit = limit;
     }
 
@@ -65,6 +60,14 @@ public class ClassAskArticle implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 
     public Integer getManNum() {

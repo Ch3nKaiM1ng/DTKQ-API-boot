@@ -1,5 +1,8 @@
 package com.dtkq.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +15,11 @@ public class ClassObj implements Serializable {
     private String img;
     private String status;
     private String classList;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
+    )
     private Date ctime;
     private Integer linkClassId;
     private List<LinkClassObj> classObjList;

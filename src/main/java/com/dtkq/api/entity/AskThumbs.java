@@ -1,5 +1,8 @@
 package com.dtkq.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -17,7 +20,11 @@ public class AskThumbs implements Serializable {
     private Integer askId;
     //点赞人ID
     private Integer userId;
-    
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
+    )
     private Date ctime;
     //0点赞 1以取消
     private String status;

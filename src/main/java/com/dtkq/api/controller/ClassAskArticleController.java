@@ -44,6 +44,12 @@ public class ClassAskArticleController {
         }else {
             List<ClassAskArticle> askArticleList = this.classAskArticleService.queryAll(askArticle);
             for (int i =0 ;i<askArticleList.size();i++){
+                if (askArticleList.get(i).getAsk()==null&&askArticleList.get(i).getArticle()==null) {
+                    askArticleList.remove(i);
+                    continue;
+                }
+
+
                 if (askArticleList.get(i).getAsk()!=null||askArticleList.get(i).getArticle()!=null) {
                     if (askArticleList.get(i).getAc_artId() != null) {
                         askArticleList.get(i).getArticle().setArtCommentNum(123);

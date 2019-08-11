@@ -1,5 +1,8 @@
 package com.dtkq.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 
 /**
@@ -27,6 +30,11 @@ public class Article implements Serializable {
     //文章视频
     private String artVedio;
     //创建时间
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
+    )
     private String ctime;
     //0正常 1删除
     private Integer status;
