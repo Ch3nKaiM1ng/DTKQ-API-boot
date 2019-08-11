@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SMSUtils {
-    public String SmsCode(String randNum,String phone){
+    public String SmsCode(Integer randNum,String phone){
         String host = "http://dingxin.market.alicloudapi.com";
         String path = "/dx/sendSms";
         String method = "POST";
@@ -20,7 +20,7 @@ public class SMSUtils {
         Map<String, String> querys = new HashMap<String, String>();
         querys.put("mobile", phone);
         querys.put("param", "code:"+randNum);
-        querys.put("tpl_id", "TP1905099");
+        querys.put("tpl_id", "TP1908102");
         Map<String, String> bodys = new HashMap<String, String>();
         String code = null;
         try {
