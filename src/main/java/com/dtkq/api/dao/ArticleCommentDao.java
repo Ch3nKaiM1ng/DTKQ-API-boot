@@ -67,5 +67,6 @@ public interface ArticleCommentDao {
      */
     int deleteById(Integer id);
      int countNum(ArticleComment articleComment);
+     int countNumByArt(Integer id);
     int addNum(ArticleComment articleComment);
 }

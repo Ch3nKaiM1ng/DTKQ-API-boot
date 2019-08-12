@@ -16,6 +16,8 @@
         <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
         <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
         </association>
+        <association property="receiveUser"  select="com.dtkq.api.dao.UserDao.queryById" column="receive_user_id">
+        </association>
     </resultMap>
     <resultMap type="com.dtkq.api.entity.CaseComment" id="allList">
         <result property="id" column="id" jdbcType="INTEGER"/>

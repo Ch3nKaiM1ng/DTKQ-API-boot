@@ -35,6 +35,8 @@
         <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
         <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
         </association>
+        <association property="artCommentNum"  select="com.dtkq.api.dao.ArticleCommentDao.countNumByArt" column="art_id">
+        </association>
         <!--<collection property="user" ofType="com.dtkq.api.entity.User">
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="userChName" column="user_ch_name" jdbcType="VARCHAR"/>
