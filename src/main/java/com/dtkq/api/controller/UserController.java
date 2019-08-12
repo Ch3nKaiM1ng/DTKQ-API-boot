@@ -1,18 +1,21 @@
 package com.dtkq.api.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.User;
 import com.dtkq.api.service.UserService;
+import com.dtkq.api.utils.DateUtils;
 import com.dtkq.api.utils.ReturnDiscern;
-import org.springframework.web.bind.annotation.*;
+import com.dtkq.api.utils.SMSUtils;
+import com.dtkq.api.utils.TimeContrastUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * (User)表控制层
@@ -21,14 +24,21 @@ import java.util.Map;
  * @since 2019-07-24 16:25:16
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
     /**
      * 服务对象
      */
     @Resource
     private UserService service;
-
+    //    返回utils
+    private ReturnDiscern re = new ReturnDiscern();
+    //    调用信息
+    private SMSUtils sms = new SMSUtils();
+    //    时间类
+    private DateUtils dateUtils = new DateUtils();
+    //    时间对比
+    private TimeContrastUtils time = new TimeContrastUtils();
     /**
      * 通过主键查询单条数据
      *
@@ -39,8 +49,6 @@ public class UserController {
     public User selectOne(Integer id) {
         return this.service.queryById(id);
     }
-    //    返回utils
-    private ReturnDiscern re = new ReturnDiscern();
 
     //  查找所有
     @RequestMapping("/findAll")
@@ -130,6 +138,7 @@ public class UserController {
         return re.ERROR();
     }
 
+//    年龄计算
     public static int getAge(Date birthDay) throws Exception {
         Calendar cal = Calendar.getInstance();
 
@@ -161,4 +170,39 @@ public class UserController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.parse(strDate);
     }
+//    注册用户
+    @RequestMapping("/login")
+    public Map<String,Object> login(@RequestBody User user, HttpServletRequest req){
+//        验证是否存在session||信息有效期已过
+        String seTime = (String) req.getSession().getAttribute("time");
+        if (seTime==null || this.time.timeCompare(seTime,1)){
+            req.getSession().setAttribute("time",this.dateUtils.Fornat(dateUtils.NewDate()));
+        }else {
+            return re.TimeError(1);
+        }
+//      生成随机验证码
+        int randNum = new Random().nextInt(9999 - 1000) + 1000;
+        req.getSession().setAttribute(user.getUserMobile(), randNum);
+        if (user.getUserMobile()!=null){
+            String code  = sendMsg(user.getUserMobile(),randNum);
+            if (code.equals("00000")){
+                req.getSession().setAttribute(user.getUserMobile(),randNum);
+                return re.SUCCESS();
+            }
+            re.CodeVerify(code);
+        }
+        return re.ERRORMSG("phone as null value!");
+    }
+
+//    验证 验证码是否有效
+    public boolean verifyTime(HttpServletRequest req){
+
+        return true;
+    }
+//    申请短信验证
+    @RequestMapping("/sms")
+    public String sendMsg(String phone,Integer randNum){
+        return sms.SmsCode(randNum,phone);
+    }
+//    用户登录
 }
