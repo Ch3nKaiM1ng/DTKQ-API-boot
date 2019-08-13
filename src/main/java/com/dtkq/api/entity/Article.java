@@ -48,9 +48,19 @@ public class Article implements Serializable {
     private Integer checkNum;
     //点赞量
     private Integer thumbNum;
+    //用于排序字段（设定哪个文章ID为第一条
+    private Integer artRankBy;
 
     private Integer artCommentNum;
     private TalkClass classDetail;
+
+    public Integer getArtRankBy() {
+        return artRankBy;
+    }
+
+    public void setArtRankBy(Integer artRankBy) {
+        this.artRankBy = artRankBy;
+    }
 
     public TalkClass getClassDetail() {
         return classDetail;

@@ -116,6 +116,11 @@
                 and label = #{label}
             </if>
         </where>
+        order by
+        <if test="artRankBy != null and artRankBy != ''">
+             art_id = #{artRankBy} desc ,
+        </if>
+        thumb_num desc
         limit #{offset}, #{limit}
     </select>
 

@@ -100,6 +100,11 @@
                 and a.askLabel = #{askLabel}
             </if>
         </where>
+        order by
+        <if test="askRankBy != null and askRankBy != ''">
+            ask_id = #{askRankBy} desc ,
+        </if>
+        thumb_num desc
         limit #{offset}, #{limit}
     </select>
 

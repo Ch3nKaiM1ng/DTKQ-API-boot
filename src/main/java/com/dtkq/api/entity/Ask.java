@@ -55,9 +55,19 @@ public class Ask implements Serializable {
     //点赞量
     private Integer thumbNum;
 
+    private Integer askRankBy;
+
     private List<AskAnswer> askAnswerList;
 
     private TalkClass classDetail;
+
+    public Integer getAskRankBy() {
+        return askRankBy;
+    }
+
+    public void setAskRankBy(Integer askRankBy) {
+        this.askRankBy = askRankBy;
+    }
 
     public List<AskAnswer> getAskAnswerList() {
         return askAnswerList;
