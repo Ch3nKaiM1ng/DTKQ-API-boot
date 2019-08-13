@@ -8,10 +8,13 @@
         <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="OTHER"/>
+
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="VARCHAR"/>
         <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
         <association property="user"  select="com.dtkq.api.dao.UserDao.queryById" column="user_id">
+        </association>
+        <association property="commentNum"  select="com.dtkq.api.dao.AskCommentDao.countNumByAnswerID" column="id">
         </association>
     </resultMap>
 

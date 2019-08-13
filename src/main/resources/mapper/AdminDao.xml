@@ -68,14 +68,12 @@
     <update id="update">
         update DTKQ.admin
         <set>
-            <if test="authId != null">
+
+            <if test="authId != null and authId != ''">
                 auth_id = #{authId},
             </if>
             <if test="headImg != null and headImg != ''">
                 head_img = #{headImg},
-            </if>
-            <if test="realName != null and realName != ''">
-                real_name = #{realName},
             </if>
             <if test="user != null and user != ''">
                 user = #{user},
@@ -83,8 +81,8 @@
             <if test="password != null and password != ''">
                 password = #{password},
             </if>
-            <if test="ctime != null">
-                ctime = #{ctime},
+            <if test="realName != null and realName != ''">
+                real_name = #{realName},
             </if>
         </set>
         where id = #{id}

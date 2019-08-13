@@ -237,4 +237,11 @@
             </if>
         </where>
     </select>
+    <select id="countNumByAnswerID"  resultType="java.lang.Integer" >
+        select
+        count(*)
+        from DTKQ.ask_comment a
+        where 1=1  and a.ask_answer_id = #{askAnswerId}
+
+    </select>
 </mapper>

@@ -41,7 +41,15 @@ public class AskAnswer implements Serializable {
     //点赞量
     private Integer thumbNum;
 
+    private Integer commentNum;
 
+    public Integer getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(Integer commentNum) {
+        this.commentNum = commentNum;
+    }
 
     public Integer getThumbNum() {
         return thumbNum;

@@ -67,4 +67,5 @@ public interface AskAnswerDao {
     int deleteById(Integer id);
     int addNum(AskAnswer askAnswer);
     int countNum(AskAnswer ask);
+    int countNumByAnswerID(Integer id);
 }
