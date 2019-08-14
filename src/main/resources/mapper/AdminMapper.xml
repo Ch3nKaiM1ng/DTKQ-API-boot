@@ -51,6 +51,7 @@
       </if>
       <if test="user != null and user != ''">
         user = #{user},
+
       </if>
       <if test="password != null and password != ''">
         password = #{password},
