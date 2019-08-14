@@ -81,4 +81,9 @@ public class SubscribeServiceImpl implements SubscribeService {
     public List<Subscribe> selectAll() {
         return this.subscribeDao.selectAll();
     }
+
+    @Override
+    public Integer queryCount() {
+        return this.subscribeDao.queryCount();
+    }
 }
