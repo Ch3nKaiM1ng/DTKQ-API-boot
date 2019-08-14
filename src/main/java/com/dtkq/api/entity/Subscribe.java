@@ -7,10 +7,10 @@ import java.io.Serializable;
  * (Subscribe)实体类
  *
  * @author makejava
- * @since 2019-07-24 16:24:30
+ * @since 2019-08-14 10:26:45
  */
 public class Subscribe implements Serializable {
-    private static final long serialVersionUID = 190408043301729166L;
+    private static final long serialVersionUID = -84235556061531675L;
     
     private Integer sId;
     //预约医生
@@ -25,6 +25,10 @@ public class Subscribe implements Serializable {
     private String sTime;
     
     private Date sAddtime;
+    
+    private Integer sState;
+    
+    private String sRemark;
 
     public Integer getsId() {
         return sId;
@@ -80,5 +84,24 @@ public class Subscribe implements Serializable {
 
     public void setsAddtime(Date sAddtime) {
         this.sAddtime = sAddtime;
+    }
+
+    public Integer getsState() {
+        if ("".equals(sState)||sState==null){
+            return 0;
+        }
+        return sState;
+    }
+
+    public void setsState(Integer sState) {
+        this.sState = sState;
+    }
+
+    public String getsRemark() {
+        return sRemark;
+    }
+
+    public void setsRemark(String sRemark) {
+        this.sRemark = sRemark;
     }
 }

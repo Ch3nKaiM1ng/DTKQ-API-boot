@@ -17,9 +17,9 @@ public class TimeContrastUtils {
         int interval = Integer.parseInt(endDate) - Integer.parseInt(start);
 //        if结束时间 - 开始时间 > 分钟*60
         if (interval < (minute * 60)) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
 

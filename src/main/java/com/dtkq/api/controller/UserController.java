@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -173,6 +174,9 @@ public class UserController {
 //    注册用户
     @RequestMapping("/login")
     public Map<String,Object> login(@RequestBody User user, HttpServletRequest req){
+        if (user.getUserMobile()==null){
+            return re.ERRORMSG("UserMobile as null value!");
+        }
 //        验证是否存在session||信息有效期已过
         String seTime = (String) req.getSession().getAttribute("time");
         if (seTime==null || this.time.timeCompare(seTime,1)){
@@ -195,9 +199,23 @@ public class UserController {
     }
 
 //    验证 验证码是否有效
-    public boolean verifyTime(HttpServletRequest req){
+    @RequestMapping("/verifyCode")
+    public Map<String, Object> verification(@RequestBody User user, HttpServletRequest req){
+        HttpSession session = req.getSession();
 
-        return true;
+        String seTime = (String) session.getAttribute("time");
+
+        if (session.getAttribute(user.getUserMobile()) != null && seTime != null) {
+            if (time.timeCompare(seTime, 3)) {
+                if (user.getVerify() == (Integer) session.getAttribute(user.getUserMobile())) {
+                    session.removeAttribute(user.getUserMobile());
+                    return re.SUCCESS();
+                }
+            } else {
+                return re.TimeOut();
+            }
+        }
+        return re.ERROR();
     }
 //    申请短信验证
     @RequestMapping("/sms")

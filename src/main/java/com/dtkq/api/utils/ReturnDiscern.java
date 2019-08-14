@@ -37,7 +37,7 @@ public class ReturnDiscern {
     }
     public Map<String,Object> TimeOut(){
         Map<String,Object> map = new HashMap<>();
-        map.put("code","501");
+        map.put("code","500");
         map.put("msg","验证码已失效，请重新获取！");
         return map;
     }

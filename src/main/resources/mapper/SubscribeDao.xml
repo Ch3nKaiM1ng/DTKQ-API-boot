@@ -10,12 +10,14 @@
         <result property="sDate" column="s_date" jdbcType="VARCHAR"/>
         <result property="sTime" column="s_time" jdbcType="VARCHAR"/>
         <result property="sAddtime" column="s_addTime" jdbcType="TIMESTAMP"/>
+        <result property="sState" column="s_state" jdbcType="INTEGER"/>
+        <result property="sRemark" column="s_remark" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="SubscribeMap">
         select
-          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime
+          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime, s_state, s_remark
         from DTKQ.subscribe
         where s_id = #{sId}
     </select>
@@ -23,22 +25,15 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="SubscribeMap">
         select
-          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime
+          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime, s_state, s_remark
         from DTKQ.subscribe
         limit #{offset}, #{limit}
-    </select>
-
-
-    <select id="selectAll" resultMap="SubscribeMap">
-        select
-          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime
-        from DTKQ.subscribe
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="SubscribeMap">
         select
-          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime
+          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime, s_state, s_remark
         from DTKQ.subscribe
         <where>
             <if test="sId != null">
@@ -62,13 +57,19 @@
             <if test="sAddtime != null">
                 and s_addTime = #{sAddtime}
             </if>
+            <if test="sState != null">
+                and s_state = #{sState}
+            </if>
+            <if test="sRemark != null and sRemark != ''">
+                and s_remark = #{sRemark}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="sId" useGeneratedKeys="true">
-        insert into DTKQ.subscribe(d_id, s_name, s_phone, s_date, s_time, s_addTime)
-        values (#{dId}, #{sName}, #{sPhone}, #{sDate}, #{sTime}, #{sAddtime})
+        insert into DTKQ.subscribe(d_id, s_name, s_phone, s_date, s_time, s_addTime, s_state, s_remark)
+        values (#{dId}, #{sName}, #{sPhone}, #{sDate}, #{sTime}, #{sAddtime}, #{sState}, #{sRemark})
     </insert>
 
     <!--通过主键修改数据-->
@@ -92,6 +93,12 @@
             </if>
             <if test="sAddtime != null">
                 s_addTime = #{sAddtime},
+            </if>
+            <if test="sState != null">
+                s_state = #{sState},
+            </if>
+            <if test="sRemark != null and sRemark != ''">
+                s_remark = #{sRemark},
             </if>
         </set>
         where s_id = #{sId}

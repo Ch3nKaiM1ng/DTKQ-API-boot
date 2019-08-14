@@ -40,12 +40,18 @@ public class SubscribeController {
     /**
      * 通过主键查询单条数据
      *
-     * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public Subscribe selectOne(Integer id) {
-        return this.subscribeService.queryById(id);
+    @GetMapping("/selectById")
+    public Map<String, Object> selectOne(@RequestBody Subscribe subscribe) {
+        if (subscribe.getsId()!=null){
+            Object subscribes = this.subscribeService.queryById(subscribe.getsId());
+            if (subscribes!=null){
+                return re.SUCCESSOBJ(subscribes);
+            }
+            return re.ERRORMSG("selectById error!");
+        }
+        return re.ERRORMSG("id as null!");
     }
 
     /**

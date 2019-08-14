@@ -50,6 +50,16 @@ public class User implements Serializable {
     //显示数量
     private int limit;
 
+    private Integer verify;
+
+    public Integer getVerify() {
+        return verify;
+    }
+
+    public void setVerify(Integer verify) {
+        this.verify = verify;
+    }
+
     public Integer getAge() {
         return age;
     }
