@@ -34,6 +34,31 @@ public class Complaint implements Serializable {
     //备注
     private Object remark;
 
+    private Integer offset;
+
+    private Integer limit;
+
+    public Integer getOffset() {
+        if("".equals(offset)||offset==null){
+            return 0;//去除该属性的前后空格并进行非空非null判断
+        }
+        return offset;
+    }
+
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
+
+    public Integer getLimit() {
+        if("".equals(limit)||limit==null){
+            return 100;//去除该属性的前后空格并进行非空非null判断
+        }
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
 
     public Integer getId() {
         return id;

@@ -66,8 +66,8 @@ public class ComplaintController {
     }
 //    查询
     @RequestMapping("/select")
-    public Map<String,Object>select(@RequestParam(defaultValue = "0") int offset, @RequestParam(defaultValue = "100") int limit){
-        return re.SUCCESSOBJ(this.complaintService.queryAllByLimit(offset,limit));
+    public Map<String,Object>select(@RequestBody Complaint complaint){
+        return re.SUCCESSOBJ(this.complaintService.queryAllByLimit(complaint.getOffset(),complaint.getLimit()));
     }
 
 //    删除
