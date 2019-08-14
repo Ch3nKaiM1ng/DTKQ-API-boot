@@ -105,6 +105,10 @@ public class SubscribeController {
     public Map<String,Object>selectAll(@RequestBody Subscribe subscribe){
         Integer offset = (subscribe.getOffset()-1)*subscribe.getLimit();
         List<Subscribe> subscribes = this.subscribeService.queryAllByLimit(offset,subscribe.getLimit());
+        for (Subscribe offsets:subscribes){
+            offsets.setOffset(subscribe.getOffset()+1);
+            offsets.setLimit(subscribe.getLimit());
+        }
         Integer countNum = this.subscribeService.queryCount();
         Map<String,Object> data = new HashMap<>();
         if (subscribes!=null){
