@@ -6,10 +6,14 @@ import com.dtkq.api.service.AdminService;
 import com.dtkq.api.utils.DateUtils;
 import com.dtkq.api.utils.ReturnDiscern;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sun.security.provider.MD5;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +29,10 @@ public class AdminController {
     private DateUtils data = new DateUtils();
     //    返回utils
     private ReturnDiscern re = new ReturnDiscern();
-
+    @Autowired
+    HttpServletRequest request;
+    @Autowired
+    HttpSession httpSession ;
 
     //  查找所有
     @RequestMapping("/findAll")
@@ -97,15 +104,18 @@ public class AdminController {
         return re.ERROR();
     }
     //  后台登陆
+    @CrossOrigin
     @RequestMapping("/login")
-    public Map<String, Object> login(@RequestBody Admin Admin, HttpSession httpSession) {
-        if(Admin.getUser() !=null || Admin.getPassword()!=null){
-            Admin obj=service.checkUser(Admin);
+    public Map<String, Object> login(@RequestBody Admin admin) {
+        if(admin.getUser() !=null || admin.getPassword()!=null){
+            Admin obj=service.checkUser(admin);
             if(obj!=null){
                 JSONObject json=new JSONObject();
                 json.put("sessionName","adminUser");
                 json.put("obj",obj);
+                String id=obj.getId().toString();
                 httpSession.setAttribute("adminUser",obj);
+                httpSession.getAttribute("adminUser");
                 return re.SUCCESSOBJ(json);
             }
         }
@@ -114,8 +124,12 @@ public class AdminController {
         return re.ERROR();
     }
     //  后台登陆
+
     @RequestMapping("/getUserSession")
-    public Map<String, Object> getUserSession(HttpSession httpSession) {
+    @CrossOrigin
+    public Map<String, Object> getUserSession() {
+        System.out.println(request.getHeader("X-Token"));
+        httpSession.getAttribute("adminUser");
         Admin admin= (Admin) httpSession.getAttribute("adminUser");
         if(admin!=null){
             return re.SUCCESSOBJ(admin);
@@ -123,5 +137,18 @@ public class AdminController {
         }else{
             return re.ERRORMSG("没有用户数据");
         }
+    }
+    @RequestMapping("/outLogin")
+    @CrossOrigin
+    public Map<String, Object> outLogin() {
+        httpSession.removeAttribute("adminUser");
+        return re.SUCCESS();
+    }
+
+    public String createTokenByMd5(Admin admin){
+        String id=admin.getId().toString()+admin.getUser()+admin.getPassword();
+        String token="";
+        token=DigestUtils.md5DigestAsHex(id.getBytes());
+        return token;
     }
 }
