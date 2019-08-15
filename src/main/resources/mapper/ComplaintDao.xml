@@ -25,7 +25,21 @@
         select
           id, helpStatuts, content, mobile, ctime, treatmentStatus, remark
         from DTKQ.complaint
+        <where>
+            <if test="treatmentstatus != null">
+                treatmentStatus = #{treatmentstatus}
+            </if>
+        </where>
         limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryCount" resultType="int">
+        select count(*) from DTKQ.complaint
+        <where>
+            <if test="treatmentstatus != null">
+                treatmentStatus = #{treatmentstatus}
+            </if>
+        </where>
     </select>
 
     <!--通过实体作为筛选条件查询-->

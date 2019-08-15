@@ -26,7 +26,7 @@ public interface SubscribeService {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Subscribe> queryAllByLimit(int offset, int limit);
+    List<Subscribe> queryAllByLimit(int offset, int limit,Integer sState);
 
     /**
      * 新增数据
@@ -54,5 +54,5 @@ public interface SubscribeService {
 
     List<Subscribe> selectAll();
 
-    Integer queryCount();
+    Integer queryCount(Subscribe subscribe);
 }

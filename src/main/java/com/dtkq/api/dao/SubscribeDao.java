@@ -27,7 +27,7 @@ public interface SubscribeDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Subscribe> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Subscribe> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit,@Param("sState") Integer sState);
 
 
     /**
@@ -64,5 +64,5 @@ public interface SubscribeDao {
 
     List<Subscribe> selectAll();
 
-    Integer queryCount();
+    Integer queryCount(Subscribe subscribe);
 }

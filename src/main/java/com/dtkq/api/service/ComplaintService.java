@@ -26,8 +26,6 @@ public interface ComplaintService {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Complaint> queryAllByLimit(int offset, int limit);
-
     /**
      * 新增数据
      *
@@ -52,4 +50,7 @@ public interface ComplaintService {
      */
     boolean deleteById(Integer id);
 
+    Integer queryCount(Integer treatmentstatus);
+
+    List<Complaint> queryAllByLimit(Integer offset, Integer limit, Integer treatmentstatus);
 }

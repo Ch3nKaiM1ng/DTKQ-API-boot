@@ -179,23 +179,25 @@ public class UserController {
         }
 //        验证是否存在session||信息有效期已过
         String seTime = (String) req.getSession().getAttribute("time");
-        if (seTime==null || this.time.timeCompare(seTime,1)){
+        if (seTime==null || !this.time.timeCompare(seTime,1)){
             req.getSession().setAttribute("time",this.dateUtils.Fornat(dateUtils.NewDate()));
         }else {
             return re.TimeError(1);
         }
 //      生成随机验证码
         int randNum = new Random().nextInt(9999 - 1000) + 1000;
+        System.out.println(randNum);
         req.getSession().setAttribute(user.getUserMobile(), randNum);
+        String code = null;
         if (user.getUserMobile()!=null){
-            String code  = sendMsg(user.getUserMobile(),randNum);
+            code  = sendMsg(user.getUserMobile(),randNum);
             if (code.equals("00000")){
                 req.getSession().setAttribute(user.getUserMobile(),randNum);
                 return re.SUCCESS();
             }
             re.CodeVerify(code);
         }
-        return re.ERRORMSG("phone as null value!");
+        return re.CodeVerify(code);
     }
 
 //    验证 验证码是否有效
@@ -205,9 +207,9 @@ public class UserController {
 
         String seTime = (String) session.getAttribute("time");
 
-        if (session.getAttribute(user.getUserMobile()) != null && seTime != null) {
+        if (session.getAttribute(user.getUserMobile()) != null && seTime != null && user.getVerify()!=null) {
             if (time.timeCompare(seTime, 3)) {
-                if (user.getVerify() == (Integer) session.getAttribute(user.getUserMobile())) {
+                if ((Integer) session.getAttribute(user.getUserMobile())==Integer.parseInt(user.getVerify())) {
                     session.removeAttribute(user.getUserMobile());
                     return re.SUCCESS();
                 }

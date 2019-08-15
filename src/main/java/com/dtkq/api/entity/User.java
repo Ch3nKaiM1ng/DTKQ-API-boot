@@ -50,13 +50,13 @@ public class User implements Serializable {
     //显示数量
     private int limit;
 
-    private Integer verify;
+    private String verify;
 
-    public Integer getVerify() {
+    public String getVerify() {
         return verify;
     }
 
-    public void setVerify(Integer verify) {
+    public void setVerify(String verify) {
         this.verify = verify;
     }
 

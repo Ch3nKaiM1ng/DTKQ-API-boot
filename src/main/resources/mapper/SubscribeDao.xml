@@ -12,26 +12,61 @@
         <result property="sAddtime" column="s_addTime" jdbcType="TIMESTAMP"/>
         <result property="sState" column="s_state" jdbcType="INTEGER"/>
         <result property="sRemark" column="s_remark" jdbcType="VARCHAR"/>
+
+        <collection property="doctor" ofType="com.dtkq.api.entity.Doctor" column="DoctorMap">
+            <id property="doctorId" column="doctor_id" jdbcType="INTEGER"/>
+            <result property="classId" column="class_id" jdbcType="INTEGER"/>
+            <result property="doctorChName" column="doctor_ch_name" jdbcType="VARCHAR"/>
+            <result property="doctorEnName" column="doctor_en_name" jdbcType="VARCHAR"/>
+            <result property="doctorChPosition" column="doctor_ch_position" jdbcType="VARCHAR"/>
+            <result property="doctorEnPosition" column="doctor_en_position" jdbcType="VARCHAR"/>
+            <result property="doctorIntroduction" column="doctor_introduction" jdbcType="VARCHAR"/>
+            <result property="doctorImg" column="doctor_img" jdbcType="VARCHAR"/>
+            <result property="doctorSex" column="doctor_sex" jdbcType="INTEGER"/>
+            <result property="doctorMobile" column="doctor_mobile" jdbcType="VARCHAR"/>
+            <result property="doctorEmail" column="doctor_email" jdbcType="VARCHAR"/>
+            <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result column="doctor_code" jdbcType="VARCHAR" property="doctorCode" />
+            <result column="doctor_consult" jdbcType="INTEGER" property="doctorConsult" />
+            <result column="doctor_booknum" jdbcType="INTEGER" property="doctorBooknum" />
+            <result column="doctor_workyear" jdbcType="INTEGER" property="doctorWorkyear" />
+            <result column="doctor_grade" jdbcType="REAL" property="doctorGrade" />
+            <result column="doctor_good_reception" jdbcType="INTEGER" property="doctorGoodReception" />
+            <result column="doctor_goodat" jdbcType="VARCHAR" property="doctorGoodat" />
+        </collection>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="SubscribeMap">
         select
-          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime, s_state, s_remark
+          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime, s_state, s_remark,doctor_ch_name,doctor_ch_position
         from DTKQ.subscribe
+        LEFT JOIN doctor on d_id = doctor_id
         where s_id = #{sId}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="SubscribeMap">
         select
-          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime, s_state, s_remark
+          s_id, d_id, s_name, s_phone, s_date, s_time, s_addTime, s_state, s_remark,doctor_ch_name,doctor_ch_position
         from DTKQ.subscribe
+        LEFT JOIN doctor on d_id = doctor_id
+        <where>
+            <if test="sState != null">
+                and s_state = #{sState}
+            </if>
+        </where>
         limit #{offset}, #{limit}
     </select>
     
     <select id="queryCount" resultType="int">
         select COUNT(*) from DTKQ.subscribe
+        <where>
+            <if test="sState != null">
+                and s_state = #{sState}
+            </if>
+        </where>
     </select>
 
     <!--通过实体作为筛选条件查询-->
@@ -62,7 +97,12 @@
                 and s_addTime = #{sAddtime}
             </if>
             <if test="sState != null">
-                and s_state = #{sState}
+                <if test="sState == 0">
+                    and s_state = #{sState}
+                </if>
+                <if test="sState == 1">
+                    and s_state = #{sState}
+                </if>
             </if>
             <if test="sRemark != null and sRemark != ''">
                 and s_remark = #{sRemark}

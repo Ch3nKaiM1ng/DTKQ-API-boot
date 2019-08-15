@@ -4,7 +4,6 @@ import com.dtkq.api.entity.Subscribe;
 import com.dtkq.api.service.SubscribeService;
 import com.dtkq.api.utils.DateUtils;
 import com.dtkq.api.utils.ReturnDiscern;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,7 +41,7 @@ public class SubscribeController {
      *
      * @return 单条数据
      */
-    @GetMapping("/selectById")
+    @RequestMapping("/selectById")
     public Map<String, Object> selectOne(@RequestBody Subscribe subscribe) {
         if (subscribe.getsId()!=null){
             Object subscribes = this.subscribeService.queryById(subscribe.getsId());
@@ -59,8 +58,8 @@ public class SubscribeController {
      */
     @RequestMapping("/inset")
     public Map<String,Object> inset(@RequestBody Subscribe subscribe){
-        System.out.println(subscribe.getdId());
-        subscribe.setsName(subscribe.getsName().replace(" ",""));
+        subscribe.setsState(subscribe.getsState()==null?0:subscribe.getsState());
+        subscribe.setsName(subscribe.getsName()==null?subscribe.getsName():subscribe.getsName().replace(" ",""));
         if (subscribe!=null){
             subscribe.setsAddtime(this.time.NewDate());
             Subscribe count = this.subscribeService.insert(subscribe);
@@ -79,6 +78,11 @@ public class SubscribeController {
     public Map<String,Object>update(@RequestBody Subscribe subscribe){
         if (subscribe.getsId()!=null){
             Subscribe count = new Subscribe();
+            if (subscribe.getsState()==null){
+//                subscribe.setsState(subscribe.getsState()==0?1:0);
+//            }else {
+                return re.ERRORMSG("sState as null");
+            }
             count = this.subscribeService.update(subscribe);
             if (count!=null){
                 return re.SUCCESS();
@@ -104,12 +108,12 @@ public class SubscribeController {
     @RequestMapping("/selectAll")
     public Map<String,Object>selectAll(@RequestBody Subscribe subscribe){
         Integer offset = (subscribe.getOffset()-1)*subscribe.getLimit();
-        List<Subscribe> subscribes = this.subscribeService.queryAllByLimit(offset,subscribe.getLimit());
+        List<Subscribe> subscribes = this.subscribeService.queryAllByLimit(offset,subscribe.getLimit(),subscribe.getsState());
         for (Subscribe offsets:subscribes){
-            offsets.setOffset(subscribe.getOffset()+1);
+            offsets.setOffset(subscribe.getOffset());
             offsets.setLimit(subscribe.getLimit());
         }
-        Integer countNum = this.subscribeService.queryCount();
+        Integer countNum = this.subscribeService.queryCount(subscribe);
         Map<String,Object> data = new HashMap<>();
         if (subscribes!=null){
             data.put("countNum",countNum);

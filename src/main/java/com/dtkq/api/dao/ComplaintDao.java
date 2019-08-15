@@ -27,7 +27,7 @@ public interface ComplaintDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Complaint> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Complaint> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit,@Param("treatmentstatus") Integer treatmentstatus);
 
 
     /**
@@ -62,4 +62,5 @@ public interface ComplaintDao {
      */
     int deleteById(Integer id);
 
+    Integer queryCount();
 }

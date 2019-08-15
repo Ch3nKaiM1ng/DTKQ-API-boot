@@ -44,6 +44,16 @@ public class Subscribe implements Serializable {
 
     private Integer countNum;
 
+    private Doctor doctor;
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
     public Integer getCountNum() {
         return countNum;
     }
@@ -131,9 +141,6 @@ public class Subscribe implements Serializable {
     }
 
     public Integer getsState() {
-        if ("".equals(sState)||sState==null){
-            return 0;
-        }
         return sState;
     }
 

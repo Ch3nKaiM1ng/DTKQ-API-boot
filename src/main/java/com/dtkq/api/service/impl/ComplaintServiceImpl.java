@@ -37,10 +37,7 @@ public class ComplaintServiceImpl implements ComplaintService {
      * @param limit 查询条数
      * @return 对象列表
      */
-    @Override
-    public List<Complaint> queryAllByLimit(int offset, int limit) {
-        return this.complaintDao.queryAllByLimit(offset, limit);
-    }
+
 
     /**
      * 新增数据
@@ -74,5 +71,15 @@ public class ComplaintServiceImpl implements ComplaintService {
     @Override
     public boolean deleteById(Integer id) {
         return this.complaintDao.deleteById(id) > 0;
+    }
+
+    @Override
+    public Integer queryCount(Integer treatmentstatus) {
+        return this.complaintDao.queryCount();
+    }
+
+    @Override
+    public List<Complaint> queryAllByLimit(Integer offset, Integer limit, Integer treatmentstatus) {
+        return this.complaintDao.queryAllByLimit(offset, limit,treatmentstatus);
     }
 }

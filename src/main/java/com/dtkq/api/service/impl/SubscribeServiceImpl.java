@@ -38,8 +38,8 @@ public class SubscribeServiceImpl implements SubscribeService {
      * @return 对象列表
      */
     @Override
-    public List<Subscribe> queryAllByLimit(int offset, int limit) {
-        return this.subscribeDao.queryAllByLimit(offset, limit);
+    public List<Subscribe> queryAllByLimit(int offset, int limit,Integer sState) {
+        return this.subscribeDao.queryAllByLimit(offset, limit,sState);
     }
 
     /**
@@ -83,7 +83,7 @@ public class SubscribeServiceImpl implements SubscribeService {
     }
 
     @Override
-    public Integer queryCount() {
-        return this.subscribeDao.queryCount();
+    public Integer queryCount(Subscribe subscribe) {
+        return this.subscribeDao.queryCount(subscribe);
     }
 }
