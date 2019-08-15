@@ -18,6 +18,8 @@
         </association>
         <association property="receiveUser"  select="com.dtkq.api.dao.UserDao.queryById" column="receive_user_id">
         </association>
+        <association property="sonArticle"  select="com.dtkq.api.dao.ArticleCommentDao.findSonList" column="id">
+        </association>
     </resultMap>
 
     <resultMap type="com.dtkq.api.entity.ArticleComment" id="allList">
