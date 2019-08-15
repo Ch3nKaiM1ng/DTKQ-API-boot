@@ -1,7 +1,10 @@
 package com.dtkq.api.entity;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (Subscribe)实体类
@@ -23,12 +26,53 @@ public class Subscribe implements Serializable {
     private String sDate;
     //预约时间
     private String sTime;
-    
+
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
+    )
     private Date sAddtime;
     
     private Integer sState;
     
     private String sRemark;
+
+    private Integer offset;
+
+    private Integer limit;
+
+    private Integer countNum;
+
+    public Integer getCountNum() {
+        return countNum;
+    }
+
+    public void setCountNum(Integer countNum) {
+        this.countNum = countNum;
+    }
+
+    public Integer getOffset() {
+        if("".equals(offset)||offset==null){
+            return 1;//去除该属性的前后空格并进行非空非null判断
+        }
+        return offset;
+    }
+
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
+
+    public Integer getLimit() {
+        if("".equals(limit)||limit==null){
+            return 100;//去除该属性的前后空格并进行非空非null判断
+        }
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
 
     public Integer getsId() {
         return sId;

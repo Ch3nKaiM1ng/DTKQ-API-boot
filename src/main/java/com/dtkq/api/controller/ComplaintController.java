@@ -30,13 +30,18 @@ public class ComplaintController {
     private DateUtils time = new DateUtils();
     /**
      * 通过主键查询单条数据
-     *
-     * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("/selectOne")
-    public Complaint selectOne(Integer id) {
-        return this.complaintService.queryById(id);
+    @GetMapping("/selectById")
+    public Map<String, Object> selectOne(@RequestBody Complaint complaint) {
+        if (complaint.getId()!=null){
+            Complaint complaints = this.complaintService.queryById(complaint.getId());
+            if (complaints!=null){
+                return re.SUCCESSOBJ(complaints);
+            }
+            return re.ERRORMSG("select error!");
+        }
+        return re.ERRORMSG("id as null!");
     }
 
 //    插入
@@ -67,7 +72,8 @@ public class ComplaintController {
 //    查询
     @RequestMapping("/select")
     public Map<String,Object>select(@RequestBody Complaint complaint){
-        return re.SUCCESSOBJ(this.complaintService.queryAllByLimit(complaint.getOffset(),complaint.getLimit()));
+        Integer offset = (complaint.getOffset()-1)*complaint.getLimit();
+        return re.SUCCESSOBJ(this.complaintService.queryAllByLimit(offset,complaint.getLimit()));
     }
 
 //    删除

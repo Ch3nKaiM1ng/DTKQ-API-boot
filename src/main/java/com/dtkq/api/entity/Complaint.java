@@ -40,7 +40,7 @@ public class Complaint implements Serializable {
 
     public Integer getOffset() {
         if("".equals(offset)||offset==null){
-            return 0;//去除该属性的前后空格并进行非空非null判断
+            return 1;//去除该属性的前后空格并进行非空非null判断
         }
         return offset;
     }

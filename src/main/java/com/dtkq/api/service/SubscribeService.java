@@ -53,4 +53,6 @@ public interface SubscribeService {
     boolean deleteById(Integer sId);
 
     List<Subscribe> selectAll();
+
+    Integer queryCount();
 }

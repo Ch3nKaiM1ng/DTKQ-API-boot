@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,11 +102,19 @@ public class SubscribeController {
     }
 //    查询
     @RequestMapping("/selectAll")
-    public Map<String,Object>selectAll(){
-        List<Subscribe> subscribe = new ArrayList<>();
-        subscribe = this.subscribeService.selectAll();
-        if (subscribe!=null){
-            return re.SUCCESSOBJ(subscribe);
+    public Map<String,Object>selectAll(@RequestBody Subscribe subscribe){
+        Integer offset = (subscribe.getOffset()-1)*subscribe.getLimit();
+        List<Subscribe> subscribes = this.subscribeService.queryAllByLimit(offset,subscribe.getLimit());
+        for (Subscribe offsets:subscribes){
+            offsets.setOffset(subscribe.getOffset()+1);
+            offsets.setLimit(subscribe.getLimit());
+        }
+        Integer countNum = this.subscribeService.queryCount();
+        Map<String,Object> data = new HashMap<>();
+        if (subscribes!=null){
+            data.put("countNum",countNum);
+            data.put("subscribe",subscribes);
+            return re.SUCCESSOBJ(data);
         }
         return re.ERRORMSG("Insert the value as null!");
     }
