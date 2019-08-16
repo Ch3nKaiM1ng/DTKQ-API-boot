@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.dao.AdvertisementDao">
+
+    <resultMap type="com.dtkq.api.entity.Advertisement" id="AdvertisementMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="clicknum" column="clicknum" jdbcType="INTEGER"/>
+        <result property="img" column="img" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="rank" column="rank" jdbcType="VARCHAR"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AdvertisementMap">
+        select
+          id, img, url, status, rank, ctime,clicknum
+        from DTKQ.advertisement
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AdvertisementMap">
+        select
+          id, img, url, status, rank, ctime,clicknum
+        from DTKQ.advertisement
+        order by rank asc
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="AdvertisementMap">
+        select
+          id, img, url, status, rank, ctime,clicknum
+        from DTKQ.advertisement
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="img != null and img != ''">
+                and img = #{img}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="rank != null and rank != ''">
+                and rank = #{rank}
+            </if>
+            <if test="clicknum != null">
+                and clicknum = #{clicknum}
+            </if>
+        </where>
+        order by rank asc
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into DTKQ.advertisement(img, url, status, rank, ctime,clicknum)
+        values (#{img}, #{url}, #{status}, #{rank}, now(),#{clicknum})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.advertisement
+        <set>
+            <if test="img != null and img != ''">
+                img = #{img},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="rank != null and rank != ''">
+                rank = #{rank},
+            </if>
+            <if test="clicknum != null">
+                clicknum = #{clicknum},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.advertisement where id = #{id}
+    </delete>
+    <select id="countNum" resultType="java.lang.Integer">
+        select
+        count(*)
+        from DTKQ.advertisement
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="img != null and img != ''">
+                and img = #{img}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="rank != null and rank != ''">
+                and rank = #{rank}
+            </if>
+            <if test="clicknum != null">
+                and clicknum = #{clicknum}
+            </if>
+        </where>
+
+    </select>
+    <!--通过主键增加浏览量-->
+    <update id="addNum">
+        update DTKQ.advertisement
+        <set>
+                clicknum = clicknum +1
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>
