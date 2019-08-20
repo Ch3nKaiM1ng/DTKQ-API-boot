@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.dao.SearchDao">
+
+    <resultMap type="com.dtkq.api.entity.Search" id="SearchMap">
+        <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="sKeyword" column="s_keyWord" jdbcType="VARCHAR"/>
+        <result property="sContent" column="s_content" jdbcType="OTHER"/>
+        <result property="sUrl" column="s_url" jdbcType="OTHER"/>
+        <result property="sBlong" column="s_blong" jdbcType="VARCHAR"/>
+        <result property="sRank" column="s_rank" jdbcType="VARCHAR"/>
+        <result property="sAddtime" column="s_addTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SearchMap">
+        select
+          s_id, s_keyWord, s_content, s_url, s_blong, s_rank, s_addTime
+        from DTKQ.search
+        where s_id = #{sId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SearchMap">
+        select
+          s_id, s_keyWord, s_content, s_url, s_blong, s_rank, s_addTime
+        from DTKQ.search
+        <where>
+            <if test="sBlong != null and sBlong != ''">
+                and s_blong = #{sBlong}
+            </if>
+        </where>
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryCount" resultType="int">
+        select
+          count(*)
+        from DTKQ.search
+        <where>
+            <if test="sBlong != null and sBlong != ''">
+                and s_blong = #{sBlong}
+            </if>
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SearchMap">
+        select
+          s_id, s_keyWord, s_content, s_url, s_blong, s_rank, s_addTime
+        from DTKQ.search
+        <where>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="sKeyword != null and sKeyword != ''">
+                and s_keyWord = #{sKeyword}
+            </if>
+            <if test="sContent != null and sContent != ''">
+                and s_content = #{sContent}
+            </if>
+            <if test="sUrl != null and sUrl != ''">
+                and s_url = #{sUrl}
+            </if>
+            <if test="sBlong != null and sBlong != ''">
+                and s_blong = #{sBlong}
+            </if>
+            <if test="sRank != null and sRank != ''">
+                and s_rank = #{sRank}
+            </if>
+            <if test="sAddtime != null">
+                and s_addTime = #{sAddtime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="sId" useGeneratedKeys="true">
+        insert into DTKQ.search(s_keyWord, s_content, s_url, s_blong, s_rank, s_addTime)
+        values (#{sKeyword}, #{sContent}, #{sUrl}, #{sBlong}, #{sRank}, #{sAddtime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.search
+        <set>
+            <if test="sKeyword != null and sKeyword != ''">
+                s_keyWord = #{sKeyword},
+            </if>
+            <if test="sContent != null and sContent != ''">
+                s_content = #{sContent},
+            </if>
+            <if test="sUrl != null and sUrl != ''">
+                s_url = #{sUrl},
+            </if>
+            <if test="sBlong != null and sBlong != ''">
+                s_blong = #{sBlong},
+            </if>
+            <if test="sRank != null and sRank != ''">
+                s_rank = #{sRank},
+            </if>
+            <if test="sAddtime != null">
+                s_addTime = #{sAddtime},
+            </if>
+        </set>
+        where s_id = #{sId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.search where s_id = #{sId}
+    </delete>
+
+</mapper>
