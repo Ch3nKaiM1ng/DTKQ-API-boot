@@ -23,6 +23,8 @@ public class Article implements Serializable {
     private String artTitle;
     //文章内容
     private Object artContent;
+    //文章头部关键字
+    private String artKeyword;
     //文章简介
     private Object artIntroduction;
     //文章图片
@@ -52,7 +54,26 @@ public class Article implements Serializable {
     private Integer artRankBy;
 
     private Integer artCommentNum;
+
+    private Integer showNew;
+
     private TalkClass classDetail;
+
+    public Integer getShowNew() {
+        return showNew;
+    }
+
+    public void setShowNew(Integer showNew) {
+        this.showNew = showNew;
+    }
+
+    public String getArtKeyword() {
+        return artKeyword;
+    }
+
+    public void setArtKeyword(String artKeyword) {
+        this.artKeyword = artKeyword;
+    }
 
     public Integer getArtRankBy() {
         return artRankBy;

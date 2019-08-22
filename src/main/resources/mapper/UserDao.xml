@@ -10,6 +10,7 @@
         <result property="userImg" column="user_img" jdbcType="VARCHAR"/>
         <result property="userSex" column="user_sex" jdbcType="INTEGER"/>
         <result property="userMobile" column="user_mobile" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
         <result property="userEmail" column="user_email" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
         <result property="birthday" column="birthday" jdbcType="VARCHAR"/>
@@ -22,7 +23,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select
-          user_id, user_ch_name, user_en_name, user_nickname, user_img, user_sex, user_mobile, user_email, ctime, auth, status,birthday,age
+          user_id, user_ch_name, user_en_name, user_nickname, user_img, user_sex, user_mobile, user_email, ctime, auth, status,birthday,age,address
         from DTKQ.user
         where user_id = #{userId}
     </select>
@@ -30,15 +31,13 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UserMap">
         select
-          user_id, user_ch_name, user_en_name, user_nickname, user_img, user_sex, user_mobile, user_email, ctime, auth, status,birthday,age
+          user_id, user_ch_name, user_en_name, user_nickname, user_img, user_sex, user_mobile, user_email, ctime, auth, status,birthday,age,address
         from DTKQ.user
         limit #{offset}, #{limit}
     </select>
-
-    <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="UserMap">
+    <select id="queryObj" resultMap="UserMap">
         select
-          user_id, user_ch_name, user_en_name, user_nickname, user_img, user_sex, user_mobile, user_email, ctime, auth, status,birthday,age
+        user_id, user_ch_name, user_en_name, user_nickname, user_img, user_sex, user_mobile, user_email, ctime, auth, status,birthday,age,address
         from DTKQ.user
         <where>
             <if test="userId != null">
@@ -80,14 +79,67 @@
             <if test="status != null">
                 and status = #{status}
             </if>
+            <if test="address != null">
+                and address = #{address}
+            </if>
+        </where>
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserMap">
+        select
+          user_id, user_ch_name, user_en_name, user_nickname, user_img, user_sex, user_mobile, user_email, ctime, auth, status,birthday,age,address
+        from DTKQ.user
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="userChName != null and userChName != ''">
+                and user_ch_name = #{userChName}
+            </if>
+            <if test="userEnName != null and userEnName != ''">
+                and user_en_name = #{userEnName}
+            </if>
+            <if test="userNickname != null and userNickname != ''">
+                and user_nickname = #{userNickname}
+            </if>
+            <if test="userImg != null and userImg != ''">
+                and user_img = #{userImg}
+            </if>
+            <if test="userSex != null">
+                and user_sex = #{userSex}
+            </if>
+            <if test="userMobile != null and userMobile != ''">
+                and user_mobile = #{userMobile}
+            </if>
+            <if test="birthday != null and userMobile != ''">
+                and birthday = #{birthday}
+            </if>
+            <if test="userEmail != null and userEmail != ''">
+                and user_email = #{userEmail}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="ctime != null">
+                and ctime = #{ctime}
+            </if>
+            <if test="auth != null">
+                and auth = #{auth}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="address != null">
+                and address = #{address}
+            </if>
         </where>
         limit #{offset}, #{limit}
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
-        insert into DTKQ.user(user_ch_name, user_en_name, user_nickname, user_img, user_sex, user_mobile, user_email,password, ctime, auth, status,birthday,age)
-        values (#{userChName}, #{userEnName}, #{userNickname}, #{userImg}, #{userSex}, #{userMobile}, #{userEmail}, #{password}, now(), #{auth}, #{status},#{birthday},#{age})
+        insert into DTKQ.user(user_ch_name, user_en_name, user_nickname, user_img, user_sex, user_mobile, user_email,password, ctime, auth, status,birthday,age,address)
+        values (#{userChName}, #{userEnName}, #{userNickname}, #{userImg}, #{userSex}, #{userMobile}, #{userEmail}, #{password}, now(), #{auth}, #{status},#{birthday},#{age},address)
     </insert>
 
     <!--通过主键修改数据-->
@@ -132,6 +184,9 @@
             </if>
             <if test="status != null">
                 status = #{status},
+            </if>
+            <if test="address != null">
+                address = #{address},
             </if>
         </set>
         where user_id = #{userId}

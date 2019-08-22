@@ -41,6 +41,8 @@ public class Ask implements Serializable {
     private Integer status;
     //标签
     private String askLabel;
+    //标签
+    private String askKeyword;
     //当前页
     private int offset;
     //显示数量
@@ -60,6 +62,24 @@ public class Ask implements Serializable {
     private List<AskAnswer> askAnswerList;
 
     private TalkClass classDetail;
+
+    private Integer showNew;
+
+    public Integer getShowNew() {
+        return showNew;
+    }
+
+    public void setShowNew(Integer showNew) {
+        this.showNew = showNew;
+    }
+
+    public String getAskKeyword() {
+        return askKeyword;
+    }
+
+    public void setAskKeyword(String askKeyword) {
+        this.askKeyword = askKeyword;
+    }
 
     public Integer getAskRankBy() {
         return askRankBy;

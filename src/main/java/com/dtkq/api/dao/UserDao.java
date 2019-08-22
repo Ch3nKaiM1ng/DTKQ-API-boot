@@ -19,6 +19,7 @@ public interface UserDao {
      * @return 实例对象
      */
     User queryById(Integer userId);
+    User queryObj(User user);
 
     /**
      * 查询指定行数据

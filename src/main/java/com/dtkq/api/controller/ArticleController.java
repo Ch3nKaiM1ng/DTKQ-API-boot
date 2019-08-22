@@ -200,6 +200,12 @@ public class ArticleController {
             entity.setOffset((currpage-1)*limit);
         }
         entity.setLimit(limit);
+        if(jsonObject.get("showNew")!=null){
+            Integer showNew=jsonObject.getInteger("showNew");
+            if(showNew>0){
+                entity.setShowNew(showNew);
+            }
+        }
         List<Article> list =service.queryAll(entity);//获根据分页获取数据
         JSONObject js=new JSONObject();
         js.put("countNum",countNum);
@@ -222,6 +228,12 @@ public class ArticleController {
             entity.setOffset((currpage-1)*limit);
         }
         entity.setLimit(limit);
+        if(jsonObject.get("showNew")!=null){
+            Integer showNew=jsonObject.getInteger("showNew");
+            if(showNew>0){
+                entity.setShowNew(showNew);
+            }
+        }
         if(jsonObject.get("artRankBy")!=null){
             entity.setArtRankBy(jsonObject.getInteger("artRankBy"));
         }
@@ -241,11 +253,21 @@ public class ArticleController {
         Integer countNum=askService.countNum(entity);//查到所有数据数
         Integer allPage=countNum/2;//获取总页数
         if(currpage==1){
-            currpage--;
+            entity.setOffset(currpage-1);
         }else if(currpage>1){
-            currpage=(currpage-1)*limit;
+            entity.setOffset((currpage-1)*limit);
         }
-        List<Ask> list =askService.queryAllByLimit(currpage,limit);//获根据分页获取数据
+        entity.setLimit(limit);
+        if(jsonObject.get("askRankBy")!=null){
+            entity.setAskRankBy(jsonObject.getInteger("askRankBy"));
+        }
+        if(jsonObject.get("showNew")!=null){
+            Integer showNew=jsonObject.getInteger("showNew");
+            if(showNew>0){
+                entity.setShowNew(showNew);
+            }
+        }
+        List<Ask> list =askService.queryAll(entity);//获根据分页获取数据
         JSONObject js=new JSONObject();
         js.put("countNum",countNum);
         js.put("allPage",allPage);
@@ -268,6 +290,12 @@ public class ArticleController {
         entity.setLimit(limit);
         if(jsonObject.get("askRankBy")!=null){
             entity.setAskRankBy(jsonObject.getInteger("askRankBy"));
+        }
+        if(jsonObject.get("showNew")!=null){
+            Integer showNew=jsonObject.getInteger("showNew");
+            if(showNew>0){
+                entity.setShowNew(showNew);
+            }
         }
         List<Ask> list =askService.queryAll(entity);//获根据分页获取数据
         JSONObject js=new JSONObject();

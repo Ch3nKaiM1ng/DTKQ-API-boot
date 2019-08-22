@@ -1,9 +1,25 @@
 package com.dtkq.api.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.dtkq.api.entity.TrackUser;
+import com.dtkq.api.service.TrackUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
-
+@Component
 public class ReturnDiscern {
+    @Autowired
+    private TrackUserService trackUserService;
+
+    private static TrackUserService service;
+
+
     public Map<String,Object> SUCCESS(){
         Map<String,Object> map = new HashMap<>();
         map.put("code","200");
@@ -96,4 +112,77 @@ public class ReturnDiscern {
         }
         return map;
     }
+    public String getRemortIP(HttpServletRequest request) {
+        if (request.getHeader("x-forwarded-for") == null) {
+            return request.getRemoteAddr();
+        }
+        return request.getHeader("x-forwarded-for");
+    }
+    @PostConstruct  //关键四：通过@PostConstruct注解实现注入
+    public void init() {
+        service= trackUserService;
+        //tokenUtils.rService =  this.rService;
+    }
+    //保存用户跟踪数据
+    public  void getIpAndMobileMsg(HttpServletRequest request, HttpServletResponse response, JSONObject json)  {
+        //TrackUser data=new TrackUser();//返回实体类
+        String referrer = request.getHeader("Referer");
+        System.out.println(referrer);
+        String remoteAddr = request.getRemoteAddr();
+//        JSONObject json=new JSONObject();
+        if(remoteAddr.equals("0:0:0:0:0:0:0:1")){
+            System.out.println("您的ip地址为：127.0.0.1");
+            json.put("ipaddr","127.0.0.1");
+            //data.setIpaddr("127.0.0.1");
+        }else{
+            System.out.println("您的ip地址为：" + remoteAddr);
+            json.put("ipaddr",remoteAddr);
+            /*data.setIpaddr(remoteAddr);*/
+        }
+        String requestHeader = request.getHeader("User-Agent");
+        int index_one = requestHeader.indexOf("(");
+        String requestBody = requestHeader.substring(index_one+1);
+        String userInfo = requestBody.substring(0, requestBody.indexOf(")"));
+        String[] userInfoList = userInfo.split(";");
+        int length = userInfoList.length;
+        String os = userInfoList[0];
+        String mobileInfo = userInfoList[length - 1];
+        if(os.contains("Windows")){
+            System.out.println("您的操作系统为：windows系统");
+            //data.setSystem("电脑"+os);
+            json.put("system","电脑"+os);
+        }else{
+            System.out.println("您的操作系统为：" + os);
+            //data.setSystem("手机"+os);
+            json.put("system",os);
+        }
+        int index = mobileInfo.indexOf("/");
+
+        if(index > 0){
+            mobileInfo = mobileInfo.substring(0, mobileInfo.indexOf("/") - 5);
+            System.out.println("您的手机型号为：" + mobileInfo);
+            json.put("mobile",mobileInfo);
+            //data.setMobile(mobileInfo);
+        }else{
+            System.out.println("您的手机型号为：电脑登陆");
+            json.put("mobile","电脑登陆");
+            //data.setMobile("电脑登陆");
+        }
+
+
+        TrackUser reData=JSON.toJavaObject(json,TrackUser.class);//json转实体类
+        TrackUser obj=service.queryObj(reData);//查找最后一条数据是否有phone数据
+        if(obj!=null){
+            if(obj.getPhone()!=null && obj.getPhone()!=""){
+                reData.setPhone(obj.getPhone());//如果有的话，后面的数据添加都加入Phone字段
+            }
+        }
+
+        service.insert(reData);
+        if(json.get("phone")!=null){
+            service.update(reData);
+        }
+        System.out.println("数据插入成功"+reData.getId());
+    }
+
 }

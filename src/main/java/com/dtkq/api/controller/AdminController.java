@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sun.security.provider.MD5;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -30,10 +31,11 @@ public class AdminController {
     //    返回utils
     private ReturnDiscern re = new ReturnDiscern();
     @Autowired
-    HttpServletRequest request;
-    @Autowired
     HttpSession httpSession ;
+    @Autowired
+    HttpServletRequest request;
 
+    HttpServletResponse response;
     //  查找所有
     @RequestMapping("/findAll")
     public Map<String, Object> findAll() {
@@ -124,11 +126,15 @@ public class AdminController {
         return re.ERROR();
     }
     //  后台登陆
-
     @RequestMapping("/getUserSession")
     @CrossOrigin
     public Map<String, Object> getUserSession() {
-        System.out.println(request.getHeader("X-Token"));
+        /*System.out.println(request.getHeader("X-Token"));*/
+        JSONObject json =new JSONObject();
+        json.put("action","测试数据");
+        json.put("phone","测试手机号码");
+        json.put("recordPhone","测试记录号码");
+        re.getIpAndMobileMsg(request,response,json);
         httpSession.getAttribute("adminUser");
         Admin admin= (Admin) httpSession.getAttribute("adminUser");
         if(admin!=null){

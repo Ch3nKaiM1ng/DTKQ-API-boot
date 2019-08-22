@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.dao.TrackUserDao">
+
+    <resultMap type="com.dtkq.api.entity.TrackUser" id="TrackUserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="system" column="system" jdbcType="VARCHAR"/>
+        <result property="ipaddr" column="ipAddr" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="recordphone" column="recordPhone" jdbcType="VARCHAR"/>
+        <result property="action" column="action" jdbcType="VARCHAR"/>
+        <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TrackUserMap">
+        select
+          id, system, ipAddr, mobile, Phone, recordPhone, action, ctime
+        from DTKQ.track_user
+        where id = #{id}
+    </select>
+    <!--查询单个-->
+    <select id="queryObj" resultMap="TrackUserMap">
+        select
+          id, system, ipAddr, mobile, Phone, recordPhone, action, ctime
+        from DTKQ.track_user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="ipaddr != null and ipaddr != ''">
+                and ipAddr = #{ipaddr}
+            </if>
+
+        </where>
+        order by id desc
+        limit 1
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TrackUserMap">
+        select
+          id, system, ipAddr, mobile, Phone, recordPhone, action, ctime
+        from DTKQ.track_user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TrackUserMap">
+        select
+          id, system, ipAddr, mobile, Phone, recordPhone, action, ctime
+        from DTKQ.track_user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="system != null and system != ''">
+                and system = #{system}
+            </if>
+            <if test="ipaddr != null and ipaddr != ''">
+                and ipAddr = #{ipaddr}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="phone != null and phone != ''">
+                and Phone = #{phone}
+            </if>
+            <if test="recordphone != null and recordphone != ''">
+                and recordPhone = #{recordphone}
+            </if>
+            <if test="action != null and action != ''">
+                and action = #{action}
+            </if>
+            <if test="ctime != null">
+                and ctime = #{ctime}
+            </if>
+        </where>
+        <if test="checkByIp != null and checkByIp!=0">
+          group  by ipaddr
+        </if>
+        order by id desc
+        <if test="limit != null and limit!=0">
+            limit #{offset}, #{limit}
+        </if>
+
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into DTKQ.track_user(system, ipAddr, mobile, Phone, recordPhone, action, ctime)
+        values (#{system}, #{ipaddr}, #{mobile}, #{phone}, #{recordphone}, #{action}, now())
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.track_user
+        <set>
+            <if test="phone != null and phone != ''">
+                Phone = #{phone},
+            </if>
+        </set>
+        where 1=1
+        <if test="ipaddr != null and ipaddr != ''">
+            and ipAddr = #{ipaddr}
+        </if>
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.track_user where id = #{id}
+    </delete>
+    <select id="countNum"  resultType="java.lang.Integer" >
+        select
+        count(*)
+        from DTKQ.track_user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="system != null and system != ''">
+                and system = #{system}
+            </if>
+            <if test="ipaddr != null and ipaddr != ''">
+                and ipAddr = #{ipaddr}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="phone != null and phone != ''">
+                and Phone = #{phone}
+            </if>
+            <if test="recordphone != null and recordphone != ''">
+                and recordPhone = #{recordphone}
+            </if>
+            <if test="action != null and action != ''">
+                and action = #{action}
+            </if>
+            <if test="ctime != null">
+                and ctime = #{ctime}
+            </if>
+        </where>
+    </select>
+</mapper>
