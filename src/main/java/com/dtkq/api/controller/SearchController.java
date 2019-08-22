@@ -36,7 +36,7 @@ public class SearchController {
      *
      * @return 单条数据
      */
-    @GetMapping("/selectOne")
+    @RequestMapping("/selectOne")
     public Map<String,Object> selectOne(@RequestBody Search search) {
         if (search.getsId()!=null){
             search = this.searchService.queryById(search.getsId());

@@ -51,7 +51,7 @@ public class ClassAskArticleController {
         }else {
             if(askArticle.getBelong().equals("1")){
                 JSONObject json =new JSONObject();
-                json.put("action","用户进入主页获取数据");
+                json.put("action","用户进入首页获取数据");
                 re.getIpAndMobileMsg(request,response,json);
             }
 

@@ -9,11 +9,14 @@ import com.dtkq.api.service.ArticleService;
 import com.dtkq.api.service.AskService;
 import com.dtkq.api.service.DoctorService;
 import com.dtkq.api.utils.ReturnDiscern;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +38,10 @@ public class ArticleController {
     private AskService askService;
     @Resource
     private DoctorService doctorService;
+    @Autowired
+    HttpServletRequest request;
 
+    HttpServletResponse response;
     /**
      * 通过主键查询单条数据
      *
@@ -143,6 +149,13 @@ public class ArticleController {
             return re.ERRORMSG("超过可显示的页数");
         }
         if(data!=null){
+            JSONObject json =new JSONObject();//日志保存
+            if(jsonObject.getInteger("offset")>1){
+                json.put("action","用户下拉首页，查看了第"+jsonObject.get("offset")+"页《首页拼接模块》");
+                re.getIpAndMobileMsg(request,response,json);
+            }
+
+
             return re.SUCCESSOBJ(data);
         }
         return re.ERROR();

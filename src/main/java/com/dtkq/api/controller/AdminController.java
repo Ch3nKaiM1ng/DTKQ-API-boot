@@ -130,11 +130,11 @@ public class AdminController {
     @CrossOrigin
     public Map<String, Object> getUserSession() {
         /*System.out.println(request.getHeader("X-Token"));*/
-        JSONObject json =new JSONObject();
+        /*JSONObject json =new JSONObject();
         json.put("action","测试数据");
         json.put("phone","测试手机号码");
         json.put("recordPhone","测试记录号码");
-        re.getIpAndMobileMsg(request,response,json);
+        re.getIpAndMobileMsg(request,response,json);*/
         httpSession.getAttribute("adminUser");
         Admin admin= (Admin) httpSession.getAttribute("adminUser");
         if(admin!=null){

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -40,6 +41,10 @@ public class UserController {
     private TimeContrastUtils time = new TimeContrastUtils();
     @Autowired
     HttpSession httpSession ;
+    @Autowired
+    HttpServletRequest request;
+
+    HttpServletResponse response;
     /**
      * 通过主键查询单条数据
      *
@@ -204,6 +209,8 @@ public class UserController {
     @RequestMapping("/verifyCode")
     public Map<String, Object> verification(@RequestBody User user, HttpServletRequest req){
         HttpSession session = req.getSession();
+        JSONObject json =new JSONObject();
+
 
         String seTime = (String) session.getAttribute("time");
 
@@ -228,14 +235,24 @@ public class UserController {
                             cUser.setPassword("123456");//默认密码
                             cUser.setUserSex(0);
                             cUser.setStatus(0);
+                            //用户注册
                             service.insert(cUser);
+                            //保存日志记录
+                            json.put("action","用户注册并且登陆！注册手机号码为："+user.getUserMobile());
+                            json.put("phone",user.getUserMobile());
+                            re.getIpAndMobileMsg(request,response,json);
+                            //保存日志记录
                             httpSession.setAttribute("userSession",cUser);
                             return re.SUCCESSOBJ(cUser);
                         }catch (Exception e){
                             e.printStackTrace();
                         }
                     }
-                    httpSession.setAttribute("userSession",userObj);
+                    //保存日志记录
+                    json.put("action","用户成功登陆！手机号码为："+user.getUserMobile());
+                    re.getIpAndMobileMsg(request,response,json);
+                    //保存日志记录
+                    httpSession.setAttribute("userSession",userObj);//创建登陆session
                     return re.SUCCESSOBJ(userObj);
                 }
 
