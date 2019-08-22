@@ -7,6 +7,7 @@
         <result property="askClassId" column="class_id" jdbcType="INTEGER"/>
         <result property="askUserId" column="ask_user_id" jdbcType="INTEGER"/>
         <result property="askTitle" column="ask_title" jdbcType="VARCHAR"/>
+        <result property="askKeyword" column="ask_keyword" jdbcType="VARCHAR"/>
         <result property="askContent" column="ask_content" jdbcType="OTHER"/>
         <result property="askIntroduction" column="ask_introduction" jdbcType="OTHER"/>
         <result property="askImg" column="ask_img" jdbcType="VARCHAR"/>
@@ -41,7 +42,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="AskMap">
         select
-          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img,a.ask_introduction
+          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img,a.ask_introduction,a.ask_keyword
         ,a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
 
@@ -53,7 +54,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AskMap">
         select
-          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img,a.ask_introduction
+          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img,a.ask_introduction,a.ask_keyword
         ,a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
 
@@ -65,7 +66,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="AskMap">
         select
-        a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img,a.ask_introduction
+        a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img,a.ask_introduction,a.ask_keyword
         ,a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
 
@@ -99,10 +100,16 @@
             <if test="askLabel != null and askLabel != ''">
                 and a.askLabel = #{askLabel}
             </if>
+            <if test="askKeyword != null and askKeyword != ''">
+                and a.ask_keyword = #{askKeyword}
+            </if>
         </where>
         order by
         <if test="askRankBy != null and askRankBy != ''">
             ask_id = #{askRankBy} desc ,
+        </if>
+        <if test="showNew != null and showNew >0">
+            ctime  desc ,
         </if>
         thumb_num desc
         limit #{offset}, #{limit}
@@ -110,8 +117,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="askId" useGeneratedKeys="true">
-        insert into DTKQ.ask(class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, askLabel,askCheck_num,thumb_num,ask_introduction)
-        values (#{askClassId}, #{askUserId}, #{askTitle}, #{askContent}, #{askImg}, #{askVedio}, now(), #{status}, #{askLabel},#{askCheckNum},#{thumbNum},#{askIntroduction})
+        insert into DTKQ.ask(class_id, ask_user_id, ask_title, ask_content, ask_img, ask_vedio, ctime, status, askLabel,askCheck_num,thumb_num,ask_introduction,ask_keyword)
+        values (#{askClassId}, #{askUserId}, #{askTitle}, #{askContent}, #{askImg}, #{askVedio}, now(), #{status}, #{askLabel},#{askCheckNum},#{thumbNum},#{askIntroduction},#{askKeyword})
     </insert>
 
     <!--通过主键修改数据-->
@@ -147,6 +154,9 @@
             </if>
             <if test="askCheckNum != null and askCheckNum != ''">
                 askCheck_num = #{askCheckNum},
+            </if>
+            <if test="askKeyword != null and askKeyword != ''">
+                ask_keyword = #{askKeyword},
             </if>
             <if test="thumbNum != null and thumbNum != ''">
                 thumb_num = #{thumbNum},
@@ -208,6 +218,9 @@
             </if>
             <if test="askLabel != null and askLabel != ''">
                 and a.askLabel = #{askLabel}
+            </if>
+            <if test="askKeyword != null and askKeyword != ''">
+                and a.ask_keyword = #{askKeyword}
             </if>
         </where>
     </select>

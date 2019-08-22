@@ -7,6 +7,7 @@
         <result property="classId" column="class_id" jdbcType="INTEGER"/>
         <result property="artUserId" column="art_user_id" jdbcType="INTEGER"/>
         <result property="artTitle" column="art_title" jdbcType="VARCHAR"/>
+        <result property="artKeyword" column="art_keyword" jdbcType="VARCHAR"/>
         <result property="artContent" column="art_content" jdbcType="OTHER"/>
         <result property="artIntroduction" column="art_introduction" jdbcType="OTHER"/>
         <result property="artImg" column="art_img" jdbcType="VARCHAR"/>
@@ -25,6 +26,7 @@
         <result property="classId" column="class_id" jdbcType="INTEGER"/>
         <result property="artUserId" column="art_user_id" jdbcType="INTEGER"/>
         <result property="artTitle" column="art_title" jdbcType="VARCHAR"/>
+        <result property="artKeyword" column="art_keyword" jdbcType="VARCHAR"/>
         <result property="artContent" column="art_content" jdbcType="OTHER"/>
         <result property="artImg" column="art_img" jdbcType="VARCHAR"/>
         <result property="artVedio" column="art_vedio" jdbcType="VARCHAR"/>
@@ -57,7 +59,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="articleObj">
         select a.art_id, a.class_id, a.art_user_id, a.art_title, a.art_content, a.art_img, a.art_vedio, a.ctime
-        ,a.status, a.label,a.check_num,a.thumb_num,a.art_introduction
+        ,a.status, a.label,a.check_num,a.thumb_num,a.art_introduction,a.art_keyword
         ,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
         from DTKQ.article a
@@ -89,7 +91,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="articleObj">
         select a.art_id, a.class_id, a.art_user_id, a.art_title, a.art_content, a.art_img, a.art_vedio, a.ctime
-        ,a.status, a.label,a.check_num,a.thumb_num,a.art_introduction
+        ,a.status, a.label,a.check_num,a.thumb_num,a.art_introduction,a.art_keyword
         ,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
         from DTKQ.article a
@@ -100,7 +102,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="articleObj">
         select a.art_id, a.class_id, a.art_user_id, a.art_title, a.art_content, a.art_img, a.art_vedio, a.ctime
-        ,a.status, a.label,a.check_num,a.thumb_num,a.art_introduction
+        ,a.status, a.label,a.check_num,a.thumb_num,a.art_introduction,a.art_keyword
         ,b.user_id,b.user_nickname,b.user_img,b.user_sex
         ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
         from DTKQ.article a
@@ -136,10 +138,16 @@
             <if test="label != null and label != ''">
                 and label = #{label}
             </if>
+            <if test="artKeyword != null and artKeyword != ''">
+                and art_keyword = #{artKeyword}
+            </if>
         </where>
         order by
         <if test="artRankBy != null and artRankBy != ''">
              art_id = #{artRankBy} desc ,
+        </if>
+        <if test="showNew != null and showNew >0">
+            ctime  desc ,
         </if>
         thumb_num desc
         limit #{offset}, #{limit}
@@ -147,8 +155,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="artId" useGeneratedKeys="true">
-        insert into DTKQ.article(class_id, art_user_id, art_title, art_content, art_img, art_vedio, ctime, status, label,check_num,thumb_num,art_introduction)
-        values (#{classId}, #{artUserId}, #{artTitle}, #{artContent}, #{artImg}, #{artVedio}, now(), #{status}, #{label},#{checkNum},#{thumbNum},#{artIntroduction})
+        insert into DTKQ.article(class_id, art_user_id, art_title, art_content, art_img, art_vedio, ctime, status, label,check_num,thumb_num,art_introduction,art_keyword)
+        values (#{classId}, #{artUserId}, #{artTitle}, #{artContent}, #{artImg}, #{artVedio}, now(), #{status}, #{label},#{checkNum},#{thumbNum},#{artIntroduction},#{artKeyword})
     </insert>
 
     <!--通过主键修改数据-->
@@ -178,6 +186,9 @@
             </if>
             <if test="label != null and label != ''">
                 label = #{label},
+            </if>
+            <if test="artKeyword != null and artKeyword != ''">
+                art_keyword = #{artKeyword},
             </if>
             <if test="checkNum != null and checkNum != ''">
                 check_num = #{checkNum},
@@ -248,6 +259,9 @@
             </if>
             <if test="artIntroduction != null and artIntroduction != ''">
                 and art_introduction = #{artIntroduction}
+            </if>
+            <if test="artKeyword != null and artKeyword != ''">
+                and art_keyword = #{artKeyword}
             </if>
         </where>
 

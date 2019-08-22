@@ -1,13 +1,17 @@
 package com.dtkq.api.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dtkq.api.entity.ClassAskArticle;
 import com.dtkq.api.service.ClassAskArticleService;
 import com.dtkq.api.utils.ReturnDiscern;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +32,10 @@ public class ClassAskArticleController {
 
     //引用return
     private ReturnDiscern re = new ReturnDiscern();
+    @Autowired
+    HttpServletRequest request;
 
+    HttpServletResponse response;
     @RequestMapping("/selectOne")
     public Map<String,Object>selectOne(Integer acId){
         return re.SUCCESSOBJ(this.classAskArticleService.queryById(acId));
@@ -42,6 +49,12 @@ public class ClassAskArticleController {
         if (askArticle.getBelong()==null){
             return re.ERRORMSG("pass in a null value!");
         }else {
+            if(askArticle.getBelong().equals("1")){
+                JSONObject json =new JSONObject();
+                json.put("action","用户进入首页获取数据");
+                re.getIpAndMobileMsg(request,response,json);
+            }
+
             List<ClassAskArticle> askArticleList = this.classAskArticleService.queryAll(askArticle);
             for (int i =0 ;i<askArticleList.size();i++){
                 if (askArticleList.get(i).getAsk()==null&&askArticleList.get(i).getArticle()==null) {

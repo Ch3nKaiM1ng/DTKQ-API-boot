@@ -9,11 +9,14 @@ import com.dtkq.api.service.ArticleService;
 import com.dtkq.api.service.AskService;
 import com.dtkq.api.service.DoctorService;
 import com.dtkq.api.utils.ReturnDiscern;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +38,10 @@ public class ArticleController {
     private AskService askService;
     @Resource
     private DoctorService doctorService;
+    @Autowired
+    HttpServletRequest request;
 
+    HttpServletResponse response;
     /**
      * 通过主键查询单条数据
      *
@@ -143,6 +149,13 @@ public class ArticleController {
             return re.ERRORMSG("超过可显示的页数");
         }
         if(data!=null){
+            JSONObject json =new JSONObject();//日志保存
+            if(jsonObject.getInteger("offset")>1){
+                json.put("action","用户下拉首页，查看了第"+jsonObject.get("offset")+"页《首页拼接模块》");
+                re.getIpAndMobileMsg(request,response,json);
+            }
+
+
             return re.SUCCESSOBJ(data);
         }
         return re.ERROR();
@@ -200,6 +213,12 @@ public class ArticleController {
             entity.setOffset((currpage-1)*limit);
         }
         entity.setLimit(limit);
+        if(jsonObject.get("showNew")!=null){
+            Integer showNew=jsonObject.getInteger("showNew");
+            if(showNew>0){
+                entity.setShowNew(showNew);
+            }
+        }
         List<Article> list =service.queryAll(entity);//获根据分页获取数据
         JSONObject js=new JSONObject();
         js.put("countNum",countNum);
@@ -222,6 +241,12 @@ public class ArticleController {
             entity.setOffset((currpage-1)*limit);
         }
         entity.setLimit(limit);
+        if(jsonObject.get("showNew")!=null){
+            Integer showNew=jsonObject.getInteger("showNew");
+            if(showNew>0){
+                entity.setShowNew(showNew);
+            }
+        }
         if(jsonObject.get("artRankBy")!=null){
             entity.setArtRankBy(jsonObject.getInteger("artRankBy"));
         }
@@ -241,11 +266,21 @@ public class ArticleController {
         Integer countNum=askService.countNum(entity);//查到所有数据数
         Integer allPage=countNum/2;//获取总页数
         if(currpage==1){
-            currpage--;
+            entity.setOffset(currpage-1);
         }else if(currpage>1){
-            currpage=(currpage-1)*limit;
+            entity.setOffset((currpage-1)*limit);
         }
-        List<Ask> list =askService.queryAllByLimit(currpage,limit);//获根据分页获取数据
+        entity.setLimit(limit);
+        if(jsonObject.get("askRankBy")!=null){
+            entity.setAskRankBy(jsonObject.getInteger("askRankBy"));
+        }
+        if(jsonObject.get("showNew")!=null){
+            Integer showNew=jsonObject.getInteger("showNew");
+            if(showNew>0){
+                entity.setShowNew(showNew);
+            }
+        }
+        List<Ask> list =askService.queryAll(entity);//获根据分页获取数据
         JSONObject js=new JSONObject();
         js.put("countNum",countNum);
         js.put("allPage",allPage);
@@ -268,6 +303,12 @@ public class ArticleController {
         entity.setLimit(limit);
         if(jsonObject.get("askRankBy")!=null){
             entity.setAskRankBy(jsonObject.getInteger("askRankBy"));
+        }
+        if(jsonObject.get("showNew")!=null){
+            Integer showNew=jsonObject.getInteger("showNew");
+            if(showNew>0){
+                entity.setShowNew(showNew);
+            }
         }
         List<Ask> list =askService.queryAll(entity);//获根据分页获取数据
         JSONObject js=new JSONObject();

@@ -19,6 +19,8 @@ public interface UserService {
      */
     User queryById(Integer userId);
 
+    User queryObj(User user);
+
     /**
      * 查询多条数据
      *

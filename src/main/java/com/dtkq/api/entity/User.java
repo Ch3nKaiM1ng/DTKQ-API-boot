@@ -30,6 +30,7 @@ public class User implements Serializable {
     private String userMobile;
     //用户邮箱
     private String userEmail;
+    private String address;
     //密码
     private String password;
     //创建时间
@@ -51,6 +52,14 @@ public class User implements Serializable {
     private int limit;
 
     private String verify;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getVerify() {
         return verify;

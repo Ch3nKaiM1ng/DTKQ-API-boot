@@ -7,13 +7,12 @@ import com.dtkq.api.utils.DateUtils;
 import com.dtkq.api.utils.ReturnDiscern;
 import com.dtkq.api.utils.SMSUtils;
 import com.dtkq.api.utils.TimeContrastUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -40,6 +39,12 @@ public class UserController {
     private DateUtils dateUtils = new DateUtils();
     //    时间对比
     private TimeContrastUtils time = new TimeContrastUtils();
+    @Autowired
+    HttpSession httpSession ;
+    @Autowired
+    HttpServletRequest request;
+
+    HttpServletResponse response;
     /**
      * 通过主键查询单条数据
      *
@@ -204,6 +209,8 @@ public class UserController {
     @RequestMapping("/verifyCode")
     public Map<String, Object> verification(@RequestBody User user, HttpServletRequest req){
         HttpSession session = req.getSession();
+        JSONObject json =new JSONObject();
+
 
         String seTime = (String) session.getAttribute("time");
 
@@ -211,8 +218,44 @@ public class UserController {
             if (time.timeCompare(seTime, 3)) {
                 if ((Integer) session.getAttribute(user.getUserMobile())==Integer.parseInt(user.getVerify())) {
                     session.removeAttribute(user.getUserMobile());
-                    return re.SUCCESS();
+                    User userObj=service.queryObj(user);
+                    if(userObj==null){//如果用户未注册
+                        try {
+                            User cUser=new User();
+                            String birthDay="1996-01-01";//默认出生日期
+                            Integer Age = getAge(parse(birthDay));
+                            cUser.setBirthday(birthDay);//设置出生日期
+                            cUser.setAge(Age);//岁数
+                            cUser.setUserMobile(user.getUserMobile());//设置用户手机号码
+                            cUser.setAuth(0);//设置注册用户标志
+                            cUser.setUserNickname("登特小粉");//默认昵称
+                            cUser.setUserChName("默认名称");//默认中文名
+                            cUser.setUserEnName("UnSetUserName");//默认英文名
+                            cUser.setUserImg("http://dt.szmlkq.com/2019/08/13/1565660815767.png");//默认用户头像
+                            cUser.setPassword("123456");//默认密码
+                            cUser.setUserSex(0);
+                            cUser.setStatus(0);
+                            //用户注册
+                            service.insert(cUser);
+                            //保存日志记录
+                            json.put("action","用户注册并且登陆！注册手机号码为："+user.getUserMobile());
+                            json.put("phone",user.getUserMobile());
+                            re.getIpAndMobileMsg(request,response,json);
+                            //保存日志记录
+                            httpSession.setAttribute("userSession",cUser);
+                            return re.SUCCESSOBJ(cUser);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                    //保存日志记录
+                    json.put("action","用户成功登陆！手机号码为："+user.getUserMobile());
+                    re.getIpAndMobileMsg(request,response,json);
+                    //保存日志记录
+                    httpSession.setAttribute("userSession",userObj);//创建登陆session
+                    return re.SUCCESSOBJ(userObj);
                 }
+
             } else {
                 return re.TimeOut();
             }
@@ -224,5 +267,14 @@ public class UserController {
     public String sendMsg(String phone,Integer randNum){
         return sms.SmsCode(randNum,phone);
     }
-//    用户登录
+    @RequestMapping("/outLogin")
+    public Map<String, Object> outLogin() {
+        httpSession.removeAttribute("userSession");
+        return re.SUCCESS();
+    }
+    @RequestMapping("/checkUserSession")
+    public Map<String, Object> checkUserSession() {
+        User user=(User)httpSession.getAttribute("userSession");
+        return re.SUCCESSOBJ(user);
+    }
 }
