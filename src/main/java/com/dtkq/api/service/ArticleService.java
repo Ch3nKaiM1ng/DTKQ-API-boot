@@ -1,7 +1,6 @@
 package com.dtkq.api.service;
 
 import com.dtkq.api.entity.Article;
-import com.dtkq.api.entity.ClassObj;
 
 import java.util.List;
 
@@ -57,4 +56,8 @@ public interface ArticleService {
      */
     boolean deleteById(Integer artId);
     Integer countNum(Article article);
+
+    List<Article> selectByKeyWord(String keyword, Integer offset, Integer limit);
+
+    Integer selectByKeyWordNum(String keyword);
 }

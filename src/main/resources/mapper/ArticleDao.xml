@@ -65,6 +65,27 @@
         where a.art_id = #{artId}
     </select>
 
+    <select id="selectByKeyWord" resultMap="articleObj">
+        select a.art_id,a.art_title, a.art_img, a.thumb_num,a.art_introduction
+        ,b.user_nickname,
+        b.user_ch_name,
+        b.user_id
+        from DTKQ.article a
+        left  join user b on b.user_id=a.art_user_id
+        where  a.art_title LIKE CONCAT(CONCAT('%',#{keyword},'%'))
+        or a.art_introduction LIKE CONCAT(CONCAT('%',#{keyword},'%'))
+        or a.art_content LIKE CONCAT(CONCAT('%',#{keyword},'%'))
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="selectByKeyWordNum" resultType="int">
+        select count(*)
+        from article a
+        where a.art_title LIKE CONCAT(CONCAT('%',#{keyword},'%'))
+        or a.art_introduction LIKE CONCAT(CONCAT('%',#{keyword},'%'))
+        or a.art_content LIKE CONCAT(CONCAT('%',#{keyword},'%'))
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="articleObj">
         select a.art_id, a.class_id, a.art_user_id, a.art_title, a.art_content, a.art_img, a.art_vedio, a.ctime
