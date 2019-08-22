@@ -1,8 +1,8 @@
 package com.dtkq.api.dao;
 
 import com.dtkq.api.entity.Article;
-import com.dtkq.api.entity.ClassObj;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -65,4 +65,8 @@ public interface ArticleDao {
      */
     int deleteById(Integer artId);
     int countNum(Article article);
+
+    List<Article> selectByKeyWord(@Param("keyword") String keyword, @Param("offset") Integer offset, @Param("limit") Integer limit);
+
+    Integer selectByKeyWordNum(@Param("keyword")String keyword);
 }

@@ -1,8 +1,7 @@
 package com.dtkq.api.service.impl;
 
-import com.dtkq.api.entity.Article;
 import com.dtkq.api.dao.ArticleDao;
-import com.dtkq.api.entity.ClassObj;
+import com.dtkq.api.entity.Article;
 import com.dtkq.api.service.ArticleService;
 import org.springframework.stereotype.Service;
 
@@ -92,5 +91,15 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Integer countNum(Article article) {
         return articleDao.countNum(article);
+    }
+
+    @Override
+    public List<Article> selectByKeyWord(String keyword, Integer offset, Integer limit) {
+        return this.articleDao.selectByKeyWord(keyword,offset,limit);
+    }
+
+    @Override
+    public Integer selectByKeyWordNum(String keyword) {
+        return this.articleDao.selectByKeyWordNum(keyword);
     }
 }

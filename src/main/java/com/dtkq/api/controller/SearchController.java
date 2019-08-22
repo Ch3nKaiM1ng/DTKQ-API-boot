@@ -1,10 +1,15 @@
 package com.dtkq.api.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.Search;
+import com.dtkq.api.service.ArticleService;
+import com.dtkq.api.service.AskService;
+import com.dtkq.api.service.CaseService;
 import com.dtkq.api.service.SearchService;
 import com.dtkq.api.utils.DateUtils;
 import com.dtkq.api.utils.ReturnDiscern;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +33,12 @@ public class SearchController {
      */
     @Resource
     private SearchService searchService;
+    @Autowired
+    private ArticleService articleService;
+    @Autowired
+    private AskService askService;
+    @Autowired
+    private CaseService caseService;
 
     private ReturnDiscern re = new ReturnDiscern();
     private DateUtils time = new DateUtils();
@@ -94,4 +105,21 @@ public class SearchController {
         return re.ERRORMSG("sId as error!");
     }
 
+    @RequestMapping("/selectByKeyWord")
+    public Map<String,Object>selectByKeyword(@RequestBody JSONObject jsonObject){
+        Map<String,Object> map = new HashMap<>();
+        String keyword=jsonObject.get("keyword").toString();
+        Integer limit = (Integer)jsonObject.get("limit");
+        Integer offset = ((Integer)jsonObject.get("offset")-1)*limit;
+        if (keyword!=null){
+            List<Article> article = this.articleService.selectByKeyWord(keyword,offset,limit);
+            Integer articleCount = this.articleService.selectByKeyWordNum(keyword);
+            map.put("articleCount",articleCount);
+            map.put("article",article);
+            map.put("limit",limit);
+            map.put("offset",offset);
+            return re.SUCCESSOBJ(map);
+        }
+        return re.ERRORMSG("keyword as null!");
+    }
 }
