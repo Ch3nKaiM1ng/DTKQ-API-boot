@@ -49,12 +49,28 @@ public class ClassAskArticleController {
         if (askArticle.getBelong()==null){
             return re.ERRORMSG("pass in a null value!");
         }else {
+            //用户保存日志
             if(askArticle.getBelong().equals("1")){
                 JSONObject json =new JSONObject();
                 json.put("action","用户进入首页获取数据");
                 re.getIpAndMobileMsg(request,response,json);
             }
-
+            if(askArticle.getBelong().equals("61")){
+                JSONObject json =new JSONObject();
+                json.put("action","用户进入矫正热搜榜查看列表");
+                re.getIpAndMobileMsg(request,response,json);
+            }
+            if(askArticle.getBelong().equals("62")){
+                JSONObject json =new JSONObject();
+                json.put("action","用户进入修复热搜榜获取数据");
+                re.getIpAndMobileMsg(request,response,json);
+            }
+            if(askArticle.getBelong().equals("63")){
+                JSONObject json =new JSONObject();
+                json.put("action","用户进入种植热搜榜获取数据");
+                re.getIpAndMobileMsg(request,response,json);
+            }
+            //用户保存日志
             List<ClassAskArticle> askArticleList = this.classAskArticleService.queryAll(askArticle);
             for (int i =0 ;i<askArticleList.size();i++){
                 if (askArticleList.get(i).getAsk()==null&&askArticleList.get(i).getArticle()==null) {

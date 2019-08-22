@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.Doctor;
+import com.dtkq.api.entity.TalkClass;
 import com.dtkq.api.service.ArticleService;
 import com.dtkq.api.service.AskService;
 import com.dtkq.api.service.DoctorService;
@@ -66,8 +67,7 @@ public class ArticleController {
         List<Article> list =service.queryAll(entity);
         jsonObject.put("limit",limit);//返回当前页显示条数
         jsonObject.put("currpage",currpage);//返回当前页
-        jsonObject.put("countNum",countNum
-        );//返回当前页
+        jsonObject.put("countNum",countNum);//返回当前页
         jsonObject.put("dataList",list);//返回当前数组
         return re.SUCCESSOBJ(jsonObject);
     }
@@ -145,16 +145,23 @@ public class ArticleController {
     @RequestMapping("/webPageBlockList")
     public Map<String, Object> webPageBlockList(@RequestBody JSONObject jsonObject) {
         JSONObject data=pageList(jsonObject);//获取数据列表
+        //日志保存
+        JSONObject json =new JSONObject();
+        if(jsonObject.getInteger("showNew")==1){
+            json.put("action","用户点击了查看最新的《首页拼接模块》按钮");
+            re.getIpAndMobileMsg(request,response,json);
+        }
+        //日志保存
         if(data.getBoolean("result")==false){//接口返回结果
             return re.ERRORMSG("超过可显示的页数");
         }
         if(data!=null){
-            JSONObject json =new JSONObject();//日志保存
+            //日志保存
             if(jsonObject.getInteger("offset")>1){
                 json.put("action","用户下拉首页，查看了第"+jsonObject.get("offset")+"页《首页拼接模块》");
                 re.getIpAndMobileMsg(request,response,json);
             }
-
+            //日志保存
 
             return re.SUCCESSOBJ(data);
         }
@@ -168,6 +175,14 @@ public class ArticleController {
             return re.ERRORMSG("超过可显示的页数");
         }
         if(data!=null){
+            //日志保存
+            JSONArray datalist=(JSONArray) data.get("dataList");
+            Article dataObj=(Article) datalist.get(0);
+            TalkClass classObj=(TalkClass) dataObj.getClassDetail();
+            JSONObject json =new JSONObject();
+            json.put("action","用户进入了问大家模块，查看《"+classObj.getChName()+"》模块");
+            re.getIpAndMobileMsg(request,response,json);
+            //日志保存
             return re.SUCCESSOBJ(data);
         }
         return re.ERROR();
