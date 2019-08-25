@@ -28,6 +28,7 @@
         <result property="artTitle" column="art_title" jdbcType="VARCHAR"/>
         <result property="artKeyword" column="art_keyword" jdbcType="VARCHAR"/>
         <result property="artContent" column="art_content" jdbcType="OTHER"/>
+        <result property="artIntroduction" column="art_introduction" jdbcType="OTHER"/>
         <result property="artImg" column="art_img" jdbcType="VARCHAR"/>
         <result property="artVedio" column="art_vedio" jdbcType="VARCHAR"/>
         <result property="ctime" column="ctime" jdbcType="TIMESTAMP"/>
