@@ -3,10 +3,7 @@ package com.dtkq.api.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.dtkq.api.entity.User;
 import com.dtkq.api.service.UserService;
-import com.dtkq.api.utils.DateUtils;
-import com.dtkq.api.utils.ReturnDiscern;
-import com.dtkq.api.utils.SMSUtils;
-import com.dtkq.api.utils.TimeContrastUtils;
+import com.dtkq.api.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +34,8 @@ public class UserController {
     private SMSUtils sms = new SMSUtils();
     //    时间类
     private DateUtils dateUtils = new DateUtils();
+    //    匿名类
+    private NameUtils nameUtils = new NameUtils();
     //    时间对比
     private TimeContrastUtils time = new TimeContrastUtils();
     @Autowired
@@ -224,12 +223,13 @@ public class UserController {
                             User cUser=new User();
                             String birthDay="1996-01-01";//默认出生日期
                             Integer Age = getAge(parse(birthDay));
+                            String name=nameUtils.build();
                             cUser.setBirthday(birthDay);//设置出生日期
                             cUser.setAge(Age);//岁数
                             cUser.setUserMobile(user.getUserMobile());//设置用户手机号码
                             cUser.setAuth(0);//设置注册用户标志
-                            cUser.setUserNickname("登特小粉");//默认昵称
-                            cUser.setUserChName("默认名称");//默认中文名
+                            cUser.setUserNickname(name);//默认昵称
+                            cUser.setUserChName(name);//默认中文名
                             cUser.setUserEnName("UnSetUserName");//默认英文名
                             cUser.setUserImg("http://dt.szmlkq.com/2019/08/13/1565660815767.png");//默认用户头像
                             cUser.setPassword("123456");//默认密码

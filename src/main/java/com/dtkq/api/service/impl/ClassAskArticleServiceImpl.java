@@ -82,4 +82,14 @@ public class ClassAskArticleServiceImpl implements ClassAskArticleService {
 
         return this.classAskArticleDao.queryAll(askArticle);
     }
+    @Override
+    public ClassAskArticle queryArtCount(ClassAskArticle askArticle) {
+
+        return this.classAskArticleDao.queryArtCount(askArticle);
+    }
+    @Override
+    public ClassAskArticle queryAskCount(ClassAskArticle askArticle) {
+
+        return this.classAskArticleDao.queryAskCount(askArticle);
+    }
 }

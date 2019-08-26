@@ -9,6 +9,9 @@
         <result property="vioId" column="vio_id" jdbcType="INTEGER"/>
         <result property="userSex" column="user_sex" jdbcType="INTEGER"/>
         <result property="rank" column="rank" jdbcType="INTEGER"/>
+        <result property="womanNum" column="womannum" jdbcType="INTEGER"/>
+        <result property="manNum" column="mannum" jdbcType="INTEGER"/>
+        <result property="totalNum" column="totalnum" jdbcType="INTEGER"/>
         <result property="belong" column="belong" jdbcType="VARCHAR"/>
         <collection property="article" ofType="com.dtkq.api.entity.Article" column="ArticleMap">
             <id column="art_id" property="artId" jdbcType="INTEGER"/><!-- 这里的column对应的是下面查询的别名，而不是表字段名 -->
@@ -127,5 +130,29 @@
     <delete id="deleteById">
         delete from DTKQ.class_ask_article where ac_id = #{acId}
     </delete>
-
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryArtCount" resultMap="ClassAskArticleMap">
+        select count(*) as totalNum ,
+        (select count(*)  from article_comment a left join `user` b on a.user_id=b.user_id where b.user_sex=0 and art_id=#{ac_artId}) as womanNum ,
+        (select count(*)  from article_comment a left join `user` b on a.user_id=b.user_id where b.user_sex=1 and art_id=#{ac_artId}) as manNum
+        from article_comment
+        where art_id=#{ac_artId}
+    </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAskCount" resultMap="ClassAskArticleMap">
+        select count(*) as totalnum ,
+        (select count(*)  from ask_comment a
+        left join `user` b on a.user_id=b.user_id
+        left join ask_answer c on a.ask_answer_id=c.id
+        where b.user_sex=0 and c.ask_id=#{ac_askId}
+        ) as womannum ,
+        (select count(*)  from ask_comment a
+        left join `user` b on a.user_id=b.user_id
+        left join ask_answer c on a.ask_answer_id=c.id
+        where b.user_sex=1 and c.ask_id=#{ac_askId}
+        ) as mannum
+        from ask_comment a
+        left join ask_answer b on a.ask_answer_id=b.id
+        where b.ask_id=#{ac_askId}
+    </select>
 </mapper>

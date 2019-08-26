@@ -37,6 +37,8 @@ public interface ClassAskArticleDao {
      * @return 对象列表
      */
     List<ClassAskArticle> queryAll(ClassAskArticle classAskArticle);
+    ClassAskArticle queryArtCount(ClassAskArticle classAskArticle);
+    ClassAskArticle queryAskCount(ClassAskArticle classAskArticle);
 
     /**
      * 新增数据

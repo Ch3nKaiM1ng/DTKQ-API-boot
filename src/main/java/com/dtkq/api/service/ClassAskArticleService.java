@@ -54,4 +54,8 @@ public interface ClassAskArticleService {
 
 //    根据对象查询
     List<ClassAskArticle> queryAll(ClassAskArticle askArticle);
+
+    ClassAskArticle queryArtCount(ClassAskArticle askArticle);
+
+    ClassAskArticle queryAskCount(ClassAskArticle askArticle);
 }
