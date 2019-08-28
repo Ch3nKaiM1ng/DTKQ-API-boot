@@ -31,12 +31,23 @@ public class ClassAskArticle implements Serializable {
 //    女性数量
     private Integer womanNum;
 
+//    总评论数量
+    private Integer totalNum;
+
     //当前页
     private Integer offset;
     //显示数量
     private Integer limit;
     private User user;
     private Integer rank;
+
+    public Integer getTotalNum() {
+        return totalNum;
+    }
+
+    public void setTotalNum(Integer totalNum) {
+        this.totalNum = totalNum;
+    }
 
     public Integer getOffset() {
         return offset;

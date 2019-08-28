@@ -81,13 +81,15 @@ public class ClassAskArticleController {
 
                 if (askArticleList.get(i).getAsk()!=null||askArticleList.get(i).getArticle()!=null) {
                     if (askArticleList.get(i).getAc_artId() != null) {
-                        askArticleList.get(i).getArticle().setArtCommentNum(123);
-                        askArticleList.get(i).setManNum(234);
-                        askArticleList.get(i).setWomanNum(234);
+                        ClassAskArticle entity = classAskArticleService.queryArtCount(askArticleList.get(i));
+                        askArticleList.get(i).getArticle().setArtCommentNum(entity.getTotalNum());
+                        askArticleList.get(i).setManNum(entity.getManNum());
+                        askArticleList.get(i).setWomanNum(entity.getWomanNum());
                     } else {
-                        askArticleList.get(i).getAsk().setAskCommentNum(123);
-                        askArticleList.get(i).setManNum(234);
-                        askArticleList.get(i).setWomanNum(234);
+                        ClassAskArticle entity = classAskArticleService.queryAskCount(askArticleList.get(i));
+                        askArticleList.get(i).getAsk().setAskCommentNum(entity.getTotalNum());
+                        askArticleList.get(i).setManNum(entity.getManNum());
+                        askArticleList.get(i).setWomanNum(entity.getWomanNum());
                     }
                 }
             }
