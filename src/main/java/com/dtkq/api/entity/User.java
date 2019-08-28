@@ -46,12 +46,21 @@ public class User implements Serializable {
     private Integer status;
     private Integer age;
     private String birthday;
+    private String userSign;
     //当前页
     private int offset;
     //显示数量
     private int limit;
 
     private String verify;
+
+    public String getUserSign() {
+        return userSign;
+    }
+
+    public void setUserSign(String userSign) {
+        this.userSign = userSign;
+    }
 
     public String getAddress() {
         return address;

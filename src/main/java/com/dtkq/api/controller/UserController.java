@@ -233,6 +233,7 @@ public class UserController {
                             cUser.setUserEnName("UnSetUserName");//默认英文名
                             cUser.setUserImg("http://dt.szmlkq.com/2019/08/13/1565660815767.png");//默认用户头像
                             cUser.setPassword("123456");//默认密码
+                            cUser.setUserSign("说点什么吧");
                             cUser.setUserSex(0);
                             cUser.setStatus(0);
                             //用户注册
