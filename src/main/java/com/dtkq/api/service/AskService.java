@@ -1,7 +1,7 @@
 package com.dtkq.api.service;
 
-import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.Ask;
+
 import java.util.List;
 
 /**
@@ -56,4 +56,6 @@ public interface AskService {
      */
     boolean deleteById(Integer askId);
     Integer countNum(Ask ask);
+
+    List<Ask> selectByKeyWord(String keyword, Integer offset, Integer limit);
 }

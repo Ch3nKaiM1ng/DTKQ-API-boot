@@ -1,8 +1,7 @@
 package com.dtkq.api.service.impl;
 
-import com.dtkq.api.entity.Article;
-import com.dtkq.api.entity.Ask;
 import com.dtkq.api.dao.AskDao;
+import com.dtkq.api.entity.Ask;
 import com.dtkq.api.service.AskService;
 import org.springframework.stereotype.Service;
 
@@ -88,6 +87,11 @@ public class AskServiceImpl implements AskService {
     @Override
     public Integer countNum(Ask ask) {
         return askDao.countNum(ask);
+    }
+
+    @Override
+    public List<Ask> selectByKeyWord(String keyword, Integer offset, Integer limit) {
+        return this.askDao.selectByKeyWord(keyword,offset,limit);
     }
 
 }

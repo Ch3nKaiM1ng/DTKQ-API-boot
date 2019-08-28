@@ -2,6 +2,8 @@ package com.dtkq.api.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dtkq.api.entity.Article;
+import com.dtkq.api.entity.Ask;
+import com.dtkq.api.entity.Case;
 import com.dtkq.api.entity.Search;
 import com.dtkq.api.service.ArticleService;
 import com.dtkq.api.service.AskService;
@@ -113,11 +115,18 @@ public class SearchController {
         Integer offset = ((Integer)jsonObject.get("offset")-1)*limit;
         if (keyword!=null){
             List<Article> article = this.articleService.selectByKeyWord(keyword,offset,limit);
-            Integer articleCount = this.articleService.selectByKeyWordNum(keyword);
-            map.put("articleCount",articleCount);
+//            Integer articleCount = this.articleService.selectByKeyWordNum(keyword);
+
+            List<Ask> ask = this.askService.selectByKeyWord(keyword,offset,limit);
+
+            List<Case> Case = this.caseService.selectByKeyWord(keyword,offset,limit);
+//            map.put("articleCount",articleCount);
             map.put("article",article);
+            map.put("ask",ask);
+            map.put("case",Case);
             map.put("limit",limit);
-            map.put("offset",offset);
+            map.put("offset",offset+1);
+
             return re.SUCCESSOBJ(map);
         }
         return re.ERRORMSG("keyword as null!");

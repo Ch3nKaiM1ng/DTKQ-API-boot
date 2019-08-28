@@ -224,4 +224,26 @@
             </if>
         </where>
     </select>
+
+    <select id="selectByKeyWord" resultMap="AskMap">
+        select
+          a.ask_id, a.class_id, a.ask_user_id, a.ask_title, a.ask_content, a.ask_img,a.ask_introduction,a.ask_keyword
+        ,a.ask_vedio, a.ctime, a.status, a.askLabel,a.askCheck_num,a.thumb_num,b.user_id,b.user_nickname,b.user_img,b.user_sex
+        ,b.user_mobile,b.user_email,b.user_ch_name,b.user_en_name
+        from DTKQ.ask a
+        left  join DTKQ.user b on b.user_id=a.ask_user_id
+        where  a.ask_title LIKE CONCAT(CONCAT('%',#{keyword},'%'))
+        or a.ask_introduction LIKE CONCAT(CONCAT('%',#{keyword},'%'))
+        or a.ask_img LIKE CONCAT(CONCAT('%',#{keyword},'%'))
+        limit #{offset}, #{limit}
+    </select>
+
+<!--    <select id="selectByKeyWordNum" resultType="int">-->
+<!--        select count(*)-->
+<!--        from article a-->
+<!--        where a.art_title LIKE CONCAT(CONCAT('%',#{keyword},'%'))-->
+<!--        or a.art_introduction LIKE CONCAT(CONCAT('%',#{keyword},'%'))-->
+<!--        or a.art_content LIKE CONCAT(CONCAT('%',#{keyword},'%'))-->
+<!--    </select>-->
+
 </mapper>

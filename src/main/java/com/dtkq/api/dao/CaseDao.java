@@ -1,8 +1,8 @@
 package com.dtkq.api.dao;
 
-import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.Case;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -66,4 +66,6 @@ public interface CaseDao {
     int countNum(Case entity);
     int countFunction(Case entity);
     int countCommentNum(Integer id);
+
+    List<Case> selectByKeyWord(String keyword, Integer offset, Integer limit);
 }
