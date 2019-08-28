@@ -1,8 +1,8 @@
 package com.dtkq.api.dao;
 
-import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.Ask;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -64,4 +64,6 @@ public interface AskDao {
      */
     int deleteById(Integer askId);
     int countNum(Ask ask);
+
+    List<Ask> selectByKeyWord(@Param("keyword") String keyword, @Param("offset") Integer offset, @Param("limit") Integer limit);
 }

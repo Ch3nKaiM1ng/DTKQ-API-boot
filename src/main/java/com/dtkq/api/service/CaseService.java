@@ -1,7 +1,8 @@
 package com.dtkq.api.service;
 
-import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.Case;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -57,4 +58,6 @@ public interface CaseService {
 
     Integer countNum(Case entity);
     Integer countFunction(Case entity);
+
+    List<Case> selectByKeyWord(@Param("keyword") String keyword, @Param("offset") Integer offset, @Param("limit") Integer limit);
 }

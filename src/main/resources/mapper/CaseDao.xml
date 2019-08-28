@@ -291,4 +291,12 @@
         and case_id =#{caseId}
 
     </select>
+
+    <select id="selectByKeyWord" resultMap="CaseMap">
+    select
+    id, user_id, doctor_id, case_name, case_title, case_img, ctime,case_checknum,case_thumbnum,style,case_commentnum,class_id,case_class_id,case_old_img
+    from DTKQ.case
+    where  case_title LIKE CONCAT(CONCAT('%',#{keyword},'%'))
+    limit #{offset}, #{limit}
+    </select>
 </mapper>

@@ -1,8 +1,7 @@
 package com.dtkq.api.service.impl;
 
-import com.dtkq.api.entity.Ask;
-import com.dtkq.api.entity.Case;
 import com.dtkq.api.dao.CaseDao;
+import com.dtkq.api.entity.Case;
 import com.dtkq.api.service.CaseService;
 import org.springframework.stereotype.Service;
 
@@ -96,5 +95,10 @@ public class CaseServiceImpl implements CaseService {
     @Override
     public Integer countFunction(Case entity) {
         return caseDao.countFunction(entity);
+    }
+
+    @Override
+    public List<Case> selectByKeyWord(String keyword, Integer offset, Integer limit) {
+        return this.caseDao.selectByKeyWord(keyword,offset,limit);
     }
 }
