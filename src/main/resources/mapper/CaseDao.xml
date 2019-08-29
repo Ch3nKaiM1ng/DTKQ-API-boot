@@ -121,7 +121,7 @@
             <if test="userId != null">
                 and a.user_id = #{userId}
             </if>
-            <if test="ageS != null and ageE!=null">
+            <if test="ageS != 0 and ageE!=0">
                and  b.age BETWEEN #{ageS} and #{ageE}
             </if>
             <if test="userSex != null">
@@ -260,7 +260,7 @@
             <if test="userId != null">
                 and a.user_id = #{userId}
             </if>
-            <if test="ageS != null and ageE!=null">
+            <if test="ageS != 0 and ageE!=0">
                 and   b.age BETWEEN #{ageS} and #{ageE}
             </if>
             <if test="doctorId != null">

@@ -93,30 +93,36 @@
         from DTKQ.article_comment a
         left join user b on a.user_id =b.user_id
         where 1=1
-            <if test="id != null">
-                and a.id = #{id}
-            </if>
-            <if test="artId != null">
-                and a.art_id = #{artId}
-            </if>
-            <if test="parentId != null">
-                and a.parent_id = #{parentId}
-            </if>
-            <if test="level != null">
-                and a.level = #{level}
-            </if>
-            <if test="userId != null">
-                and a.user_id = #{userId}
-            </if>
-            <if test="content != null">
-                and a.content = #{content}
-            </if>
-            <if test="ctime != null">
-                and a.ctime = #{ctime}
-            </if>
-            <if test="status != null">
-                and a.status = #{status}
-            </if>
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="artId != null">
+            and art_id = #{artId}
+        </if>
+        <if test="parentId != null">
+            and parent_id = #{parentId}
+        </if>
+        <if test="level != null">
+            and level = #{level}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="content != null">
+            and content = #{content}
+        </if>
+        <if test="ctime != null">
+            and ctime = #{ctime}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="topId != null">
+            and top_id = #{topId}
+        </if>
+        <if test="receiveUserId != null">
+            and  receive_user_id = #{receiveUserId}
+        </if>
         limit #{offset}, #{limit}
     </select>
 
