@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dtkq.api.dao.SurveyMediaDao">
+
+    <resultMap type="com.dtkq.api.entity.SurveyMedia" id="SurveyMediaMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="state" column="state" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="addtime" column="addTime" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="channel" column="channel" jdbcType="VARCHAR"/>
+        <result property="manner" column="manner" jdbcType="VARCHAR"/>
+        <result property="attention" column="attention" jdbcType="VARCHAR"/>
+        <result property="wechat" column="WeChat" jdbcType="VARCHAR"/>
+        <result property="inspect" column="inspect" jdbcType="VARCHAR"/>
+        <result property="appointment" column="appointment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SurveyMediaMap">
+        select
+          id, state, age, name, phone, addTime, remark, channel, manner, attention, WeChat, inspect, appointment
+        from DTKQ.survey_media
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SurveyMediaMap">
+        select
+          id, state, age, name, phone, addTime, remark, channel, manner, attention, WeChat, inspect, appointment
+        from DTKQ.survey_media
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SurveyMediaMap">
+        select
+          id, state, age, name, phone, addTime, remark, channel, manner, attention, WeChat, inspect, appointment
+        from DTKQ.survey_media
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="age != null and age != ''">
+                and age = #{age}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="addtime != null">
+                and addTime = #{addtime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="channel != null and channel != ''">
+                and channel = #{channel}
+            </if>
+            <if test="manner != null and manner != ''">
+                and manner = #{manner}
+            </if>
+            <if test="attention != null and attention != ''">
+                and attention = #{attention}
+            </if>
+            <if test="wechat != null and wechat != ''">
+                and WeChat = #{wechat}
+            </if>
+            <if test="inspect != null and inspect != ''">
+                and inspect = #{inspect}
+            </if>
+            <if test="appointment != null and appointment != ''">
+                and appointment = #{appointment}
+            </if>
+        </where>
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into DTKQ.survey_media(state, age, name, phone, addTime, remark, channel, manner, attention, WeChat, inspect, appointment)
+        values (#{state}, #{age}, #{name}, #{phone}, now(), #{remark}, #{channel}, #{manner}, #{attention}, #{wechat}, #{inspect}, #{appointment})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update DTKQ.survey_media
+        <set>
+            <if test="state != null and state != ''">
+                state = #{state},
+            </if>
+            <if test="age != null and age != ''">
+                age = #{age},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="addtime != null">
+                addTime = #{addtime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="channel != null and channel != ''">
+                channel = #{channel},
+            </if>
+            <if test="manner != null and manner != ''">
+                manner = #{manner},
+            </if>
+            <if test="attention != null and attention != ''">
+                attention = #{attention},
+            </if>
+            <if test="wechat != null and wechat != ''">
+                WeChat = #{wechat},
+            </if>
+            <if test="inspect != null and inspect != ''">
+                inspect = #{inspect},
+            </if>
+            <if test="appointment != null and appointment != ''">
+                appointment = #{appointment},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from DTKQ.survey_media where id = #{id}
+    </delete>
+    <select id="countNum"  resultType="java.lang.Integer" >
+        select count(*)
+        from DTKQ.survey_media
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="age != null and age != ''">
+                and age = #{age}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="addtime != null">
+                and addTime = #{addtime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="channel != null and channel != ''">
+                and channel = #{channel}
+            </if>
+            <if test="manner != null and manner != ''">
+                and manner = #{manner}
+            </if>
+            <if test="attention != null and attention != ''">
+                and attention = #{attention}
+            </if>
+            <if test="wechat != null and wechat != ''">
+                and WeChat = #{wechat}
+            </if>
+            <if test="inspect != null and inspect != ''">
+                and inspect = #{inspect}
+            </if>
+            <if test="appointment != null and appointment != ''">
+                and appointment = #{appointment}
+            </if>
+        </where>
+
+    </select>
+</mapper>
