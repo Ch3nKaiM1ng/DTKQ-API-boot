@@ -13,6 +13,18 @@
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
   </resultMap>
+  <resultMap id="BackGroundMap" type="com.dtkq.api.entity.ClassObj">
+    <id column="obj_id" jdbcType="INTEGER" property="objId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="class_id" jdbcType="INTEGER" property="linkClassId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="ctime" jdbcType="TIMESTAMP" property="ctime" />
+    <association property="classObjList"  select="com.dtkq.api.dao.LinkClassObjMapper.selectByObjId" column="obj_id">
+    </association>
+  </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from class_obj
@@ -105,6 +117,21 @@
     <if test="linkClassId!= null">
       and b.class_id = #{linkClassId}
     </if>
-
   </select>
+
+  <select id="findBackList" resultMap="BackGroundMap">
+    select a.obj_id, a.user_id, a.title,
+    a.url, a.img, a.status,a.ctime
+    from class_obj a
+    where a.status=0
+    order by a.ctime desc
+    limit #{offset}, #{limit}
+  </select>
+
+  <select id="countBackNum"  resultType="java.lang.Integer" >
+    select count(*)
+    from class_obj a
+    where a.status=0
+  </select>
+
 </mapper>

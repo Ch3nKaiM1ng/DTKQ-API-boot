@@ -148,9 +148,9 @@
              art_id = #{artRankBy} desc ,
         </if>
         <if test="showNew != null and showNew >0">
-            ctime  desc ,
+            a.ctime  desc ,
         </if>
-        thumb_num desc
+        a.thumb_num desc
         limit #{offset}, #{limit}
     </select>
 

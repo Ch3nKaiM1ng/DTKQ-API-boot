@@ -27,6 +27,11 @@ public class ClassObjServiceImpl implements ClassObjService {
 
         return mapper.selectByLimit(classObj);
     }
+    @Override
+    public List<ClassObj> findBackList(ClassObj classObj) {
+
+        return mapper.findBackList(classObj);
+    }
 
     @Override
     public ClassObj selectObj(ClassObj classObj) {
@@ -59,5 +64,9 @@ public class ClassObjServiceImpl implements ClassObjService {
     @Override
     public Integer countNum(ClassObj classObj) {
         return mapper.countNum(classObj);
+    }
+    @Override
+    public Integer countBackNum(ClassObj classObj) {
+        return mapper.countBackNum(classObj);
     }
 }

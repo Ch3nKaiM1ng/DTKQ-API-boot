@@ -108,8 +108,11 @@ public class UserController {
     public Map<String, Object> updateObj(@RequestBody User entity) {
         try {
             String birthDay=entity.getBirthday();
-            Integer Age = getAge(parse(birthDay));
-            entity.setAge(Age);
+            if(birthDay!=null){
+                Integer Age = getAge(parse(birthDay));
+                entity.setAge(Age);
+            }
+
         if (entity.getUserId() != null) {
             service.update(entity);
             return re.SUCCESS();

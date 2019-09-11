@@ -11,6 +11,8 @@ public interface ClassObjMapper {
 
     List<ClassObj> selectByLimit(ClassObj classObj);
 
+    List<ClassObj> findBackList(ClassObj classObj);
+
     int deleteByPrimaryKey(ClassObj classObj);
 
     int insert(ClassObj classObj);
@@ -22,4 +24,5 @@ public interface ClassObjMapper {
     int updateByPrimaryKey(ClassObj classObj);
 
     int countNum(ClassObj classObj);
+    int countBackNum(ClassObj classObj);
 }

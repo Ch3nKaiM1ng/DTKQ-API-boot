@@ -12,6 +12,8 @@ public interface ClassObjService {
 
     List<ClassObj> selectByLimit(ClassObj classObj);
 
+    List<ClassObj> findBackList(ClassObj classObj);
+
     ClassObj selectObj(ClassObj classObj);
 
     List<ClassObj> selectByClassId(ClassObj classObj);
@@ -22,4 +24,5 @@ public interface ClassObjService {
 
     void delectById(ClassObj classObj);
     Integer countNum(ClassObj classObj);
+    Integer countBackNum(ClassObj classObj);
 }

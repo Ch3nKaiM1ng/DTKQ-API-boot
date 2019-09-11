@@ -55,6 +55,27 @@ public class ClassObjController {
         jsonObject.put("dataList",list);//返回当前数
         return re.SUCCESSOBJ(jsonObject);
     }
+
+    //  查找所有
+    @RequestMapping("/findBackList")
+    public Map<String, Object> findBackList(@RequestBody ClassObj entity) {
+        int currpage=entity.getOffset();//offset 查询起始位置
+        int limit=entity.getLimit();//limit 查询条数
+        if(currpage==1){
+            entity.setOffset(currpage-1);
+        }else if(currpage>1){
+            entity.setOffset((currpage-1)*limit);
+        }
+        JSONObject jsonObject=new JSONObject();//组成一个对象
+        List<ClassObj> list =service.findBackList(entity);
+        Integer count =service.countBackNum(entity);
+        jsonObject.put("limit",limit);//返回当前页显示条数
+        jsonObject.put("countData",count);//返回当前页显示条数
+        jsonObject.put("currpage",currpage);//返回当前页
+        jsonObject.put("dataList",list);//返回当前数
+        return re.SUCCESSOBJ(jsonObject);
+    }
+
     //  添加
     @RequestMapping("/addObj")
     public Map<String, Object> addObj(@RequestBody ClassObj entity) {
