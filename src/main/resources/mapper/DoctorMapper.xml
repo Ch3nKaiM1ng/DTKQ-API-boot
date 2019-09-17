@@ -18,6 +18,7 @@
     <result column="doctor_mobile" jdbcType="VARCHAR" property="doctorMobile" />
     <result column="doctor_email" jdbcType="VARCHAR" property="doctorEmail" />
     <result column="doctor_img" jdbcType="VARCHAR" property="doctorImg" />
+    <result column="doctor_head_img" jdbcType="VARCHAR" property="doctorHeadImg" />
     <result column="doctor_code" jdbcType="VARCHAR" property="doctorCode" />
     <result column="doctor_consult" jdbcType="INTEGER" property="doctorConsult" />
     <result column="doctor_booknum" jdbcType="INTEGER" property="doctorBooknum" />
@@ -56,6 +57,7 @@
     <result column="doctor_mobile" jdbcType="VARCHAR" property="doctorMobile" />
     <result column="doctor_email" jdbcType="VARCHAR" property="doctorEmail" />
     <result column="doctor_img" jdbcType="VARCHAR" property="doctorImg" />
+    <result column="doctor_head_img" jdbcType="VARCHAR" property="doctorHeadImg" />
     <result column="doctor_code" jdbcType="VARCHAR" property="doctorCode" />
     <result column="doctor_consult" jdbcType="INTEGER" property="doctorConsult" />
     <result column="doctor_booknum" jdbcType="INTEGER" property="doctorBooknum" />
@@ -87,6 +89,7 @@
     doctor_en_position,
     doctor_introduction,
     doctor_img,
+    doctor_head_img,
     doctor_sex,
     doctor_mobile,
     doctor_email,
@@ -109,6 +112,7 @@
     #{doctorEnPosition,jdbcType=VARCHAR},
     #{doctorIntroduction,jdbcType=VARCHAR},
     #{doctorImg,jdbcType=VARCHAR},
+    #{doctorHeadImg,jdbcType=VARCHAR},
     #{doctorSex,jdbcType=INTEGER},
     #{doctorMobile,jdbcType=VARCHAR},
     #{doctorEmail,jdbcType=VARCHAR},
@@ -153,6 +157,9 @@
     <if test="doctorImg!= null">
       ,doctor_img = #{doctorImg,jdbcType=VARCHAR}
     </if>
+    <if test="doctorHeadImg!= null">
+      ,doctor_head_img = #{doctorHeadImg,jdbcType=VARCHAR}
+    </if>
     <if test="doctorMobile!= null">
       ,doctor_mobile = #{doctorMobile,jdbcType=VARCHAR}
     </if>
@@ -189,7 +196,7 @@
      select a.doctor_id, a.doctor_ch_name,
       a.doctor_en_name, a.doctor_ch_position, a.doctor_en_position,a.doctor_introduction,a.doctor_goodat,
       a.doctor_img,a.doctor_sex,a.doctor_mobile,a.doctor_email,a.ctime,a.status,
-      a.doctor_consult,a.doctor_booknum,a.doctor_workyear,a.doctor_grade,a.doctor_good_reception,
+      a.doctor_consult,a.doctor_booknum,a.doctor_workyear,a.doctor_grade,a.doctor_good_reception,a.doctor_head_img,
       a.doctor_code
     from doctor a
     where a.status=0
@@ -201,7 +208,7 @@
   <select id="selectAll" resultMap="BaseResultMap">
       select doctor_id, class_id, doctor_ch_name,
       doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,doctor_goodat
-      doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
+      doctor_img,doctor_head_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
       doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception,doctor_code
     from doctor
     where status=0
@@ -210,7 +217,7 @@
   <select id="select" resultMap="BaseResultMap" parameterType="com.dtkq.api.entity.Doctor">
      select a.doctor_id, a.doctor_ch_name,
       a.doctor_en_name, a.doctor_ch_position, a.doctor_en_position,a.doctor_introduction,a.doctor_goodat,
-      a.doctor_img,a.doctor_sex,a.doctor_mobile,a.doctor_email,a.ctime,a.status,
+      a.doctor_img,a.doctor_head_img,a.doctor_sex,a.doctor_mobile,a.doctor_email,a.ctime,a.status,
       a.doctor_consult,a.doctor_booknum,a.doctor_workyear,a.doctor_grade,a.doctor_good_reception,
       a.doctor_code,
 	  b.class_id
@@ -242,7 +249,7 @@
   <select id="selectAllByLimit" resultMap="BaseResultMap">
       select doctor_id, class_id, doctor_ch_name,
       doctor_en_name, doctor_ch_position, doctor_en_position,doctor_introduction,doctor_goodat,
-      doctor_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
+      doctor_img,doctor_head_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
       doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception,doctor_code
     from doctor
     where status=0

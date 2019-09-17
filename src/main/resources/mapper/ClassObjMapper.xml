@@ -123,15 +123,26 @@
     select a.obj_id, a.user_id, a.title,
     a.url, a.img, a.status,a.ctime
     from class_obj a
+    left join link_class_obj b on a.obj_id=b.obj_id
     where a.status=0
+    <if test="linkClassId!= null">
+      and b.class_id = #{linkClassId}
+    </if>
+    group by a.obj_id
     order by a.ctime desc
-    limit #{offset}, #{limit}
+    <if test="offset!= 0 and limit!=0">
+      limit #{offset}, #{limit}
+    </if>
+
   </select>
 
   <select id="countBackNum"  resultType="java.lang.Integer" >
     select count(*)
     from class_obj a
     where a.status=0
+    <if test="linkClassId!= null">
+      and b.class_id = #{linkClassId}
+    </if>
   </select>
 
 </mapper>
