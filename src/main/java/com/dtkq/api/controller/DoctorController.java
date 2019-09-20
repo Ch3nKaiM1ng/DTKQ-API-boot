@@ -1,5 +1,7 @@
 package com.dtkq.api.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.Ask;
 import com.dtkq.api.entity.Doctor;
 import com.dtkq.api.entity.LinkDoctorClass;
@@ -43,6 +45,27 @@ public class DoctorController {
         List<Doctor> doctorList =doctorService.select(doctor);
         return re.SUCCESSOBJ(doctorList);
     }
+    //  查找所有医生
+    @RequestMapping("/findAllByLimit")
+    public Map<String, Object> findAll(@RequestBody Doctor entity) {
+
+        int currpage=entity.getOffset();//offset 查询起始位置
+        int limit=entity.getLimit();//limit 查询条数
+        if(currpage==1){
+            entity.setOffset(currpage-1);
+        }else if(currpage>1){
+            entity.setOffset((currpage-1)*limit);
+        }
+        Integer countNum=doctorService.countNum(entity);//查到所有数据数
+        JSONObject jsonObject=new JSONObject();//组成一个对象
+        List<Doctor> list =doctorService.selectAllByLimit(entity.getOffset(),entity.getLimit());
+        jsonObject.put("limit",limit);//返回当前页显示条数
+        jsonObject.put("currpage",currpage);//返回当前页
+        jsonObject.put("countNum",countNum);//返回当前页
+        jsonObject.put("dataList",list);//返回当前数组
+        return re.SUCCESSOBJ(jsonObject);
+    }
+
     //  查看单个
     @RequestMapping("/findObj")
     public Map<String, Object> findObj(@RequestBody Doctor entity) {

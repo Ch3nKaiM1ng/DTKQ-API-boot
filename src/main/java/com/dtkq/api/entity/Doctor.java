@@ -37,6 +37,27 @@ public class Doctor implements Serializable {
     private String classList;
     private List<DoctorClass> doctorClasses;
 
+    //当前页
+    private int offset;
+    //显示数量
+    private int limit;
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
     public String getDoctorHeadImg() {
         return doctorHeadImg;
     }

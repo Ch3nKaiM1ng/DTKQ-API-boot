@@ -18,6 +18,7 @@ public interface DoctorService {
     void updateObj(Doctor doctor);
 
     void delectById(Doctor doctor);
+
     Integer countNum(Doctor doctor);
 
     List<Doctor> selectAllByLimit(int offset, int limit);
