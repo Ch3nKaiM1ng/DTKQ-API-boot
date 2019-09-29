@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (PcClass)实体类
@@ -38,6 +39,15 @@ public class PcClass implements Serializable {
     //链接是否可用0可用1不可用
     private Integer status;
 
+    private List<PcClass> sonList;
+
+    public List<PcClass> getSonList() {
+        return sonList;
+    }
+
+    public void setSonList(List<PcClass> sonList) {
+        this.sonList = sonList;
+    }
 
     public Integer getId() {
         return id;
