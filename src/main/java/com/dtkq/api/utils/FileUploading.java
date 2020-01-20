@@ -11,6 +11,7 @@ import java.util.Map;
 public class FileUploading {
     private ReturnDiscern re =  new ReturnDiscern();
 //    添加文件
+
     @RequestMapping("/uploading")
     public Map<String, Object> ImgUploading(MultipartFile file){
         if (file==null){

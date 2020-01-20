@@ -36,6 +36,9 @@ public interface DoctorDao {
      * @param doctor 实例对象
      * @return 对象列表
      */
+
+    List<Doctor> queryAllBackGround(Doctor doctor);
+
     List<Doctor> queryAll(Doctor doctor);
 
     /**

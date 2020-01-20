@@ -126,6 +126,13 @@ public class DoctorController {
 
         return re.ERROR();
     }
+    //  添加医生
+    @RequestMapping("/updateStatus")
+
+    public Map<String, Object> updateStatus(@RequestBody Doctor doctor) {
+        doctorService.updateObj(doctor);
+            return re.SUCCESS();
+    }
     //  删除
     @RequestMapping("/delObj")
     public Map<String, Object> delObj(@RequestBody Doctor entity) {

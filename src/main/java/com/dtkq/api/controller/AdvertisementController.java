@@ -38,7 +38,6 @@ public class AdvertisementController {
         return this.service.queryById(id);
     }
 
-
     //  查找所有
     @RequestMapping("/findAll")
     public Map<String, Object> findAll(@RequestBody Advertisement entity) {

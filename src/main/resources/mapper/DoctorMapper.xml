@@ -211,7 +211,6 @@
       doctor_img,doctor_head_img,doctor_sex,doctor_mobile,doctor_email,ctime,status,
       doctor_consult,doctor_booknum,doctor_workyear,doctor_grade,doctor_good_reception,doctor_code
     from doctor
-    where status=0
   </select>
 
   <select id="select" resultMap="BaseResultMap" parameterType="com.dtkq.api.entity.Doctor">
