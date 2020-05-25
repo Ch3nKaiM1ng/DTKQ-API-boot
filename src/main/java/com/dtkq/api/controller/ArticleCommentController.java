@@ -1,10 +1,14 @@
 package com.dtkq.api.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dtkq.api.entity.Article;
 import com.dtkq.api.entity.ArticleComment;
 import com.dtkq.api.entity.AskAnswer;
 import com.dtkq.api.service.ArticleCommentService;
+import com.dtkq.api.service.ArticleService;
 import com.dtkq.api.utils.ReturnDiscern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * (ArticleCommentComment)表控制层
@@ -27,6 +32,8 @@ public class ArticleCommentController {
      */
     @Resource
     private ArticleCommentService service;
+    @Resource
+    private ArticleService articleService;
 
     /**
      * 通过主键查询单条数据
@@ -37,6 +44,7 @@ public class ArticleCommentController {
     //    返回utils
     private ReturnDiscern re = new ReturnDiscern();
 
+    private static Logger log= LoggerFactory.getLogger(ArticleCommentController.class);
     //  查找所有
     @RequestMapping("/findAll")
     public Map<String, Object> findAll(@RequestBody ArticleComment entity) {
@@ -120,5 +128,56 @@ public class ArticleCommentController {
             return re.SUCCESSOBJ(obj);
         }
         return re.ERROR();
+    }
+
+    //  点赞
+    @RequestMapping("/updateCommentListUser")
+    public Map<String, Object> updateCommentListUser(@RequestBody ArticleComment entity) {
+        //offset,limit
+        List<ArticleComment> dataList=service.queryAllByLimit(entity);
+        log.info("dataList="+dataList.size());
+        for(int i=0;i<dataList.size();i++){
+            ArticleComment data=dataList.get(i);
+            int id=data.getId();
+            int artId=data.getArtId();//文章ID
+            int thumbNum=0;
+            //设置随机用户ID
+            Random rand = new Random();
+            int userId=rand.nextInt(142)+1;
+            //获取文章数据
+            Article artData=articleService.queryById(artId);
+            int checkNum=artData.getCheckNum();//查看数量
+            log.info("checkNum="+checkNum);
+            if(checkNum<=1000){
+                thumbNum=rand.nextInt(20)+1;//评论点赞量1~20
+            }else if(checkNum<5000){
+                thumbNum=rand.nextInt(51)+10;//评论点赞量10~60
+            }else if(checkNum<100000){
+                thumbNum=rand.nextInt(101)+50;//评论点赞量50~150
+            }else if(checkNum<500000){
+                thumbNum=rand.nextInt(191)+70;//评论点赞量70~260
+            }else if(checkNum<1000000){
+                thumbNum=rand.nextInt(291)+80;//评论点赞量80~370
+            }else if(checkNum<5000000){
+                thumbNum=rand.nextInt(381)+100;//评论点赞量100~480
+            }else if(checkNum<10000000){
+                thumbNum=rand.nextInt(401)+200;//评论点赞量200~600
+            }else if(checkNum>=10000000){
+                thumbNum=rand.nextInt(701)+300;//评论点赞量300~1000
+            }
+            log.info("thumbNum="+thumbNum);
+            ArticleComment updateParam=new ArticleComment();
+            updateParam.setId(id);
+            updateParam.setUserId(userId);
+            updateParam.setThumbNum(thumbNum);
+            service.update(updateParam);
+        }
+        return re.SUCCESS();
+    }
+
+    public static void main(String args[]){
+        Random rand = new Random();
+        int randomNum=rand.nextInt(143)+1;
+        System.out.println(randomNum);
     }
 }
