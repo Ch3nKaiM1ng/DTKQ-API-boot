@@ -104,6 +104,7 @@
                 and ctime = #{ctime}
             </if>
         </where>
+        order by case_thumbnum desc
         limit #{offset}, #{limit}
     </select>
     <!--通过实体作为筛选条件查询-->
