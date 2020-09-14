@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("adminAuth")
 public class AdminAuthController {
+
     /**
      * 服务对象
      */
